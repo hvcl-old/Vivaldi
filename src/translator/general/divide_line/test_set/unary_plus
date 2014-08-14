@@ -1,0 +1,3 @@
+# simple unary plus
+test_input: a = +1
+test_output: ['a', '=', '+', '1']

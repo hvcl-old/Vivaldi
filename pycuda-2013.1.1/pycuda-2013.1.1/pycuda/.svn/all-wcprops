@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda
+END
+gpuarray.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/gpuarray.py
+END
+driver.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/driver.py
+END
+reduction.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/reduction.py
+END
+autoinit.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/autoinit.py
+END
+_mymako.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/_mymako.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/__init__.py
+END
+tools.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/tools.py
+END
+characterize.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/characterize.py
+END
+curandom.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/curandom.py
+END
+compiler.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/compiler.py
+END
+elementwise.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/elementwise.py
+END
+cumath.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/cumath.py
+END
+scan.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/scan.py
+END
+debug.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/debug.py
+END
+_cluda.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/_cluda.py
+END

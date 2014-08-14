@@ -1,0 +1,8 @@
+test_input:
+def main():
+    image = load_data_2d(DATA_PATH+'/flower.jpg')
+    result = edge_detection(image, x, y).range(image).dtype(image, uchar).halo(image,1).split(image,x=2,y=2).merge(maximum, 'front-to-back').halo(image,1)
+test_output:
+def main():
+    image = VIVALDI_WRITE('image', load_data_2d(DATA_PATH+'/flower.jpg'))
+    result = VIVALDI_WRITE('result', run_function(return_name='result', func_name='edge_detection', args=['image', 'x', 'y'], execid=[], work_range=image, split_dict={'image':{'y':2,'x':2,}}, merge_func='maximum', merge_order= 'front-to-back', halo_dict={'image':1}, dtype_dict={'image':'uchar_volume'}))

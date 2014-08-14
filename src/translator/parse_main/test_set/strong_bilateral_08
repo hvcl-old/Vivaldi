@@ -1,0 +1,50 @@
+test_input:
+def main():
+    # --------------------------------------------------------------------------------
+    # Create volume array
+    dimx   = 512
+    dimy   = 512
+    dimz   = 1568
+    volume = numpy.random.rand(dimz, dimy, dimx).astype(numpy.float32)
+
+    print "Dimension    : ", dimx, dimy, dimz
+    print "Volume shape : ", volume.shape
+
+    # --------------------------------------------------------------------------------
+    # Number of GPUs for experiment
+    #!!!
+    gpu_list = get_GPU_list(8)
+
+    # Initialize the data allocation
+    #!!!
+    volume = init(volume,512,512,1568,x,y,z).halo(volume,5).range(volume,halo=5).dtype(volume,float).execid(gpu_list).split(volume, z=8)
+    synchronize()
+
+     # Time measure the bilateral kernel
+    start = time.time()
+
+    volume = bilateral(volume,512,512,1568,x,y,z).halo(volume,5).range(volume,halo=0).dtype(volume,float).execid(gpu_list).split(volume, z=8)
+    # volume = bilateral(volume,x,y,z).halo(volume,5).range(volume,halo=0).dtype(volume,float).execid(gpu_list).split(volume, x=2,y=2,z=1)        
+    synchronize()
+
+    stop  = time.time()
+
+    elapsed = stop - start
+    print "Execution time (s): ", elapsed
+test_output:
+dimx = SHADIE_WRITE('dimx',  512)
+dimy = SHADIE_WRITE('dimy',  512)
+dimz = SHADIE_WRITE('dimz',  1568)
+volume = SHADIE_WRITE('volume',  numpy.random.rand(dimz, dimy, dimx).astype(numpy.float32))
+print "Dimension	: ", dimx, dimy, dimz
+print "Volume shape : ", volume.shape
+gpu_list = SHADIE_WRITE('gpu_list',  get_GPU_list(8))
+volume = SHADIE_WRITE('volume', run_function('init',['volume',512,512,1568,'x','y','z',],'volume', execid=gpu_list, work_range={'work_range':volume,'halo':5}, split_list={'volume': {'z': 8}}, halo_dict={'volume':5}, modifier_dict={}))
+synchronize()
+start = SHADIE_WRITE('start',  time.time())
+volume = SHADIE_WRITE('volume', run_function('bilateral',['volume',512,512,1568,'x','y','z',],'volume', execid=gpu_list, work_range={'work_range':volume,'halo':0}, split_list={'volume': {'z': 8}}, halo_dict={'volume':5}, modifier_dict={}))
+synchronize()
+stop = SHADIE_WRITE('stop',  time.time())
+elapsed = SHADIE_WRITE('elapsed',  stop - start)
+print "Execution time (s): ", elapsed
+

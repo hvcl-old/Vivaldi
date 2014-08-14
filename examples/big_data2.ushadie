@@ -1,0 +1,43 @@
+# It was written by Choi HyungSuk, woslakfh1@gmail.com
+#
+# This example shows big size image edge detection.
+#
+# you can test using 'vivladi edge_detection_city.uvivladi'
+# 'hl_pano_retouched_2G.png' is uesd and the size is 24250 width and 6440 height.
+# result images are saved at $vivladi_path/py-src/result
+#
+#---------------------------------------------------------------------------------------------------
+
+# user can import python modules because our language based on python
+import numpy
+
+# user defined image filter function
+# this functions will be applied per pixel
+def edge_detection(image, x, y):
+	# get linear gradient of 2d rgb image at x, y position
+	# than it will return x and y direction gradient of rgb value	
+	dif = linear_gradient_2d(image, x, y)
+	# edge detection need float type return value
+	# so use length function for make one float value from x and y direction gradient values
+	# return value of length is sqrt(dot(dif,dif))
+	if length(dif) > 10: return 255
+	return 0
+
+
+# VIVALDI always start from main
+# end after every tasks created done
+def main():
+#	load 2d rgb type data 'hk_pano_retouched_2G.png' at specified path
+#	and save loaded image as user defined type like numpy.float32
+#	DATA_PATH is vivladi environment variable. 
+#	it is defined to $vivaldi_path/data
+	image = load_data_2d(DATA_PATH+'/hk_pano_retouched_2G.png')
+	
+	# use GPU list which user specified to execute user defined function 'edge_detection' using execid modifier
+	# and below range,x=[0:24250),y=[0:6440), will be used to projection range
+	image = edge_detection(image, x, y).range(image).dtype(image,uchar).split(image,x=4,y=4)
+
+	# save contents in the variable 'result', output of 'edge_detection' executed
+	# the saved image exist in the result folder in the $vivaldi_path/py-src/result
+	# saved result will be edge_detection of 24250 width and 6440 height and saved file name will be 'full_size.png'
+	save_image(image,'full_size.png',out_of_core=True)

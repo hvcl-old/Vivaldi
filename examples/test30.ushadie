@@ -1,0 +1,96 @@
+###########################################################################################
+def median(volume, x, y, z):
+    # Viola's method
+	minval = 0
+    maxval = 255
+    pivot  = (minval + maxval)/2.0
+	
+	count 	= 0
+	val 	= 0
+	for trial in range(0, 8):
+		radius = 2       
+		cube_iter = make_cube_iter(x, y, z, radius)
+		count 	= 0
+		for point in cube_iter:
+			val = point_query_3d(volume, point)
+			if val > pivot:
+				count = count + 1
+	
+		if count < (2*radius+1)*(2*radius+1)*(2*radius+1)/2:
+			maxval = floorf(pivot);      
+        else:
+            minval = floorf(pivot)+1;
+		
+		pivot = (minval + maxval)/2.0;
+	
+	return floorf(pivot)
+    
+###########################################################################################
+def standard_deviation(volume, x, y, z):
+	# Specify the radius here
+	radius = 2            
+	cube_iter = make_cube_iter(x, y, z, radius)
+
+	# Calculate the average
+	sum = 0
+	total = 0
+	for point in cube_iter:
+		sum = sum + point_query_3d(volume, point)
+		total += 1
+
+	avg = sum/(total)
+
+	# Calculate the population
+	cube_iter = make_cube_iter(x,y,z, radius)
+	tmp = 0
+	std = 0
+	for point in cube_iter:
+		tmp = point_query_3d(volume, point) - avg
+		std += sqrt(tmp*tmp)
+
+	# Calculate the standard deviation
+	std /= avg
+	std = sqrt(std)
+	
+	return std
+###########################################################################################
+def scale(volume, value):
+    max = volume.max()
+	min = volume.min()
+	volume = (volume-min)/(max-min)*value
+    
+###########################################################################################
+
+import numpy
+def main():                                                                         
+	print "Loading data..."
+	volume = load_data_3d('/home/shared/data/em_medium.dat', 'uchar', out_of_core=True)
+    # print volume
+    
+    # 3D Median filter
+#   volume = median(volume,x,y,z).range(x=0:4455,y=0:3408,z=0:512).dtype(volume, uchar).split(volume,z=64)
+	volume = median(volume,x,y,z).range(x=0:4455,y=0:3408,z=0:512).dtype(volume, uchar).split(volume,z=64)
+
+
+    # 3D Standard Deviation
+#	volume = standard_deviation(volume,x,y,z).range(x=0:4455,y=0:3408,z=0:512).dtype(volume, float).split(volume,z=64)
+	volume = standard_deviation(volume,x,y,z).range(x=0:4455,y=0:3408,z=0:512).dtype(volume, float).split(volume,z=64)
+	
+	save_image(volume,'result.raw',out_of_core=True) 
+
+
+    # Scale from 0 to 255s
+ #   max = volume.max()
+#	min = volume.min()
+#	volume = (volume-min)/(max-min)*255
+
+    
+	# Convert to uchar
+#	result = volume.astype(numpy.uint8)
+	
+	# Write the result to file
+#	result.tofile('result.raw')
+    
+###########################################################################################
+if __name__ == '__main__':     # if the function is the main function ...
+    main() # ...call it

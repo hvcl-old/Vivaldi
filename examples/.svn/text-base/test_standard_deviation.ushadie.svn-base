@@ -1,0 +1,61 @@
+def standard_deviation(volume, x, y, z):
+	# Specify the radius here
+	radius = 2            
+	cube_iter = make_cube_iter(x, y, z, radius)
+
+	# Calculate the average
+	sum = 0
+	total = 0
+	for point in cube_iter:
+		sum = sum + point_query_3d(volume, point)
+		total += 1
+
+	avg = sum/(total)
+
+	# Calculate the population
+	cube_iter = make_cube_iter(x,y,z, radius)
+	tmp = 0
+	std = 0
+	for point in cube_iter:
+		tmp = point_query_3d(volume, point) - avg
+		std += sqrt(tmp*tmp)
+
+	# Calculate the standard deviation
+	std /= avg
+	std = sqrt(std)
+	
+	return std
+
+def main():                                                                         
+	volume = load_data_3d(DATA_PATH+'/em_small_median.dat', 'uchar')
+	print "ORIGINAL"
+	print volume
+	LoadMatrix("ModelView")
+	LoadIdentity()
+
+	max = volume.max()
+	min = volume.min()
+
+	volume = volume.astype(numpy.float32)
+	volume = (volume - min)/(max-min)
+
+	print "normalized"
+	print volume
+
+	result = standard_deviation(volume,x,y,z).range(x=0:512,y=0:512,z=0:512).dtype(volume, float)
+	volume = result
+	result = standard_deviation(volume,x,y,z).range(x=0:512,y=0:512,z=0:512).dtype(volume, float)
+	volume = result
+	
+	max = volume.max()
+	min = volume.min()
+
+	volume = (volume-min)/(max-min)*255
+	
+	volume.astype('uint8').tofile('result.raw')
+
+	# print a[0]
+
+	# a = a[10:-10, 10:-10:, 10:-10]
+	# save_image(a[0],'orthogonal_1.png')
+

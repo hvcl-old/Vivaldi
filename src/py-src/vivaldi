@@ -1,0 +1,4 @@
+#!/bin/bash
+
+python $vivaldi_path/src/etc/machinefile_parser.py
+mpirun -mca mpi_warn_on_fork 0 -np 1 -hostfile $vivaldi_path/hostfile/hostfile python $vivaldi_path/src/py-src/main.py $@

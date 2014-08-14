@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/Vivaldi/!svn/ver/137/test_set/4_Parallelization/input_split
+END
+mat_mul_split_xy.vvl
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Vivaldi/!svn/ver/137/test_set/4_Parallelization/input_split/mat_mul_split_xy.vvl
+END
+mat_mul_split_yx.vvl
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Vivaldi/!svn/ver/137/test_set/4_Parallelization/input_split/mat_mul_split_yx.vvl
+END
+input_split_x_axis.vvl
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Vivaldi/!svn/ver/130/test_set/4_Parallelization/input_split/input_split_x_axis.vvl
+END
+input_split_y_axis.vvl
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Vivaldi/!svn/ver/130/test_set/4_Parallelization/input_split/input_split_y_axis.vvl
+END

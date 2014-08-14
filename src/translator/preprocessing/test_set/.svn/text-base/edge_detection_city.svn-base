@@ -1,0 +1,21 @@
+test_input:
+def edge_detection(image, x, y):
+    # get linear gradient of 2d rgb image at x, y position
+    # than it will return x and y direction gradient of rgb value   
+    dif = linear_gradient_2d(image, x, y)
+    # edge detection need float type return value
+    # so use length function for make one float value from x and y direction gradient values
+    # return value of length is sqrt(dot(dif,dif))
+    if length(dif) > 10: return 255
+    return 0
+test_output:
+def edge_detection(image, x, y):
+
+
+    dif = linear_gradient_2d(image, x, y)
+
+
+
+    if length(dif) > 10:
+        return 255
+    return 0

@@ -1,0 +1,3 @@
+# simple multiplication
+test_input: a * b
+test_output: ['a', '*', 'b']

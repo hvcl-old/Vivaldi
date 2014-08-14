@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/sparse
+END
+cg.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/sparse/cg.py
+END
+inner.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/sparse/inner.py
+END
+operator.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/sparse/operator.py
+END
+pkt_build.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/sparse/pkt_build.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/sparse/__init__.py
+END
+packeted.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/sparse/packeted.py
+END
+coordinate.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/pycuda/sparse/coordinate.py
+END

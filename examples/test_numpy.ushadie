@@ -1,0 +1,45 @@
+import numpy
+
+
+def edge_detection(image, x, y):
+#	dif = linear_gradient_2d(image, x, y)
+#	if length(dif) > 20: return 255
+#	return 0
+	return linear_query_2d(image,x,y)*2
+
+def inverse(b):
+	for i in range(100):
+		for j in range(100):
+			b[i][j] = 255-b[i][j]
+
+	return b
+
+def main():
+
+
+#	 last shape 3 considered as 3 channel data 
+	a = numpy.ones((5,5,3),dtype = numpy.float32)
+
+	a[0] = 3
+	a[4] = 3
+
+#	print a
+	b = numpy.empty((100,100), dtype=numpy.uint8)
+	for i in range(100):
+		for j in range(100):
+			b[i][j] = j
+
+	print "USER CREATE INPUT b\n",b
+	# output split
+	result = edge_detection(b, x, y).range(x=0:100,y=0:100).dtype(b, uchar).split(result,x=2,y=2)
+	print "RESULT", result
+	save_image(result,'full_size.png')
+
+	# output split
+	# python function
+	b = inverse(b)
+	print "INVERSE using python function\n", b
+	result = edge_detection(b, x, y).range(x=0:100,y=0:100).dtype(b, uchar)
+	save_image(result,'inverse_full_size.png')
+
+	print "GATHERED", result

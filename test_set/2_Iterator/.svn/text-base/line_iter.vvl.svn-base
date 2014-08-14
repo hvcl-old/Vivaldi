@@ -1,0 +1,26 @@
+def line_iter_test(x, y):
+
+	start = make_float3(x,y,0)
+	end = make_float3(x,y,10)
+	iter = line_iter(start, end, 1)
+	val = 0
+	for elem in iter:
+		val += 1
+	return val
+
+def main():
+
+	result = line_iter_test(x, y).range(x=0:5, y=0:5)
+
+	import numpy
+	correct = numpy.ones((5,5))*10
+
+	if (result == correct).all():
+		# correct answer is 10, because distance between from start to end is 10
+		print "Ok"
+	else:
+		print "Fail"
+		print "Correct"
+		print correct
+		print "Result"
+		print result

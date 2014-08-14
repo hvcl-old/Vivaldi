@@ -1,0 +1,26 @@
+test_input:
+def edge_detection(image, x, y):
+    dif = linear_gradient_2d(image, x, y)
+    if length(dif) > 10:
+        return 255
+    return 0
+test_output:
+__global__ void edge_detectionuchar(int* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, uchar* image, VIVALDI_DATA_RANGE* image_DATA_RANGE, int x_start, int x_end, int y_start, int y_end){
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    float2 dif;
+    dif = linear_gradient_2d<float>(image, x, y, image_DATA_RANGE);
+    if( length(dif) > 10){
+        rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = 255;
+        return;
+    }
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = 0;
+    return;
+}
+dtype_dict:{'image': 'uchar_volume'}
+return_dtype: int

@@ -1,0 +1,34 @@
+def plane_iter_test(data, x, y):
+	iter = plane_iter(x, y, 1)
+
+	sum = 0.0
+	cnt = 0
+	for elem in iter:
+		sum += point_query_2d(data, elem)
+		cnt += 1
+	avg = sum/cnt
+	return avg
+
+def main():
+
+	import numpy
+    numpy.set_printoptions(precision=5)
+	data = numpy.ones((5,5), dtype=numpy.float32)
+
+	result = plane_iter_test(data, x, y).range(x=0:5,y=0:5)
+
+	correct =  [[ 4, 6, 6, 6, 4],
+				[ 6, 9, 9, 9, 6],
+				[ 6, 9, 9, 9, 6],
+				[ 6, 9, 9, 9, 6],
+			    [ 4, 6, 6, 6, 4]]
+
+	correct = numpy.array(correct, dtype=numpy.float32)/9
+	if (correct == result).all():
+		print "OK"
+	else:
+		print "Fail"
+		print "Correct"
+		print correct
+		print "Result"
+		print result

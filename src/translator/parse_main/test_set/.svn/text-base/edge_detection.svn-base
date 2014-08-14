@@ -1,0 +1,13 @@
+test_input:
+def main():
+	image = load_data_2d(DATA_PATH+'/hk_pano_retouched_2G.png')
+
+	result = edge_detection(image, x, y).range(image).dtype(image,uchar)
+	save_image(result,'full_size.png')
+test_output:
+def main():
+    image = VIVALDI_WRITE('image', load_data_2d(DATA_PATH+'/hk_pano_retouched_2G.png'))
+
+    result = VIVALDI_WRITE('result', run_function(return_name='result', func_name='edge_detection', args=['image', 'x', 'y'], execid=[], work_range=image, dtype_dict={'image':'uchar_volume'}))
+    save_image(result,'full_size.png')
+target:CUDA

@@ -1,0 +1,41 @@
+test_input:
+def mip(volume, x, y):
+	step = 1.0
+	line_iter = orthogonal_iter(volume, x, y, step)
+
+	max = 0.0
+	for elem in line_iter:
+		val = linear_query_3d(volume, elem)
+		if max < val:
+			max = val
+	return max
+test_output:
+__global__ void mipshort(float* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, short* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, int x_start, int x_end, int y_start, int y_end){
+		
+	int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+	line_iter line_iter;
+	float step;
+	float max;
+	step = 1.0;
+	line_iter = orthogonal_iter(volume, x, y, step, volume_DATA_RANGE);
+
+	max = 0.0;
+	for(float3 elem = line_iter.begin(); line_iter.hasNext(); ){
+		float val;
+		val = linear_query_3d<float>(volume, elem, volume_DATA_RANGE);
+		if( max < val){
+			max = val;
+		}
+		elem = line_iter.next();
+	}
+	rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = max;
+	return;
+}
+return_dtype:float
+dtype_dict:{'rb':'float_volume','volume':'short_volume','x':'integer','y':'integer'}
+

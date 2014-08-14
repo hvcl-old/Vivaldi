@@ -1,0 +1,8 @@
+test_input:
+def f(x):
+	y = x
+    return y
+test_output:
+def f(x):
+	y = x
+    return y

@@ -1,0 +1,100 @@
+import numpy
+from scipy import misc
+
+def eikonal(sol, spd, x, y, z):
+#	a = laplacian(sol, x, y, z)
+#	ret = make_float3(x,x,x)
+
+	a1 = point_query_3d(sol, x-1, y, z)
+	a2 = point_query_3d(sol, x+1, y, z)
+	b1 = point_query_3d(sol, x, y-1, z)
+	b2 = point_query_3d(sol, x, y+1, z)
+	c1 = point_query_3d(sol, x, y, z-1)
+	c2 = point_query_3d(sol, x, y, z+1)
+
+	s = point_query_3d(spd, x, y, z)
+
+	a = min(a1,a2)
+	b = min(b1,b2)
+	c = min(c1,c2)
+
+	# sorting (a >= b >= c)										  
+	#t = 0
+	if b<c :
+		t = b
+		b = c
+		c = t
+
+	if a<b:
+		t = a
+		a = b
+		b = t
+		if b<c:
+			t = b
+			b = c
+			c = t	
+												      
+	tSol = 1000000
+													
+	if c<1000000:
+		tSol = c + s
+		if tSol>b: 
+			tmp = ((b+c) + sqrt(-b*b -c*c + 2.0*b*c + 2.0*s*s))*0.5
+			if tmp>b: tSol = tmp
+			if tSol>a: 
+				tmp = (2.0*(a+b+c) + sqrt( 4.0*(a+b+c)*(a+b+c)-12.0*(a*a+b*b+c*c - s*s) ))/6.0
+				if tmp>a: tSol = tmp
+
+	ret = min(tSol, point_query_3d(sol, x, y, z))
+
+	return ret
+
+def main():
+
+	print "+++ Create buffers +++"
+
+	d = 100
+
+	# create constant speed map : 4GB
+	speedmap = numpy.ones((d,d,d),dtype = numpy.float32)
+
+	# create solution map : 4GB
+	solution = numpy.zeros((d,d,d),dtype = numpy.float32)
+
+	# initialize with a large value (INFINITY)
+	#for i in range(1000):
+	#	for j in range(1000):
+	#		for k in range(1000):
+	#			solution[i][j][k] = 1000000
+	
+	solution.fill(100000)
+
+	# set seed region (corner
+	solution[0][0][0] = 0
+
+
+	# GPU test
+	gpu_list = get_GPU_list(1)
+
+	print "+++ Solver Starts +++"
+
+	# iteration
+	n = 10
+	for i in range(n):
+
+		# input & output halo test
+#		image = heatflow(image, x, y).range(image,halo=n-i-1).execid(gpu_list).split(image, x=2, y=2).halo(image,n-i).dtype(image,float)
+
+		# input halo test
+#		solution = eikonal(solution, speedmap, x, y, z).range(solution).execid(gpu_list).split(image, z=2).halo(image,1).dtype(image,float)
+
+		solution = eikonal(solution, speedmap, x, y, z).modifier(solution, size=solution, dtype=float)
+														.modifier(speedmap, size=solution, dtype=float)
+
+	synchronize()
+
+	print "+++ Done! +++"
+	print "   "
+
+	print "+++ Save image +++"
+	save_image(solution, "result.raw")

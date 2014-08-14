@@ -1,0 +1,43 @@
+def mip(volume, x, y):
+	step = 0.4                      
+	line_iter = perspective_iter(volume, x, y, step, 226)
+
+	max = 0
+	for elem in line_iter:
+		val = linear_query_3d(volume, elem)
+		if max < val:
+			 max = val
+	return max
+
+def main():                                                                         
+	volume = load_data_3d(DATA_PATH+'/CThead.dat')
+	LoadMatrix("MODELVIEW")
+
+
+	LoadIdentity()
+	Translate(0, 0, 50)
+	Rotate(90, 0, 0, 1)
+	Translate(-128, -128, 0)
+	result = mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume,short)
+	save_image(result)
+
+	LoadIdentity()
+	Translate(0, 0, 150)	
+	Rotate(90, 0, 0, 1)
+	Translate(-128, -128, 0)
+	result = mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume,short)
+	save_image(result)
+
+	LoadIdentity()
+	Translate(0, 0, 350)	
+	Rotate(90, 0, 0, 1)
+	Translate(-128, -128, 0)
+	result = mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume,short)
+	save_image(result)
+
+	LoadIdentity()
+	Translate(0, 0, 550)	
+	Rotate(90, 0, 0, 1)
+	Translate(-128, -128, 0)
+	result = mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume,short)
+	save_image(result)

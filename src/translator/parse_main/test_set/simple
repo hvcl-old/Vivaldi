@@ -1,0 +1,8 @@
+test_input:
+def main():
+	a = func(b)
+	print "Hello"
+test_output:
+def main():
+	a = VIVALDI_WRITE('a', func(b))
+	print "Hello"

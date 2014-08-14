@@ -1,0 +1,3 @@
+# simple compare left
+test_input: a>b
+test_output: ['a', '>', 'b']

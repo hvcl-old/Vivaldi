@@ -1,0 +1,112 @@
+test_input:
+def mip(volume, x, y):
+    step = 0.4
+    line_iter = perspective_iter(volume, x, y, step, 226)
+
+    max = 0.0
+    for elem in line_iter:
+        val = linear_query_3d(volume, elem)
+        if max < val:
+            max = val
+    return max
+
+def main():
+    volume = load_data_3d(DATA_PATH+'/CThead.dat')
+    LoadMatrix("MODELVIEW")
+
+
+    LoadIdentity()
+    Translate(0, 0, 50)
+    Rotate(90, 0, 0, 1)
+    Translate(-128, -128, 0)
+    result = mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume,short)
+    save_image(result)
+
+    LoadIdentity()
+    Translate(0, 0, 150)
+    Rotate(90, 0, 0, 1)
+    Translate(-128, -128, 0)
+    result = mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume,short)
+    save_image(result)
+
+    LoadIdentity()
+    Translate(0, 0, 350)
+    Rotate(90, 0, 0, 1)
+    Translate(-128, -128, 0)
+    result = mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume,short)
+    save_image(result)
+
+    LoadIdentity()
+    Translate(0, 0, 550)
+    Rotate(90, 0, 0, 1)
+    Translate(-128, -128, 0)
+    result = mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume,short)
+    save_image(result)
+test_output:
+* main
+******************************************
+def main():
+	volume = VIVALDI_WRITE('volume', load_data_3d(DATA_PATH+'/CThead.dat'))
+	LoadMatrix("MODELVIEW")
+
+
+	LoadIdentity()
+	Translate(0, 0, 50)
+	Rotate(90, 0, 0, 1)
+	Translate(-128, -128, 0)
+	result = VIVALDI_WRITE('result', run_function(func_name='mip', args=['volume', 'x', 'y'], execid=[], modifier_dict={'volume':{'dtype':'short'},'result':{'range':{'y':(-256,256),'x':(-256,256)}}}))
+	save_image(result)
+
+	LoadIdentity()
+	Translate(0, 0, 150)
+	Rotate(90, 0, 0, 1)
+	Translate(-128, -128, 0)
+	result = VIVALDI_WRITE('result', run_function(func_name='mip', args=['volume', 'x', 'y'], execid=[], modifier_dict={'volume':{'dtype':'short'},'result':{'range':{'y':(-256,256),'x':(-256,256)}}}))
+	save_image(result)
+
+	LoadIdentity()
+	Translate(0, 0, 350)
+	Rotate(90, 0, 0, 1)
+	Translate(-128, -128, 0)
+	result = VIVALDI_WRITE('result', run_function(func_name='mip', args=['volume', 'x', 'y'], execid=[], modifier_dict={'volume':{'dtype':'short'},'result':{'range':{'y':(-256,256),'x':(-256,256)}}}))
+	save_image(result)
+
+	LoadIdentity()
+	Translate(0, 0, 550)
+	Rotate(90, 0, 0, 1)
+	Translate(-128, -128, 0)
+	result = VIVALDI_WRITE('result', run_function(func_name='mip', args=['volume', 'x', 'y'], execid=[], modifier_dict={'volume':{'dtype':'short'},'result':{'range':{'y':(-256,256),'x':(-256,256)}}}))
+	save_image(result)
+
+* mipshort
+******************************************
+__global__ void mipshort(float rb, short volume, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    line_iter line_iter;
+    float step;
+    float max;
+    step = 0.4;
+    line_iter = perspective_iter(volume, x, y, step, 226, volume_DATA_RANGE);
+
+    max = 0.0;
+    for(float3 elem = line_iter.begin(); line_iter.hasNext(); ){
+        float val;
+        val = linear_query_3d<float>(volume, elem, volume_DATA_RANGE);
+        if( max < val){
+            max = val;
+        }
+        elem = elem.next();
+    }
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] =  max;
+    return;
+
+}
+
+return dtype: float
+target:CUDA

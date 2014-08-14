@@ -1,0 +1,3 @@
+# simple while
+test_input: while a < 3 :
+test_output: ['while', 'a', '<', '3', ':']

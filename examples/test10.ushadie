@@ -1,0 +1,37 @@
+def mip(volume, x, y):
+	step = 0.4                      
+	line_iter = orthogonal_iter(volume, x, y, step)
+
+	max = 0
+	for elem in line_iter:
+		val = linear_query_3d(volume, elem)
+		if max < val:
+			 max = val
+	return max
+
+def maximum(front,back,x,y):
+	# query_2d function read value in the nearest position at the volume 
+	a = point_query_2d(front,x,y)
+	b = point_query_2d(back,x,y)
+	max = 0
+	if a < b: max = b
+	else: max = a
+	return max
+
+def main():                                                                         
+#	volume = load_data_3d(DATA_PATH+'/CThead.dat',dtype='short')
+#	volume = load_data_3d(DATA_PATH+'/CThead.dat',dtype='short')
+	volume = load_data_3d(DATA_PATH+'/CThead.dat', out_of_core=True, dtype='short')
+#	volume = load_data_3d(DATA_PATH+'big_data/big_data_short.dat', out_of_core=True, dtype='short')
+
+
+	LoadMatrix("ModelView")
+	LoadIdentity()
+	
+#	result = mip(volume,x,y).range(x=0:512,y=0:512).dtype(volume, short).split(volume, x=4,y=4).merge(maximum, 'front-to-back')
+	result = mip(volume,x,y).range(x=0:256,y=0:256).dtype(volume, short).split(volume, x=2,y=2).merge(maximum, 'front-to-back')
+#	result = mip(volume,x,y).range(x=0:256,y=0:256).dtype(volume, short).split(volume, x=1).merge(maximum, 'front-to-back')
+#	result = mip(volume,x,y).range(x=0:256,y=0:256).dtype(volume, short)
+
+
+	save_image(result,'orthogonal_1.png')

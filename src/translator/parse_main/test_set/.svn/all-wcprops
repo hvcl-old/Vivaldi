@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/Vivaldi/!svn/ver/14/src/translator/parse_main/test_set
+END
+modifier2
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/modifier2
+END
+halo
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/halo
+END
+dtype
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/dtype
+END
+simple
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/simple
+END
+range
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/range
+END
+modifier
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/modifier
+END
+execid
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/execid
+END
+viewer
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/viewer
+END
+strong_bilateral_08
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/strong_bilateral_08
+END
+edge_detection
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/edge_detection
+END
+output_halo
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/output_halo
+END
+VIVALDI_WRITE
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/VIVALDI_WRITE
+END
+test_list
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/Vivaldi/!svn/ver/14/src/translator/parse_main/test_set/test_list
+END
+input_split
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/input_split
+END
+nested_loop
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/nested_loop
+END
+orthogonal
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/orthogonal
+END
+transfer_input_split
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/Vivaldi/!svn/ver/4/src/translator/parse_main/test_set/transfer_input_split
+END

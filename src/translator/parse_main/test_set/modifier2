@@ -1,0 +1,27 @@
+test_input:
+def main():
+    #volume = load_data_3d(DATA_PATH+'/CThead.dat')
+    volume = load_data_3d(DATA_PATH+'/head_red.dat', dtype="ushort", out_of_core=True)
+
+
+    volume = heatflow(volume,x,y,z).halo(volume,1).range(volume,halo=1).dtype(volume,ushort).split(volume, z=16)
+
+#   synchronize()
+
+
+    LoadMatrix("ModelView")
+    result = mip(volume,x,y).range(x=0:1920,y=0:1280).dtype(volume, float).split(volume,z=16).merge(sum, 'front-to-back')
+    save_image(result,'orthogonal_1.png',normalize=True)
+
+#   Translate(128, 128 , 0)
+#   Rotate(90, 0, 0, 1)
+#   Translate(-128, -128, 0)
+#   result = mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume, short)
+
+    result = mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume, short).split(result, y=2)
+
+    save_image(result,'orthogonal_2.png',normalize=True)
+	
+test_output:
+c  = run_function(func_name='function7', args=['a', 'b', 'x', 'y', '5'], execid=ddd, modifier_dict={a:{'dtype':float,'split':(2,1),'size':(5,5)},c:{'dtype':float,'split':(2,2),'size':(5,5)},b:{'dtype':float,'split':(1,2),'size':(5,5)}})
+print "Hello"

@@ -1,0 +1,22 @@
+test_input:
+def main():
+    volume = load_data_3d(DATA_PATH+'/CThead.dat')
+
+    LoadMatrix("ModelView")
+    LoadIdentity()
+    Rotate(90, 0, 1, 1)
+    Translate(-128, -128, 0)
+
+    result = mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume, short)
+    save_image(result,'orthogonal_1.png',normalize=True)
+test_output:
+def main():
+	volume = VIVALDI_WRITE('volume', load_data_3d(DATA_PATH+'/CThead.dat'))
+
+	LoadMatrix("ModelView")
+	LoadIdentity()
+	Rotate(90, 0, 1, 1)
+	Translate(-128, -128, 0)
+
+	result = VIVALDI_WRITE('result', run_function(return_name='result', func_name='mip', args=['volume', 'x', 'y'], execid=[], work_range={'y':(-256,256),'x':(-256,256)}, dtype_dict={'volume':'short_volume'}))
+	save_image(result,'orthogonal_1.png',normalize=True)

@@ -1,0 +1,3 @@
+# simple plus test
+test_input: return val
+test_output: ['return', 'val']

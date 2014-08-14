@@ -1,0 +1,12 @@
+test_input:
+def f(x):
+# comment 0
+    y = x # comment 1
+# comment2
+    return y # comment3
+test_output:
+def f(x):
+
+    y = x
+
+    return y

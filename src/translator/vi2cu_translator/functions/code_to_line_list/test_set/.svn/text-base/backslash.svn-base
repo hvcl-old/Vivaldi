@@ -1,0 +1,6 @@
+# backslash mean next line is also same line
+test_input:
+a = 3 + 3 \
++ 4
+test_output:
+a = 3 + 3 + 4

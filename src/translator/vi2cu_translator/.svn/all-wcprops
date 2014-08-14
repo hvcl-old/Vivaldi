@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/Vivaldi/!svn/ver/160/src/translator/vi2cu_translator
+END
+misc.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/Vivaldi/!svn/ver/30/src/translator/vi2cu_translator/misc.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/Vivaldi/!svn/ver/4/src/translator/vi2cu_translator/__init__.py
+END
+run_test.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/Vivaldi/!svn/ver/4/src/translator/vi2cu_translator/run_test.py
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/Vivaldi/!svn/ver/4/src/translator/vi2cu_translator/README.txt
+END
+main.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/Vivaldi/!svn/ver/160/src/translator/vi2cu_translator/main.py
+END

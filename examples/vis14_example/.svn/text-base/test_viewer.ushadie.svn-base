@@ -1,0 +1,28 @@
+def mip(volume, x, y):
+	step = 0.4                      
+	line_iter = perspective_iter(volume, x, y, step, 226)
+
+	max = 0
+	for elem in line_iter:
+		val = linear_query_3d(volume, elem)
+
+		if max < val:
+			 max = val
+
+	return RGB(transfer(max))
+
+def main():                                                                         
+	volume = load_data_3d(DATA_PATH+'/CThead.dat')
+
+	result = mip(volume, x, y).range(x=-256:256,y=-256:256)
+
+	save_image(result)
+
+	#LoadMatrix("MODELVIEW")
+	#LoadIdentity()
+	#Translate(0, 0, 50)
+	#Translate(-128, -128, 0)
+
+	#enable_viewer(mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume, short),'TFF','3D')
+	#enable_viewer(mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume, short),'3D')
+

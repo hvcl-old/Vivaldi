@@ -1,0 +1,29 @@
+def mip(volume, tf, x, y):
+	step = 0.4                      
+	eyePos = make_float3(250,600,250)
+	focus = make_float3(250,0,250)
+	up = make_float3(1,0,0)
+	distance = 1000
+
+	line_iter = short_line_iter(volume, eyePos, focus, up, distance, step, y, x)
+
+	color = make_float3(0)
+
+	alpha = 0
+	for elem in line_iter:
+		val = cubic_query_3d(volume, elem)*0.08
+		c = linear_query_1d_rgba(tf, val*255)
+		c.w = c.w/255.0*step
+		alpha = alpha + (1-alpha)*c.w
+		color = color + (1-alpha)*make_float3(c)*c.w
+
+	return make_float4(color, alpha*255)
+		
+
+def main():                                                                         
+	volume = load_data_3d(DATA_PATH+'/supernova/supernova.dat')
+	tf = load_data_1d_rgba(DATA_PATH+'/supernova/bone.png', numpy.float32)
+
+	gpu_id = get_GPU_list(1)
+	result = mip(volume,tf,x,y).execid(gpu_id).range(x=-250:250,y=-250:250)
+	save_image(result)

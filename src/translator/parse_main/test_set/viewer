@@ -1,0 +1,10 @@
+test_input:
+def main():
+    volume = load_data_3d(DATA_PATH+'/Zebra_in2GB.dat', out_of_core=True)
+
+    enable_viewer(render(volume,x,y).range(x=-512:512,y=-512:512).dtype(volume, uchar).split(volume, x=4).merge('halocondition','front-to-back').halo(volume,1) ,'TFF2', '3D', 256)
+test_output:
+def main():
+	volume = VIVALDI_WRITE('volume', load_data_3d(DATA_PATH+'/Zebra_in2GB.dat', out_of_core=True))
+
+    enable_viewer(run_function(return_name='', func_name='render', args=['volume', 'x', 'y'], execid=[], work_range={'y':(-512,512),'x':(-512,512)}, split_dict={'volume':{'x':4}}, merge_func='halocondition', merge_order='front-to-back', halo_dict={'volume':1}, dtype_dict={'volume':'uchar_volume'}),'TFF2', '3D', 256)

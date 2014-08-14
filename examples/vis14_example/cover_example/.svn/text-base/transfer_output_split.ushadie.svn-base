@@ -1,0 +1,36 @@
+def render(volume, x, y):
+	step = 5
+	line_iter = orthogonal_iter(volume, x, y, step)
+	
+	color = make_float4(0)
+	tmp_val = make_float4(0)
+	tmp_val1 = make_float4(0)
+	tmp_val2 = make_float4(0)
+	alpha = 0
+	val = make_float2(0)
+	for elem in line_iter:
+		val = linear_query_3d(volume, elem)
+		tmp_val1 = transfer(val.x)
+		tmp_val2 = transfer(val.y,1)
+
+		tmp_val = ch_binder(tmp_val1, tmp_val2) 
+
+		color = alpha_compositing(color, tmp_val)
+
+		if color.w > 253: break
+	
+	#tmp_x = floor_tmp((x + 512.0)/1024.0*2)
+	#tmp_y = floor_tmp((512.0 - y)/1024.0*2)
+	#tr = make_float4(0)
+	#tr = transfer(255 - 10 * (tmp_x * 2 + tmp_y),1)
+
+	#color = alpha_compositing_tmp(color, tr)
+
+	color = background_white(color)
+	return RGB(color)
+
+
+def main():
+	volume = load_data_3d(DATA_PATH+'/Zebra_in2GB.dat', out_of_core=True)
+	enable_viewer(render(volume,x,y).range(x=-512:512,y=-512:512).dtype(volume, uchar),'TFF2', '3D', 256)
+

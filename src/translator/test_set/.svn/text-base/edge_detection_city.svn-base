@@ -1,0 +1,105 @@
+test_input:
+def edge_detection(image, x, y): 
+    dif = linear_gradient_2d(image, x, y)
+    if length(dif) > 10: return 255
+    return 0
+def main():
+    image = load_data_2d(DATA_PATH+'/hk_pano_retouched_2G.png')
+    result = edge_detection(image, x, y).range(image).dtype(image,uchar)
+    save_image(result,'full_size.png')
+test_output:
+* global variables
+******************************************
+
+* main
+******************************************
+def main():
+    image = VIVALDI_WRITE('image', load_data_2d(DATA_PATH+'/hk_pano_retouched_2G.png'))
+    result = VIVALDI_WRITE('result', run_function(return_name='result', func_name='edge_detection', args=['image', 'x', 'y'], execid=[], work_range=image, dtype_dict={'image':'uchar_volume'}))
+    save_image(result,'full_size.png')
+
+* edge_detectionuchar4
+******************************************
+__global__ void edge_detectionuchar4(int* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, uchar4* image, VIVALDI_DATA_RANGE* image_DATA_RANGE, int x_start, int x_end, int y_start, int y_end){
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    float2 dif;
+    dif = linear_gradient_2d<float4>(image, x, y, image_DATA_RANGE);
+    if( length(dif) > 10){
+        rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = 255;
+        return;
+    }
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = 0;
+    return;
+}
+
+return dtype: int
+* edge_detectionuchar
+******************************************
+__global__ void edge_detectionuchar(int* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, uchar* image, VIVALDI_DATA_RANGE* image_DATA_RANGE, int x_start, int x_end, int y_start, int y_end){
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    float2 dif;
+    dif = linear_gradient_2d<float>(image, x, y, image_DATA_RANGE);
+    if( length(dif) > 10){
+        rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = 255;
+        return;
+    }
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = 0;
+    return;
+}
+
+return dtype: int
+* edge_detectionuchar2
+******************************************
+__global__ void edge_detectionuchar2(int* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, uchar2* image, VIVALDI_DATA_RANGE* image_DATA_RANGE, int x_start, int x_end, int y_start, int y_end){
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    float2 dif;
+    dif = linear_gradient_2d<float2>(image, x, y, image_DATA_RANGE);
+    if( length(dif) > 10){
+        rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = 255;
+        return;
+    }
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = 0;
+    return;
+}
+
+return dtype: int
+* edge_detectionuchar3
+******************************************
+__global__ void edge_detectionuchar3(int* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, uchar3* image, VIVALDI_DATA_RANGE* image_DATA_RANGE, int x_start, int x_end, int y_start, int y_end){
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    float2 dif;
+    dif = linear_gradient_2d<float3>(image, x, y, image_DATA_RANGE);
+    if( length(dif) > 10){
+        rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = 255;
+        return;
+    }
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = 0;
+    return;
+}
+
+return dtype: int
+target:CUDA

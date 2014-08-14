@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/cpp
+END
+bitlog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/cpp/bitlog.cpp
+END
+cuda.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/cpp/cuda.hpp
+END
+curand.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/cpp/curand.hpp
+END
+cuda_gl.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/cpp/cuda_gl.hpp
+END
+bitlog.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/cpp/bitlog.hpp
+END
+cuda.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/cpp/cuda.cpp
+END
+mempool.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/cpp/mempool.hpp
+END

@@ -1,0 +1,8 @@
+test_input:
+val = point_query_2d(volume, x, y)
+return val
+test_output:
+#code
+
+val = point_query_2d(volume, x, y)
+return val

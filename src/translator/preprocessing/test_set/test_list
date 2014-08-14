@@ -1,0 +1,15 @@
+simple
+comment
+#semicolon # not necessary, because python don't care semicolon
+stretch1
+stretch2
+stretch3
+
+line_break_backslash
+line_break_list
+line_break_dict
+line_break_tuple
+edge_detection_city
+
+import
+colon_array_access

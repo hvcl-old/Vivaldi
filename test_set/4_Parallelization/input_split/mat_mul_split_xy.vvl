@@ -1,0 +1,49 @@
+
+def func(data1, data2, n, x, y):
+	sum = 0.0
+	for i in range(n):
+		a = point_query_2d(data1, i, y)
+		b = point_query_2d(data2, y, i)
+		sum += a * b
+	return sum
+
+def add(front, back, x, y):
+	f = point_query_2d(front, x, y)
+	b = point_query_2d(back, x, y)
+	return f + b
+
+def main():
+	import numpy
+	n = 5
+	data1 = numpy.ones((n,n),dtype=numpy.float32)
+	data2 = numpy.ones((n,n),dtype=numpy.float32)
+
+
+	for i in range(n):
+		for j in range(n):
+			data1[i][j] = (i+j)%(n)+1
+
+	for i in range(n):
+		data2[i] = i+1
+
+	result = func(data1, data2, n, x, y).range(x=0:n,y=0:n)
+										.split(data1, x=2)
+										.split(data2, y=2)
+										.merge(add)
+
+	correct = numpy.ones((n,n), dtype=numpy.float32)
+
+	correct[0] = 55
+	correct[1] = 45
+	correct[2] = 40
+	correct[3] = 40
+	correct[4] = 45
+
+	if (correct == result).all():
+		print "Ok"
+	else:
+		print "Fail"
+		print "Correct"
+		print correct
+		print "Result"
+		print result

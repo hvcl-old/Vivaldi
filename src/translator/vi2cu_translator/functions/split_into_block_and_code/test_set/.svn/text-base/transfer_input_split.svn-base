@@ -1,0 +1,23 @@
+test_input:
+step = 5
+line_iter = orthogonal_iter(volume, x, y, step)
+
+color = make_float4(0)
+tmp_val = make_float4(0)
+tmp_val1 = make_float4(0)
+tmp_val2 = make_float4(0)
+val = make_float2(0)
+for elem in line_iter:
+	val = linear_query_3d(volume, elem)
+	tmp_val1 = transfer(val.x)
+	tmp_val2 = transfer(val.y,1)
+
+	tmp_val = ch_binder(tmp_val1, tmp_val2)
+
+	color = alpha_compositing_tmp(color, tmp_val)
+
+	if color.w > 253: break
+
+color = alpha_compositing_tmp3(color, make_float4(255,255,255,255))
+return RGBA(color)
+test_output:

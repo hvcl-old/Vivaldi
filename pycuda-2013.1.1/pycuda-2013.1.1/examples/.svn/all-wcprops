@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/examples
+END
+MORE_EXAMPLES_ON_THE_WIKI
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/examples/MORE_EXAMPLES_ON_THE_WIKI
+END
+demo_struct.py
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/examples/demo_struct.py
+END
+fill_gpu_with_nans.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/examples/fill_gpu_with_nans.py
+END
+demo_meta_codepy.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/examples/demo_meta_codepy.py
+END
+hello_gpu.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/examples/hello_gpu.py
+END
+dump_properties.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/examples/dump_properties.py
+END
+demo.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/examples/demo.py
+END
+demo_elementwise.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/examples/demo_elementwise.py
+END
+demo_meta_template.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/examples/demo_meta_template.py
+END
+download-examples-from-wiki.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/examples/download-examples-from-wiki.py
+END

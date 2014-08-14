@@ -1,0 +1,191 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/Vivaldi/!svn/ver/79/src/translator/general/divide_line/test_set
+END
+compare_right
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/compare_right
+END
+dict
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/dict
+END
+compare_right_same
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/compare_right_same
+END
+tuple
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/tuple
+END
+addition
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/addition
+END
+comma
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/comma
+END
+subtraction
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/subtraction
+END
+array1
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Vivaldi/!svn/ver/12/src/translator/general/divide_line/test_set/array1
+END
+test1
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/test1
+END
+array2
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/Vivaldi/!svn/ver/12/src/translator/general/divide_line/test_set/array2
+END
+unary_plus
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/unary_plus
+END
+test2
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/test2
+END
+compare_left_same
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/compare_left_same
+END
+while
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/Vivaldi/!svn/ver/12/src/translator/general/divide_line/test_set/while
+END
+unary_minus
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/unary_minus
+END
+test_list
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/Vivaldi/!svn/ver/79/src/translator/general/divide_line/test_set/test_list
+END
+list
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/list
+END
+return
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/return
+END
+elif
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/elif
+END
+function_call
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/Vivaldi/!svn/ver/12/src/translator/general/divide_line/test_set/function_call
+END
+assign
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/assign
+END
+division
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/division
+END
+for
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Vivaldi/!svn/ver/12/src/translator/general/divide_line/test_set/for
+END
+dot
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/dot
+END
+else
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/else
+END
+complex1
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/Vivaldi/!svn/ver/12/src/translator/general/divide_line/test_set/complex1
+END
+complex2
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/complex2
+END
+compare_same
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/compare_same
+END
+multiplication
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/multiplication
+END
+if
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/if
+END
+compare_left
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/test_set/compare_left
+END

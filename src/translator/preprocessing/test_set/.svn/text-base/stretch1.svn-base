@@ -1,0 +1,9 @@
+test_input:
+def f(x):
+    if x == 3: y = 3
+    return y
+test_output:
+def f(x):
+    if x == 3:
+        y = 3
+    return y

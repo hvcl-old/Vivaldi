@@ -1,0 +1,10 @@
+transfer_function.ushadie
+	This code makes merge function which has two difference data type (It
+should be same as RGBA , combinningRGBAfloat (x) combinningRGBARGBA(o))
+
+
+orthogonal.vvl
+correct output: 1 1 1 ... 1 1 1
+
+perspective.vvl
+There are unexpected zero in the middle of output

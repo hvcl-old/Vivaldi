@@ -1,0 +1,252 @@
+test_input:
+def mip(volume, x, y):
+	step = 0.4                      
+	line_iter = perspective_iter(volume, x, y, step, 226)
+	D = line_iter.direction()
+	T = 1300 
+
+	ambient = make_float3(0.05)
+	lightpos1 = make_float3( -800, 500, 128)
+	lightpos2 = make_float3( +800, 500, 128)
+	
+	for elem in line_iter:
+		temp = cubic_query_3d(volume, elem)-T
+		if temp > 0:
+			P = elem
+			Q = P
+			P = P - step * D
+
+			while length(P - Q) >  0.0001:
+				M = (P + Q) / 2
+				f = linear_query_3d(volume, M) - T
+				if f < 0:
+					P = M
+				else:
+					Q = M
+			
+			color1 = make_float3(225.0/255,204.0/255,153.0/255)
+			color2 = make_float3(1,1,1)
+			#compute lighting
+			N = -normalize(cubic_gradient_3d(volume,(P+Q)/2))
+			L1 = normalize(lightpos1 - P)
+			L2 = normalize(lightpos2 - P)
+
+			# accumulate
+			result1 = phong(L1, N, -D, color1, make_float3(1), 20, ambient)*255
+			result2 = phong(L2, N, -D, color2, make_float3(1), 20, ambient)*255
+
+			return RGB(result1 + result2)
+
+	return RGB(make_float3(0))
+							  
+def main():                                                                         
+	volume = load_data_3d(DATA_PATH+'/CThead.dat')
+	gpu_id = get_GPU_list(8)
+
+	LoadMatrix("MODELVIEW")
+
+	LoadIdentity()
+	result = mip(volume, x,y).execid(gpu_id).range(x=-256:256,y=-256:256).dtype(volume, short)
+	save_image(result)
+	
+	LoadIdentity()
+	Translate(0,0,250)
+	result = mip(volume, x,y).execid(gpu_id).range(x=-256:256,y=-256:256).dtype(volume, short)
+	save_image(result)
+
+	LoadIdentity()
+	Translate(0,0,250)
+	Translate(-128+20,-128,0)
+	result = mip(volume, x,y).execid(gpu_id).range(x=-256:256,y=-256:256).split(result,x=4).dtype(volume, short)
+	save_image(result)
+	
+
+	LoadIdentity()
+	Translate(0,0,250)
+	Rotate(180,0,0,1)
+	Translate(-128+20,-128,0)
+	result = mip(volume, x,y).execid(gpu_id).range(x=-256:256,y=-256:256).dtype(volume, short)
+	save_image(result)
+	
+
+	LoadIdentity()
+	Translate(0,0,250)
+	Rotate(-90,1,0,0)
+	Rotate(180,0,0,1)
+	Translate(-128+20,-128,0)
+	result = mip(volume, x,y).execid(gpu_id).range(x=-256:256,y=-256:256).dtype(volume, short)
+	save_image(result)
+
+
+	LoadIdentity()
+	Translate(0,-50,250)
+	Rotate(-90,1,0,0)
+	Rotate(180,0,0,1)
+	Translate(-128+20,-128,0)
+	result = mip(volume, x,y).execid(gpu_id).range(x=-256:256,y=-256:256).dtype(volume, short)
+	save_image(result)
+
+
+	LoadIdentity()
+	Translate(0,-100,250)
+	Rotate(-90,1,0,0)
+	Rotate(180,0,0,1)
+	Translate(-128+20,-128,0)
+	result = mip(volume, x,y).execid(gpu_id).range(x=-256:256,y=-256:256).dtype(volume, short)
+	save_image(result)
+
+
+	LoadIdentity()
+	Translate(0,-150,250)
+	Rotate(-90,1,0,0)
+	Rotate(180,0,0,1)
+	Translate(-128+20,-128,0)
+	result = mip(volume, x,y).execid(gpu_id).range(x=-256:256,y=-256:256).dtype(volume, short)
+	save_image(result)
+test_output:
+* main
+******************************************
+
+volume = VIVALDI_WRITE('volume', load_data_3d(DATA_PATH+'/CThead.dat'))
+gpu_id = VIVALDI_WRITE('gpu_id', get_GPU_list(8))
+
+LoadMatrix("MODELVIEW")
+
+LoadIdentity()
+result = VIVALDI_WRITE('result', run_function(func_name='mip', args=['volume', 'x', 'y'], execid=gpu_id, modifier_dict={'volume':{'dtype':'short'},'result':{'range':{'y':(-256,256),'x':(-256,256)}}}))
+save_image(result)
+
+LoadIdentity()
+Translate(0,0,250)
+result = VIVALDI_WRITE('result', run_function(func_name='mip', args=['volume', 'x', 'y'], execid=gpu_id, modifier_dict={'volume':{'dtype':'short'},'result':{'range':{'y':(-256,256),'x':(-256,256)}}}))
+save_image(result)
+
+LoadIdentity()
+Translate(0,0,250)
+Translate(-128+20,-128,0)
+result = VIVALDI_WRITE('result', run_function(func_name='mip', args=['volume', 'x', 'y'], execid=gpu_id, modifier_dict={'volume':{'dtype':'short'},'result':{'range':{'y':(-256,256),'x':(-256,256)},'split':{'x':4}}}))
+save_image(result)
+
+
+LoadIdentity()
+Translate(0,0,250)
+Rotate(180,0,0,1)
+Translate(-128+20,-128,0)
+result = VIVALDI_WRITE('result', run_function(func_name='mip', args=['volume', 'x', 'y'], execid=gpu_id, modifier_dict={'volume':{'dtype':'short'},'result':{'range':{'y':(-256,256),'x':(-256,256)}}}))
+save_image(result)
+
+
+LoadIdentity()
+Translate(0,0,250)
+Rotate(-90,1,0,0)
+Rotate(180,0,0,1)
+Translate(-128+20,-128,0)
+result = VIVALDI_WRITE('result', run_function(func_name='mip', args=['volume', 'x', 'y'], execid=gpu_id, modifier_dict={'volume':{'dtype':'short'},'result':{'range':{'y':(-256,256),'x':(-256,256)}}}))
+save_image(result)
+
+
+LoadIdentity()
+Translate(0,-50,250)
+Rotate(-90,1,0,0)
+Rotate(180,0,0,1)
+Translate(-128+20,-128,0)
+result = VIVALDI_WRITE('result', run_function(func_name='mip', args=['volume', 'x', 'y'], execid=gpu_id, modifier_dict={'volume':{'dtype':'short'},'result':{'range':{'y':(-256,256),'x':(-256,256)}}}))
+save_image(result)
+
+
+LoadIdentity()
+Translate(0,-100,250)
+Rotate(-90,1,0,0)
+Rotate(180,0,0,1)
+Translate(-128+20,-128,0)
+result = VIVALDI_WRITE('result', run_function(func_name='mip', args=['volume', 'x', 'y'], execid=gpu_id, modifier_dict={'volume':{'dtype':'short'},'result':{'range':{'y':(-256,256),'x':(-256,256)}}}))
+save_image(result)
+
+
+LoadIdentity()
+Translate(0,-150,250)
+Rotate(-90,1,0,0)
+Rotate(180,0,0,1)
+Translate(-128+20,-128,0)
+result = VIVALDI_WRITE('result', run_function(func_name='mip', args=['volume', 'x', 'y'], execid=gpu_id, modifier_dict={'volume':{'dtype':'short'},'result':{'range':{'y':(-256,256),'x':(-256,256)}}}))
+save_image(result)
+
+* mipshort
+******************************************
+__global__ void mipshort(RGB rb, short volume, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    float3 lightpos2;
+    line_iter line_iter;
+    float3 ambient;
+    int T;
+    float step;
+    float3 lightpos1;
+    step = 0.4;
+    line_iter = perspective_iter(volume, x, y, step, 226, volume_DATA_RANGE);
+    D = line_iter.direction();
+    T = 1300;
+
+    ambient = make_float3(0.05);
+    lightpos1 = make_float3( -800, 500, 128);
+    lightpos2 = make_float3( +800, 500, 128);
+
+    for(float3 elem = line_iter.begin(); line_iter.hasNext(); ){
+        float temp;
+        temp = cubic_query_3d<float>(volume, elem, volume_DATA_RANGE)-T;
+        if( temp > 0){
+            float3 color1;
+            float3 result1;
+            float3 L1;
+            float3 L2;
+            float3 color2;
+            float3 P;
+            float3 Q;
+            float N;
+            float3 result2;
+            P = elem;
+            Q = P;
+            P = P - step * D;
+
+            while( length(P - Q) >  0.0001){
+                float f;
+                float3 M;
+                M = (P + Q) / 2;
+                f = linear_query_3d<float>(volume, M, volume_DATA_RANGE) - T;
+                if( f < 0){
+                    P = M;
+                }
+                else{
+                    Q = M;
+
+                }
+            }
+            color1 = make_float3(225.0/255,204.0/255,153.0/255);
+            color2 = make_float3(1,1,1);
+
+            N = -normalize(cubic_gradient_3d<float>(volume,(P+Q)/2, volume_DATA_RANGE));
+            L1 = normalize(lightpos1 - P);
+            L2 = normalize(lightpos2 - P);
+
+
+            result1 = phong(L1, N, -D, color1, make_float3(1), 20, ambient)*255;
+            result2 = phong(L2, N, -D, color2, make_float3(1), 20, ambient)*255;
+
+            rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] =  RGB(result1 + result2);
+            return;
+
+        }
+        elem = elem.next();
+    }
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] =  RGB(make_float3(0));
+    return;
+
+}
+
+return dtype: RGB
+target:CUDA

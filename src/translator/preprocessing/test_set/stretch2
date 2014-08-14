@@ -1,0 +1,10 @@
+test_input:
+def f(x):
+    for i in range(30): y += i
+    return y
+test_output:
+def f(x):
+    for i in range(30):
+        y += i
+    return y
+    

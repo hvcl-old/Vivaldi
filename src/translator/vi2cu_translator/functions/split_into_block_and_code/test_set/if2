@@ -1,0 +1,20 @@
+test_input:
+    M = (P + Q) / 2
+    f = linear_query_3d(volume, M) - T
+    if f < 0:
+        P = M
+    else:
+        Q = M
+test_output:
+#code
+
+    M = (P + Q) / 2
+    f = linear_query_3d(volume, M) - T
+    if f < 0:
+#code
+    else:
+#block
+        P = M
+#block
+        Q = M
+		

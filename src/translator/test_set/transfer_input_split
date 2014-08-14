@@ -1,0 +1,272 @@
+test_input:
+def render(volume, x, y):
+    step = 5
+    line_iter = orthogonal_iter(volume, x, y, step)
+
+    color = make_float4(0)
+    tmp_val = make_float4(0)
+    tmp_val1 = make_float4(0)
+    tmp_val2 = make_float4(0)
+    val = make_float2(0)
+    for elem in line_iter:
+        val = linear_query_3d(volume, elem)
+        tmp_val1 = transfer(val.x)
+        tmp_val2 = transfer(val.y,1)
+
+        tmp_val = ch_binder(tmp_val1, tmp_val2)
+
+        color = alpha_compositing(color, tmp_val)
+
+        if color.w > 253: break
+
+    color = alpha_compositing_tmp3(color, make_float4(255,255,255,255))
+    return RGBA(color)
+
+def halocondition(front, back, x, y):
+
+    a = point_query_2d(front, x, y)
+    b = point_query_2d(back, x, y)
+    a = detach(a)
+    b = detach(b)
+    c = make_float4(0)
+    c = alpha_compositing(a, b)
+
+    c = alpha_compositing(c, make_float4(255,255,255,255))
+
+    return RGBA(c)
+
+def main():
+    volume = load_data_3d(DATA_PATH+'/Zebra_in2GB.dat', out_of_core=True)
+
+    enable_viewer(render(volume,x,y).range(x=-512:512,y=-512:512).dtype(volume, uchar).split(volume, x=4).merge(halocondition,'front-to-back').halo(volume,1) ,'TFF2', '3D', 256)
+test_output:
+* main
+******************************************
+def main():
+    volume = VIVALDI_WRITE('volume', load_data_3d(DATA_PATH+'/Zebra_in2GB.dat', out_of_core=True))
+
+    enable_viewer(run_function(return_name='', func_name='render', args=['volume', 'x', 'y'], execid=[], work_range={'y':(-512,512),'x':(-512,512)}, split_dict={'volume':{'x':4}}, merge_func='halocondition', merge_order='front-to-back', halo_dict={'volume':1}, dtype_dict={'volume':'uchar_volume'}),'TFF2', '3D', 256)
+
+* renderuchar3
+******************************************
+__global__ void renderuchar3(RGBA* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, uchar3* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    line_iter line_iter;
+    float4 tmp_val;
+    int step;
+    float4 tmp_val1;
+    float4 tmp_val2;
+    float4 color;
+    float2 val;
+    step = 5;
+    line_iter = orthogonal_iter(volume, x, y, step, volume_DATA_RANGE);
+
+    color = make_float4(0);
+    tmp_val = make_float4(0);
+    tmp_val1 = make_float4(0);
+    tmp_val2 = make_float4(0);
+    val = make_float2(0);
+    for(float3 elem = line_iter.begin(); line_iter.hasNext(); ){
+        val = linear_query_3d<float3>(volume, elem, volume_DATA_RANGE);
+        tmp_val1 = transfer(val.x);
+        tmp_val2 = transfer(val.y,1);
+
+        tmp_val = ch_binder(tmp_val1, tmp_val2);
+
+        color = alpha_compositing_tmp(color, tmp_val);
+
+        if( color.w > 253){
+            break;
+
+        }
+        elem = line_iter.next();
+    }
+    color = alpha_compositing_tmp3(color, make_float4(255,255,255,255));
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = RGBA(color);
+    return;
+
+}
+
+return dtype: RGBA
+* renderuchar2
+******************************************
+__global__ void renderuchar2(RGBA* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, uchar2* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    line_iter line_iter;
+    float4 tmp_val;
+    int step;
+    float4 tmp_val1;
+    float4 tmp_val2;
+    float4 color;
+    float2 val;
+    step = 5;
+    line_iter = orthogonal_iter(volume, x, y, step, volume_DATA_RANGE);
+
+    color = make_float4(0);
+    tmp_val = make_float4(0);
+    tmp_val1 = make_float4(0);
+    tmp_val2 = make_float4(0);
+    val = make_float2(0);
+    for(float3 elem = line_iter.begin(); line_iter.hasNext(); ){
+        val = linear_query_3d<float2>(volume, elem, volume_DATA_RANGE);
+        tmp_val1 = transfer(val.x);
+        tmp_val2 = transfer(val.y,1);
+
+        tmp_val = ch_binder(tmp_val1, tmp_val2);
+
+        color = alpha_compositing_tmp(color, tmp_val);
+
+        if( color.w > 253){
+            break;
+
+        }
+        elem = line_iter.next();
+    }
+    color = alpha_compositing_tmp3(color, make_float4(255,255,255,255));
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = RGBA(color);
+    return;
+
+}
+
+return dtype: RGBA
+* haloconditionRGBARGBA
+******************************************
+__global__ void haloconditionRGBARGBA(RGBA* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, RGBA* front, VIVALDI_DATA_RANGE* front_DATA_RANGE, RGBA* back, VIVALDI_DATA_RANGE* back_DATA_RANGE, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+
+    float4 b;
+
+    float4 c;
+
+    float4 a;
+
+    a = point_query_2d<float4>(front, x, y, front_DATA_RANGE);
+    b = point_query_2d<float4>(back, x, y, back_DATA_RANGE);
+    a = detach(a);
+    b = detach(b);
+    c = make_float4(0);
+    c = alpha_compositing_tmp2(a, b);
+
+    c = alpha_compositing_tmp3(c, make_float4(255,255,255,255));
+
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = RGBA(c);
+
+    return;
+
+
+}
+
+return dtype: RGBA
+* renderuchar
+******************************************
+__global__ void renderuchar(RGBA* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, uchar* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    line_iter line_iter;
+    float4 tmp_val;
+    int step;
+    float4 tmp_val1;
+    float4 tmp_val2;
+    float4 color;
+    float2 val;
+    step = 5;
+    line_iter = orthogonal_iter(volume, x, y, step, volume_DATA_RANGE);
+
+    color = make_float4(0);
+    tmp_val = make_float4(0);
+    tmp_val1 = make_float4(0);
+    tmp_val2 = make_float4(0);
+    val = make_float2(0);
+    for(float3 elem = line_iter.begin(); line_iter.hasNext(); ){
+        val = linear_query_3d<float>(volume, elem, volume_DATA_RANGE);
+        tmp_val1 = transfer(val.x);
+        tmp_val2 = transfer(val.y,1);
+
+        tmp_val = ch_binder(tmp_val1, tmp_val2);
+
+        color = alpha_compositing_tmp(color, tmp_val);
+
+        if( color.w > 253){
+            break;
+
+        }
+        elem = line_iter.next();
+    }
+    color = alpha_compositing_tmp3(color, make_float4(255,255,255,255));
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = RGBA(color);
+    return;
+
+}
+
+return dtype: RGBA
+* renderuchar4
+******************************************
+__global__ void renderuchar4(RGBA* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, uchar4* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    line_iter line_iter;
+    float4 tmp_val;
+    int step;
+    float4 tmp_val1;
+    float4 tmp_val2;
+    float4 color;
+    float2 val;
+    step = 5;
+    line_iter = orthogonal_iter(volume, x, y, step, volume_DATA_RANGE);
+
+    color = make_float4(0);
+    tmp_val = make_float4(0);
+    tmp_val1 = make_float4(0);
+    tmp_val2 = make_float4(0);
+    val = make_float2(0);
+    for(float3 elem = line_iter.begin(); line_iter.hasNext(); ){
+        val = linear_query_3d<float4>(volume, elem, volume_DATA_RANGE);
+        tmp_val1 = transfer(val.x);
+        tmp_val2 = transfer(val.y,1);
+
+        tmp_val = ch_binder(tmp_val1, tmp_val2);
+
+        color = alpha_compositing_tmp(color, tmp_val);
+
+        if( color.w > 253){
+            break;
+
+        }
+        elem = line_iter.next();
+    }
+    color = alpha_compositing_tmp3(color, make_float4(255,255,255,255));
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = RGBA(color);
+    return;
+
+}
+
+return dtype: RGBA
+target:CUDA

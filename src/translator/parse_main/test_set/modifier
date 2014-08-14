@@ -1,0 +1,13 @@
+test_input:
+def main():
+	c = function7(a, b, x, y, 5).modifier(c, size=(5,5), dtype=float, split=(2,2))
+                                .modifier(a, size=(5,5), dtype=float, split=(2,1))
+                                .modifier(b, size=(5,5), dtype=float, split=(1,2))
+								.execid(ddd)
+	print "Hello"
+test_output:
+c = VIVALDI_WRITE('c', run_function(func_name='function7', args=['a', 'b', 'x', 'y', '5'], execid=ddd, modifier_dict={'a':{'dtype':float,'split':(2,1),'size':(5,5)},'b':{'dtype':float,'split':(1,2),'size':(5,5)},'c':{'dtype':float,'split':(2,2),'size':(5,5)}}))
+print "Hello"
+
+
+# Not use 

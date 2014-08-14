@@ -1,0 +1,8 @@
+test_input:
+def main():
+	a = func(b).range(x=0:10,y=0:20)
+	print "Hello"
+test_output:
+def main():
+	a = VIVALDI_WRITE('a', run_function(return_name='a', func_name='func', args=['b'], execid=[], work_range={'y':(0,20),'x':(0,10)}))
+	print "Hello"

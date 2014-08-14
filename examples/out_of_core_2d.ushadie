@@ -1,0 +1,30 @@
+import numpy
+from scipy import misc
+
+def heatflow(image, x, y):
+	ret = point_query_2d(image,x,y)
+	return ret
+
+def maximum(front,back,x,y):
+	a = point_query_2d(front,x,y)
+	b = point_query_2d(back,x,y)
+
+	max = 0
+	if a < b: max = b
+	else: max = a
+	return max 
+
+def main():
+
+	print "+++ Loading image ..."
+	image = load_data_2d(DATA_PATH+'big_data/big_data.dat', dtype=float, out_of_core=True)
+
+	print "+++ Loading Done!"
+	EEEE = heatflow(image, x, y).range(x=0:6,y=0:6).split(image, y=2).halo(image,0).dtype(image,float).merge(maximum, 'adsf')
+#	EEEE = heatflow(image, x, y).range(x=0:6,y=0:6).split(image, y=2).halo(image,1).dtype(image,float).merge(maximum, 'adsf')
+
+	print "+++ Done! +++"
+	print "   "
+
+	print EEEE
+	print "+++ Done! +++"

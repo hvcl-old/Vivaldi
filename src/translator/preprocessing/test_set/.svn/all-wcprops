@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/Vivaldi/!svn/ver/86/src/translator/preprocessing/test_set
+END
+stretch3
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/Vivaldi/!svn/ver/4/src/translator/preprocessing/test_set/stretch3
+END
+comment
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/Vivaldi/!svn/ver/4/src/translator/preprocessing/test_set/comment
+END
+line_break_simple
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/Vivaldi/!svn/ver/4/src/translator/preprocessing/test_set/line_break_simple
+END
+line_break_tuple
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/Vivaldi/!svn/ver/4/src/translator/preprocessing/test_set/line_break_tuple
+END
+line_break_backslash
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/Vivaldi/!svn/ver/4/src/translator/preprocessing/test_set/line_break_backslash
+END
+line_break_list
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/Vivaldi/!svn/ver/4/src/translator/preprocessing/test_set/line_break_list
+END
+semicolon
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/Vivaldi/!svn/ver/4/src/translator/preprocessing/test_set/semicolon
+END
+simple
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/Vivaldi/!svn/ver/4/src/translator/preprocessing/test_set/simple
+END
+edge_detection_city
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/Vivaldi/!svn/ver/4/src/translator/preprocessing/test_set/edge_detection_city
+END
+test_list
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Vivaldi/!svn/ver/86/src/translator/preprocessing/test_set/test_list
+END
+stretch1
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/Vivaldi/!svn/ver/4/src/translator/preprocessing/test_set/stretch1
+END
+line_break_dict
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/Vivaldi/!svn/ver/4/src/translator/preprocessing/test_set/line_break_dict
+END
+stretch2
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/Vivaldi/!svn/ver/4/src/translator/preprocessing/test_set/stretch2
+END

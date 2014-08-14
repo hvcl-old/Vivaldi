@@ -1,0 +1,7 @@
+
+
+# how to start
+# shadie ..../exampe/helloworld.ushadie
+
+def main():
+	print "Hello, World"

@@ -1,0 +1,8 @@
+test_input:
+def main():
+	a = func(b).dtype(b,float)
+	print "Hello"
+test_output:
+def main():
+	a = VIVALDI_WRITE('a', run_function(return_name='a', func_name='func', args=['b'], execid=[], dtype_dict={'b':'float_volume'}))
+	print "Hello"

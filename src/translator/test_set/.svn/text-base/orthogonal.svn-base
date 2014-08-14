@@ -1,0 +1,157 @@
+test_input:
+def mip(volume, x, y):
+    step = 1.0
+    line_iter = orthogonal_iter(volume, x, y, step)
+
+    max = 0.0
+    for elem in line_iter:
+        val = linear_query_3d(volume, elem)
+        if max < val:
+            max = val
+    return max
+def main():
+    volume = load_data_3d(DATA_PATH+'/CThead.dat')
+
+    LoadMatrix("ModelView")
+    LoadIdentity()
+    Rotate(90, 0, 1, 1)
+    Translate(-128, -128, 0)
+
+    result = mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume, short)
+    save_image(result,'orthogonal_1.png',normalize=True)
+test_output:
+* main
+******************************************
+def main():
+    volume = VIVALDI_WRITE('volume', load_data_3d(DATA_PATH+'/CThead.dat'))
+
+    LoadMatrix("ModelView")
+    LoadIdentity()
+    Rotate(90, 0, 1, 1)
+    Translate(-128, -128, 0)
+
+    result = VIVALDI_WRITE('result', run_function(return_name='result', func_name='mip', args=['volume', 'x', 'y'], execid=[], work_range={'y':(-256,256),'x':(-256,256)}, dtype_dict={'volume':'short_volume'}))
+    save_image(result,'orthogonal_1.png',normalize=True)
+
+* mipshort
+******************************************
+__global__ void mipshort(float* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, short* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    line_iter line_iter;
+    float step;
+    float max;
+    step = 1.0;
+    line_iter = orthogonal_iter(volume, x, y, step, volume_DATA_RANGE);
+
+    max = 0.0;
+    for(float3 elem = line_iter.begin(); line_iter.hasNext(); ){
+        float val;
+        val = linear_query_3d<float>(volume, elem, volume_DATA_RANGE);
+        if( max < val){
+            max = val;
+        }
+        elem = line_iter.next();
+    }
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = max;
+    return;
+}
+
+return dtype: float
+* mipshort3
+******************************************
+__global__ void mipshort3(float* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, short3* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    line_iter line_iter;
+    float step;
+    float max;
+    step = 1.0;
+    line_iter = orthogonal_iter(volume, x, y, step, volume_DATA_RANGE);
+
+    max = 0.0;
+    for(float3 elem = line_iter.begin(); line_iter.hasNext(); ){
+        float3 val;
+        val = linear_query_3d<float3>(volume, elem, volume_DATA_RANGE);
+        if( max < val){
+            max = val;
+        }
+        elem = line_iter.next();
+    }
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = max;
+    return;
+}
+
+return dtype: float
+* mipshort2
+******************************************
+__global__ void mipshort2(float* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, short2* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    line_iter line_iter;
+    float step;
+    float max;
+    step = 1.0;
+    line_iter = orthogonal_iter(volume, x, y, step, volume_DATA_RANGE);
+
+    max = 0.0;
+    for(float3 elem = line_iter.begin(); line_iter.hasNext(); ){
+        float2 val;
+        val = linear_query_3d<float2>(volume, elem, volume_DATA_RANGE);
+        if( max < val){
+            max = val;
+        }
+        elem = line_iter.next();
+    }
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = max;
+    return;
+}
+
+return dtype: float
+* mipshort4
+******************************************
+__global__ void mipshort4(float* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, short4* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    line_iter line_iter;
+    float step;
+    float max;
+    step = 1.0;
+    line_iter = orthogonal_iter(volume, x, y, step, volume_DATA_RANGE);
+
+    max = 0.0;
+    for(float3 elem = line_iter.begin(); line_iter.hasNext(); ){
+        float4 val;
+        val = linear_query_3d<float4>(volume, elem, volume_DATA_RANGE);
+        if( max < val){
+            max = val;
+        }
+        elem = line_iter.next();
+    }
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = max;
+    return;
+}
+
+return dtype: float
+
+target:CUDA

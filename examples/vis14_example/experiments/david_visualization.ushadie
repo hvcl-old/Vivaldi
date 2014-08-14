@@ -1,0 +1,39 @@
+def render(volume, x, y):
+	step = 0.4 
+	line_iter = orthogonal_iter(volume, x, y, step)
+	
+	color = make_float4(0)
+	tmp_val = make_float4(0)
+	flag = 0
+	for elem in line_iter:
+		if flag == 0:
+			color = make_float4(0)
+			flag = 1
+		val = linear_query_3d(volume, elem)
+		tmp_val = transfer(val)
+
+		color = alpha_compositing_tmp(color, tmp_val)
+
+	color = alpha_compositing_tmp3(color, make_float4(255))
+
+	return RGBA(color)
+
+
+def halocondition(front, back, x, y):
+
+	a = point_query_2d(front, x, y)
+	b = point_query_2d(back, x, y)
+	c = make_float4(0)
+
+	a = detech(a)
+	b = detech(b)
+	c = alpha_compositing_tmp2(a, b)
+	c = alpha_compositing_tmp3(c,make_float4(255))
+
+	return RGBA(c)
+
+def main():
+	volume = load_data_3d(DATA_PATH+'/data_for_david.dat',out_of_core=True)
+
+	enable_viewer(render(volume,x,y).range(x=-512:512,y=-512:512).dtype(volume, uchar).split(volume, z=8).merge(halocondition,'front-to-back').halo(volume,1) ,'TFF', '3D', 256)
+

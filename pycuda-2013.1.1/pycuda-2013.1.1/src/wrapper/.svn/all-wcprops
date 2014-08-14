@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/wrapper
+END
+numpy_init.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/wrapper/numpy_init.hpp
+END
+wrap_helpers.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/wrapper/wrap_helpers.hpp
+END
+wrap_cudadrv.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/wrapper/wrap_cudadrv.cpp
+END
+_pvt_struct_v2.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/wrapper/_pvt_struct_v2.cpp
+END
+_pvt_struct_v3.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/wrapper/_pvt_struct_v3.cpp
+END
+tools.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/wrapper/tools.hpp
+END
+wrap_curand.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/wrapper/wrap_curand.cpp
+END
+mempool.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/wrapper/mempool.cpp
+END
+wrap_cudagl.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/Vivaldi/!svn/ver/47/pycuda-2013.1.1/pycuda-2013.1.1/src/wrapper/wrap_cudagl.cpp
+END

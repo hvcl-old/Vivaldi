@@ -1,0 +1,3 @@
+# simple dictionary
+test_input: a = {}
+test_output: ['a', '=', '{}']

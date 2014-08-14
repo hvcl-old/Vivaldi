@@ -1,0 +1,114 @@
+###########################################################################################
+def median(volume, x, y, z):
+    # Viola's method
+	minval = 0
+    maxval = 255
+    pivot  = (minval + maxval)/2.0
+	
+	count 	= 0
+	val 	= 0
+	for trial in range(0, 8):
+		radius = 2       
+		cube_iter = make_cube_iter(x, y, z, radius)
+		count 	= 0
+		for point in cube_iter:
+			val = point_query_3d(volume, point)
+			if val > pivot:
+				count = count + 1
+	
+		if count < (2*radius+1)*(2*radius+1)*(2*radius+1)/2:
+			maxval = floorf(pivot); 
+        else:
+            minval = floorf(pivot)+1;
+		
+		pivot = (minval + maxval)/2.0;
+	
+	return floorf(pivot)
+    
+###########################################################################################
+def standard_deviation(volume, x, y, z):
+	# Specify the radius here
+	radius = 2            
+	cube_iter = make_cube_iter(x, y, z, radius)
+
+	# Calculate the average
+	sum = 0
+	total = 0
+	for point in cube_iter:
+		sum = sum + point_query_3d(volume, point)
+		total += 1
+
+	avg = sum/(total)
+
+	# Calculate the population
+	cube_iter = make_cube_iter(x,y,z, radius)
+	tmp = 0
+	std = 0
+	for point in cube_iter:
+		tmp = point_query_3d(volume, point) - avg
+		std += sqrt(tmp*tmp)
+
+	# Calculate the standard deviation
+	return avg
+	if avg == 0:
+		return 0
+	std /= avg
+	std = sqrt(std)
+	
+	return std
+###########################################################################################
+def scale(volume, value):
+    max = volume.max()
+	min = volume.min()
+	volume = (volume-min)/(max-min)*value
+ 
+###########################################################################################
+def to_float(volume, x, y, z):
+	center = make_float3(x,y,z) 
+	val = point_query_3d(volume, center)
+	
+	return val
+###########################################################################################
+
+import numpy
+
+
+def main():                                                                         
+	print "Loading data..."
+	#volume1 = load_data_3d('/home/shared/data/em_big.dat', 'uchar', out_of_core=True)
+    
+	work_range = {'x':(0,512), 'y':(0,512),'z':(0,512)}
+	
+
+	volume1 = load_data_3d('/home/shared/data/em_small.dat', 'uchar', out_of_core=True)
+
+	elem = {'x':(0,512), 'y':(0,512),'z':(60,120)}
+
+	volume2 = to_float(volume1,x,y,z).modifier(volume1, size=elem, halo=4, dtype=uchar, split=(2,1,1))
+									 .modifier(volume2, size=elem, halo=4, dtype=float, split=(2,1,1))
+
+
+	volume3 = median(volume2,x,y,z).modifier(volume2, size=elem, halo=2, dtype=float, split=(6,1,2))
+								   .modifier(volume3, size=elem, halo=0, dtype=float, split=(6,1,2))
+
+	volume4 = standard_deviation(volume3,x,y,z).modifier(volume3, size=elem, halo=2, dtype=float)
+												.modifier(volume4, size=elem, halo=0, dtype=uchar)
+
+
+
+	save_image(volume4,'result.raw',out_of_core=True) 
+
+
+	volume = bilateral(volume,x,y,z).range(volume).dtype(volume, float)
+	volume = minimum(volume,x,y,z).range(volume).dtype(volume, float)
+	volume = maximum(volume,x,y,z).range(volume).dtype(volume, float)
+	volume = bilateral(volume,x,y,z).range(volume).dtype(volume, float)
+	volume = threshold(volume,x,y,z).range(volume).dtype(volume, float)
+	volume = maximum(volume,x,y,z).range(volume).dtype(volume, float)
+
+
+
+
+
+
+	save_image(volume4,'result.raw',out_of_core=True) 

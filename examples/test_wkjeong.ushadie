@@ -1,0 +1,70 @@
+import numpy
+
+def edge_detection(image, x, y):
+	dif = linear_gradient_2d(image, x, y)
+
+	#i = 0
+	#for n in range(1,10000):
+	#	i = i+1	
+
+	len = length(dif)
+
+	return RGB(len, 0, 0)
+
+#	if length(dif) > 40: return 255 
+#	return 0 + DEVICE_NUMBER * 30
+
+def fff(front,back,x,y):
+	a = query_2d(front,x,y)
+	b = query_2d(back,x,y)
+	max = 0
+	if a < b: max = b
+	else: max = a
+	return max
+
+def main():
+
+	print "+++ Loading image ..."
+#	image = load_data_2d(DATA_PATH+'/Tile_001.png')
+	image = load_data_2d(DATA_PATH+'/flower.jpg')
+	print "+++ Loading Done!"
+	
+	# GPU test
+
+	glist = get_GPU_list(4)
+
+	print "+++ Input&out split test +++"
+	result3 = edge_detection(image, x, y).range(image).split(image, x=2, y=2).dtype(image,uchar).execid(glist)
+	synchronize()
+	print "+++ Done! +++"
+	print "   "
+
+	print "+++ Output split test +++"
+	result1 = edge_detection(image, x, y).range(image).split(result1, x=2, y=2).dtype(image,uchar).execid(glist)
+	synchronize()
+	print "+++ Done! +++"
+	print "   "
+
+	print "+++ Input & output split test +++"
+	result2 = edge_detection(image, x, y).range(image).split(image, x=2, y=2).halo(image,3).dtype(image,uchar).execid(glist)
+	synchronize()
+	print "+++ Done! +++"
+	print "   "
+
+
+	print "+++ Input & output split test, halo change +++ "
+
+	synchronize()
+	result4 = edge_detection(image, x, y).range(image).split(image, x=2, y=2).halo(image,1).dtype(image,uchar).execid(glist)
+	synchronize()
+	print "+++ Done! +++"
+	print "   "
+
+	print "+++ Save image +++"
+	save_image(result1, "result1-output.png")
+	save_image(result2, "result2-inout.png")
+	save_image(result3, "result3-in.png")
+	save_image(result4, "result4-halo.png")
+	print "+++ Done! +++"
+
+

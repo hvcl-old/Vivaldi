@@ -1,0 +1,13 @@
+# simple example
+test_input:
+    radius = 2
+    cube_iter = make_cube_iter(x, y, z, radius)
+    center = make_float3(x,y,z)
+    min = point_query_3d(volume, center)
+    for point in cube_iter:
+test_output:
+	radius = 2
+    cube_iter = make_cube_iter(x, y, z, radius)
+    center = make_float3(x,y,z)
+    min = point_query_3d(volume, center)
+    for point in cube_iter:

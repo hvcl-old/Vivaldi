@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/Vivaldi/!svn/ver/4/src/translator/vi2cu_translator/functions/split_into_block_and_code/test_set
+END
+if2
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/Vivaldi/!svn/ver/4/src/translator/vi2cu_translator/functions/split_into_block_and_code/test_set/if2
+END
+simple
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/Vivaldi/!svn/ver/4/src/translator/vi2cu_translator/functions/split_into_block_and_code/test_set/simple
+END
+test_list
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/Vivaldi/!svn/ver/4/src/translator/vi2cu_translator/functions/split_into_block_and_code/test_set/test_list
+END
+if
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/Vivaldi/!svn/ver/4/src/translator/vi2cu_translator/functions/split_into_block_and_code/test_set/if
+END
+transfer_input_split
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/Vivaldi/!svn/ver/4/src/translator/vi2cu_translator/functions/split_into_block_and_code/test_set/transfer_input_split
+END

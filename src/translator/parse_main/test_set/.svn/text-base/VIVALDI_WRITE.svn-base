@@ -1,0 +1,34 @@
+test_input:
+def main():
+	a = aClass() # simplest
+	
+	aClass.x = 7 # variable in the class
+	if aClass.func() == 9: # compare operator
+		aClass.increase() # class function call
+		
+	aCalss.func2(x=3, y=7) # equal in function call
+	
+	b = func(args).modifier() # VIVALDI function
+	
+	b[0] = 0 # array access 1d
+	b[1][2] = 1 # array access 2d
+	b[1,3] = 2 # array access 2d python style
+	
+	print "Hello = " # equal symbol in string
+test_output:
+def main():
+	a = VIVALDI_WRITE('a', aClass())
+
+	aClass.x = VIVALDI_WRITE('aClass.x', 7)
+	if aClass.func() == 9:
+		aClass.increase()
+
+	aCalss.func2(x=3, y=7)
+
+	b = VIVALDI_WRITE('b', run_function(return_name='b', func_name='func', args=['args'], execid=[]))
+
+	b[0] = VIVALDI_WRITE('b[0]', 0)
+	b[1][2] = VIVALDI_WRITE('b[1][2]', 1)
+	b[1,3] = VIVALDI_WRITE('b[1,3]', 2)
+
+	print "Hello = "

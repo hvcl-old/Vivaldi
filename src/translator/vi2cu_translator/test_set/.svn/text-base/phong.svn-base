@@ -1,0 +1,94 @@
+test_intput:
+def mip(volume, x, y):
+	step = 0.4                      
+	line_iter = perspective_iter(volume, x, y, step, 226)
+	D = line_iter.direction()
+	T = 1300 
+
+	ambient = make_float3(0.05)
+	lightpos1 = make_float3( -800, 500, 128)
+	lightpos2 = make_float3( +800, 500, 128)
+	
+	for elem in line_iter:
+		temp = cubic_query_3d(volume, elem)-T
+		if temp > 0:
+			P = elem
+			Q = P
+			P = P - step * D
+
+			while length(P - Q) >  0.0001:
+				M = (P + Q) / 2
+				f = linear_query_3d(volume, M) - T
+				if f < 0:
+					P = M
+				else:
+					Q = M
+			
+			color1 = make_float3(225.0/255,204.0/255,153.0/255)
+			color2 = make_float3(1,1,1)
+			#compute lighting
+			N = -normalize(cubic_gradient_3d(volume,(P+Q)/2))
+			L1 = normalize(lightpos1 - P)
+			L2 = normalize(lightpos2 - P)
+
+			# accumulate
+			result1 = phong(L1, N, -D, color1, make_float3(1), 20, ambient)*255
+			result2 = phong(L2, N, -D, color2, make_float3(1), 20, ambient)*255
+
+			return RGB(result1 + result2)
+
+	return RGB(make_float3(0))
+test_output:
+__global__ void mipvolumeshort(RGB* rb, SHADIE_DATA_RANGE* rb_DATA_RANGE
+, short *volume, SHADIE_DATA_RANGE* volume_DATA_RANGE
+, int x_start, int x_end, int y_start, int y_end)
+	{
+	int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+	int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+	int z_hschoi = threadIdx.z + blockDim.z * blockIdx.z;
+
+	int x = x_start + x_hschoi;
+	int y = y_start + y_hschoi;
+	int z = 0;
+
+	if(x_end <= x || y_end <= y || z_hschoi >= 1 )return;
+	float step =  0.4;
+	make_line_iter line_iter =  perspective_iter(volume, x, y, step, 226, volume_DATA_RANGE);
+	float3 D =  line_iter.direction();
+	float T =  1300;
+	float3 ambient =  make_float3(0.05);
+	float3 lightpos1 =  make_float3( -800, 500, 128);
+	float3 lightpos2 =  make_float3( +800, 500, 128);
+	for(float3 elem = line_iter.begin();line_iter.hasNext();){
+		float temp =  cubic_query_3d<float>(volume, elem, volume_DATA_RANGE)-T;
+		if( temp > 0){
+			float3 P =  elem;
+			float3 Q =  P;
+			P = P - step * D;
+			while( length(P - Q) >  0.0001){
+				float3 M =  (P + Q) / 2;
+				float f =  linear_query_3d<float>(volume, M, volume_DATA_RANGE) - T;
+				if( f < 0){
+					P = M;
+				}
+				else{
+					Q = M;
+				}
+			}
+			float3 color1 =  make_float3(225.0/255,204.0/255,153.0/255);
+			float3 color2 =  make_float3(1,1,1);
+			float3 N =  normalize(cubic_gradient_3d<float>(volume,(P+Q)/2, volume_DATA_RANGE));
+			N = -N;
+			float3 L1 =  normalize(lightpos1 - P);
+			float3 L2 =  normalize(lightpos2 - P);
+			float3 result1 =  phong(L1, N, -D, color1, make_float3(1), 20, ambient)*255;
+			float3 result2 =  phong(L2, N, -D, color2, make_float3(1), 20, ambient)*255;
+			rb[(z-rb_DATA_RANGE->start.z)*(rb_DATA_RANGE->end.y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)+(x-rb_DATA_RANGE->start.x)] = RGB(result1 + result2);
+			return;
+		}
+		elem = line_iter.next();
+	}
+	rb[(z-rb_DATA_RANGE->start.z)*(rb_DATA_RANGE->end.y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)+(x-rb_DATA_RANGE->start.x)] = RGB(make_float3(0));
+	return;
+
+	}

@@ -1,0 +1,2 @@
+test_input: tmp = ((b+c) + sqrt(-b*b -c*c + 2.0*b*c + 2.0*s*s))*0.5
+test_output: ['tmp', '=', '((b+c) + sqrt(-b*b -c*c + 2.0*b*c + 2.0*s*s))', '*', '0', '.', '5']

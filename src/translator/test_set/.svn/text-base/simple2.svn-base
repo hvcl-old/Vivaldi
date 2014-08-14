@@ -1,0 +1,76 @@
+test_input:
+def func(volume,x,y):
+	return linear_query_3d(volume,x,y)
+def main():
+	volume = load_data_3d('...')
+	result = func(volume, x, y).range(x=0:10,y=0:10).dtype(volume,float)
+	print "Hello"
+test_output:
+* main
+******************************************
+def main():
+    volume = VIVALDI_WRITE('volume', load_data_3d('...'))
+    result = VIVALDI_WRITE('result', run_function(return_name='result', func_name='func', args=['volume', 'x', 'y'], execid=[], work_range={'y':(0,10),'x':(0,10)}, dtype_dict={'volume':'float_volume'}))
+    print "Hello"
+
+* funcfloat4
+******************************************
+__global__ void funcfloat4(float4* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, float4* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = linear_query_3d<float4>(volume,x,y, volume_DATA_RANGE);
+    return;
+}
+
+return dtype: float4
+* funcfloat2
+******************************************
+__global__ void funcfloat2(float2* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, float2* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = linear_query_3d<float2>(volume,x,y, volume_DATA_RANGE);
+    return;
+}
+
+return dtype: float2
+* funcfloat
+******************************************
+__global__ void funcfloat(float* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, float* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = linear_query_3d<float>(volume,x,y, volume_DATA_RANGE);
+    return;
+}
+
+return dtype: float
+* funcfloat3
+******************************************
+__global__ void funcfloat3(float3* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, float3* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, int x_start, int x_end, int y_start, int y_end) {
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = linear_query_3d<float3>(volume,x,y, volume_DATA_RANGE);
+    return;
+}
+
+return dtype: float3
+target:CUDA

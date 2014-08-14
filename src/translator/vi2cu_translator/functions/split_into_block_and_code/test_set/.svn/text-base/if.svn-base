@@ -1,0 +1,54 @@
+test_input:
+    a1 = point_query_3d(sol, x-1, y, z)
+    a2 = point_query_3d(sol, x+1, y, z)
+    b1 = point_query_3d(sol, x, y-1, z)
+    b2 = point_query_3d(sol, x, y+1, z)
+    c1 = point_query_3d(sol, x, y, z-1)
+    c2 = point_query_3d(sol, x, y, z+1)
+    s = point_query_3d(spd, x, y, z)
+    a = min(a1,a2)
+    b = min(b1,b2)
+    c = min(c1,c2)
+    if b<c :
+        t = b
+        b = c
+        c = t
+    if a<b:
+        t = a
+        a = b
+        b = t
+        if b<c:
+            t = b
+            b = c
+            c = t
+    tSol = 1000000
+test_output:
+#code
+
+    a1 = point_query_3d(sol, x-1, y, z)
+    a2 = point_query_3d(sol, x+1, y, z)
+    b1 = point_query_3d(sol, x, y-1, z)
+    b2 = point_query_3d(sol, x, y+1, z)
+    c1 = point_query_3d(sol, x, y, z-1)
+    c2 = point_query_3d(sol, x, y, z+1)
+    s = point_query_3d(spd, x, y, z)
+    a = min(a1,a2)
+    b = min(b1,b2)
+    c = min(c1,c2)
+    if b<c :
+#code
+    if a<b:
+#code
+    tSol = 1000000
+#block
+        t = b
+        b = c
+        c = t
+#block
+        t = a
+        a = b
+        b = t
+        if b<c:
+            t = b
+            b = c
+            c = t

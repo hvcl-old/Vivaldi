@@ -1,0 +1,3 @@
+# simple if
+test_input: if a is b: 
+test_output: ['if', 'a', 'is', 'b', ':']

@@ -1,0 +1,37 @@
+import numpy
+from scipy import misc
+
+def heatflow(image, x, y):
+	a = laplacian(image, x, y)
+	ret = point_query_2d(image, x, y)
+
+	dt =  0.000025
+
+	for i in range(10000):
+		ret = ret + dt*a
+
+	return ret
+
+def main():
+
+	print "+++ Loading image ..."
+	image = load_data_2d(DATA_PATH+'flower.jpg',float)
+#	image = load_data_2d(DATA_PATH+'/Tile_001.png', float)
+	print "+++ Loading Done!"
+
+	# GPU test
+
+	print "+++ Input & output split test +++"
+
+	glist = get_GPU_list(1)
+
+
+	# split
+	image2 = heatflow(image, x, y).range(image, halo=0).halo(image,0).dtype(image,float).execid(glist).split(image2, x=2,y=2)
+	save_image(image2)
+	image2 = heatflow(image, x, y).range(image, halo=0).halo(image,5).dtype(image,float).execid(glist).split(image2, x=2,y=2)
+	save_image(image2)
+	image2 = heatflow(image, x, y).range(image, halo=10).halo(image,0).dtype(image,float).execid(glist).split(image2, x=2,y=2)
+	save_image(image2)
+	image2 = heatflow(image, x, y).range(image, halo=5).halo(image,10).dtype(image,float).execid(glist).split(image2, x=2,y=2)
+	save_image(image2)

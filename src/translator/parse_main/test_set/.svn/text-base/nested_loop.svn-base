@@ -1,0 +1,74 @@
+test_input:
+def main():
+    # --------------------------------------------------------------------------------
+    # Create volume array
+    dimx = 512
+    dimy = 512
+    # Weak test: 512 1024 2048 4096 7168
+    dimz = 1568#1536 #1024 #256
+    volume = numpy.random.rand(dimz, dimy, dimx).astype(numpy.float32)
+
+    print "Dimension    : ", dimx, dimy, dimz
+    print "Volume shape : ", volume.shape
+
+    # --------------------------------------------------------------------------------
+    # Number of GPUs for experiment
+    #!!!
+    gpu_list = get_GPU_list(14)
+
+    # Initialize the data allocation
+    #!!!
+    volume = init(volume,x,y,z).halo(volume,8).range(volume).dtype(volume,float).execid(gpu_list).split(volume, z=14).output_halo(8)
+    synchronize()
+
+     # Time measure the heatflow kernel
+    total = 8
+    halo = 1
+    loop = total/halo
+    start = time.time()
+    for i in range(loop):
+        for j in range(halo):
+            volume = heatflow(volume, x, y, z).range(volume).halo(volume,halo-j).execid(gpu_list).split(volume,z=14).dtype(volume, float).output_halo(halo-1-j)
+
+    synchronize()
+    stop = time.time()
+
+    elapsed = stop - start
+    print "Execution time (s): ", elapsed
+test_output:
+def main():
+
+
+	dimx = VIVALDI_WRITE('dimx', 512)
+	dimy = VIVALDI_WRITE('dimy', 512)
+
+	dimz = VIVALDI_WRITE('dimz', 1568)
+	volume = VIVALDI_WRITE('volume', numpy.random.rand(dimz, dimy, dimx).astype(numpy.float32))
+
+	print "Dimension	: ", dimx, dimy, dimz
+	print "Volume shape : ", volume.shape
+
+
+
+
+	gpu_list = VIVALDI_WRITE('gpu_list', get_GPU_list(14))
+
+
+
+	volume = VIVALDI_WRITE('volume', run_function(return_name='volume', func_name='init', args=['volume', 'x', 'y', 'z'], execid=gpu_list, work_range=volume, output_halo=8, split_dict={'volume':{'z':14}}, halo_dict={'volume':8}, dtype_dict={'volume':'float_volume'}))
+	synchronize()
+
+
+	total = VIVALDI_WRITE('total', 8)
+	halo = VIVALDI_WRITE('halo', 1)
+	loop = VIVALDI_WRITE('loop', total/halo)
+	start = VIVALDI_WRITE('start', time.time())
+	for i in range(loop):
+		for j in range(halo):
+			volume = VIVALDI_WRITE('volume', run_function(return_name='volume', func_name='heatflow', args=['volume', 'x', 'y', 'z'], execid=gpu_list, work_range=volume, output_halo=halo-1-j, split_dict={'volume':{'z':14}}, halo_dict={'volume':halo-j}, dtype_dict={'volume':'float_volume'}))
+
+	synchronize()
+	stop = VIVALDI_WRITE('stop', time.time())
+
+	elapsed = VIVALDI_WRITE('elapsed', stop - start)
+	print "Execution time (s): ", elapsed

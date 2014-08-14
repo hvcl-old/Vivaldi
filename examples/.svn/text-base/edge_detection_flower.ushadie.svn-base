@@ -1,0 +1,88 @@
+# It was written by Choi Heung-seok, woslakfh1@gmail.com
+#
+# This example shows 4 method to edge detection.
+# First, ordinary method using a GPU
+# Second, ordinary method but only part of image
+# Third, parallel method using screen decomposition and prepared compositing function
+# Last, parallel method  using data decomposition and custom compositing function
+
+# you can test using 'vivladi edge_detection_flower.uvivladi'
+# 'flower.jpg' is uesd and the size is 240 width and 210 height.
+# result images are saved at $vivladi_path/py-src/result
+#
+#---------------------------------------------------------------------------------------------------
+
+# user can import python modules because our language based on python
+import numpy
+
+# user defined image filter function
+# this functions will be applied per pixel
+def edge_detection(image, x, y):
+	# get linear gradient of 2d rgb image at x, y position
+	# than it will return x and y direction gradient of rgb value
+	dif = linear_gradient_2d(image, x, y)
+	# edge detection need float type return value
+	# so use length function for make one float value from x and y direction gradient values
+	# return value of length is sqrt(dot(dif,dif))
+	if length(dif) > 20: return 255
+	return 0
+
+
+# user defined compositing function
+# only user defined function which require two volumes as input can be compositing function
+def maximum(front,back,x,y):
+	# query_2d function read value in the nearest position at the volume 
+	a = point_query_2d(front,x,y)
+	b = point_query_2d(back,x,y)
+	max = 0
+	if a < b: max = b
+	else: max = a
+	return max
+
+
+# UeberShadie always start from main
+# end after every tasks created done
+def main():
+	# load 2d rgb type data 'flower.jpg' at specified path
+	# and save loaded image as user defined type like numpy.float32
+	# DATA_PATH is vivladi environment variable. 
+	# it is defined to $vivladi_path/data
+	image = load_data_2d(DATA_PATH+'/flower.jpg')
+
+	# use GPU list which user specified to execute user defined function 'edge_detection' using execid modifier
+	# and below range,x=[0:240),y=[0:240), will be used to projection range
+	result = edge_detection(image, x, y).range(image).dtype(image, uchar)
+
+	# save contents in the variable 'result', output of 'edge_detection' executed
+	# the saved image exist in the result folder in the $vivladi_path/py-src/result
+	# saved result will be edge_detection of 240 width and 210 height and saved file name will be 'full_size.png'
+	synchronize()
+	save_image(result,'full_flower.png')
+	
+	#---------------------------------------------------------------------------------------------------------
+	# draw only a part of the image
+	# from x=0:100 will be not drawn and only x=100:140 will be drawn.
+	# therefore result saved image will be 140 width and 110 height.
+	result = edge_detection(image, x, y).range(x=100:240,y=110:210).dtype(image, uchar)
+	save_image(result,'part_of_size.png')
+
+	#---------------------------------------------------------------------------------------------------------
+	# edge_detection will be executed in parallel using screen decomposition method.
+	# after rednering, four small size of images will be stored in the rendered GPU.
+	# so we need to addtional compositing step for make full size image.
+	result = edge_detection(image, x, y).range(image).dtype(image, uchar).split(result,x=2,y=2)
+	# Merge function makes a bunch of task which merge two images to one using sepcified function
+	# for small size images have 120 width and 105 height, result will be 240 width and 210 height.
+	# This function need name of divided variable, compositing function name to use for merge 
+	
+	synchronize()
+	save_image(result,'screen_decomposition.png')
+
+#	synchronize()
+	#---------------------------------------------------------------------------------------------------------
+	# edge_detection will be executed in parallel using data decomposition method.
+	# after rendering, same size four images sotred in the rendered GPU.
+	# so we need additional merge step for make full size image.
+	result = edge_detection(image, x, y).range(image).dtype(image, uchar).halo(image,1).split(image,x=2,y=2).merge(maximum, 'front-to-back')
+	synchronize()
+	save_image(result,'data_decomposition.png')
