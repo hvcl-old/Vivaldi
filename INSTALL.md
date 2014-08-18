@@ -28,16 +28,25 @@ Download and install CUDA on one node
 Download and install CMake on one node
 =======
 
+Add ssh-key across nodes
+=======
+```bash
+cd ~
+ssh-keygen -t rsa
+chmod 700 .ssh
+cd  ~/.ssh
+cp id_rsa.pub authorized_keys
+chmod 640 authorized_keys
+```
+
 Propagate to other nodes
 =======
 ```bash
 #!/bin/bash
-
 for i in {1..7}
 do
-        ssh -t ferrari$i "cd ~/openmpi-1.8.1/build; echo password|sudo -S make all install; pwd"
+    ssh -t ferrari$i "cd ~/openmpi-1.8.1/build; echo password|sudo -S make all install; pwd"
 done
-~
 ```
 
 
