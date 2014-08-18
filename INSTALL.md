@@ -30,6 +30,16 @@ Download and install CMake on one node
 
 Propagate to other nodes
 =======
+```bash
+#!/bin/bash
+
+for i in {1..7}
+do
+        ssh -t ferrari$i "cd ~/openmpi-1.8.1/build; echo password|sudo -S make all install; pwd"
+done
+~
+```
+
 
 Modify ~/.bash_profile
 =======
