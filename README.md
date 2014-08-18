@@ -5,8 +5,8 @@ VIsualization LAnguage for DIstributed sytstems
 
 Contact
 =======
-wkjeong@unist.ac.kr
-woslakfh1@unist.ac.kr
+-- wkjeong@unist.ac.kr
+-- woslakfh1@unist.ac.kr
 
 
 Basic git commands
