@@ -9,6 +9,7 @@ What is VIVALDI
 VIVALDI is domain specific language for heterogeneous computing system
 
 *From Anu*
+
 VIVALDI is domain specific language on hybrid computing system. It works
 with code that you wrote, the code can be written by users easily. It supports
 some build-in functions, it enable to load data. 
@@ -358,10 +359,11 @@ ex) func().execid( gpu_list )
 ex) func().split(x=2,y=2)
 
 
-**4. merge: select function and order for merge input decomposition result
-	order list **
+**4. merge: select function and order for merge input decomposition result**
 
-		front-to-back: front data first and back data last
+*order list*
+
+front-to-back: front data first and back data last
 
 ex) func().merge(func_name, 'front-to-back')
 
@@ -379,22 +381,23 @@ ex) func().halo(image, 3)
 
 form: 	.dtype(image, dtype).dtype(imag2, RGB)
 
-available dtypes:
-	char:
+*available dtypes :*
 
-	uchar: 1 bytes unsigned integer (0 to 255)
+char:
 
-	short: 2 bytes integer (-32768 to 32767)
+uchar: 1 bytes unsigned integer (0 to 255)
 
-	ushort: 2 bytes unsigned integer (0 to 65535)
+short: 2 bytes integer (-32768 to 32767)
 
-	int: 4 bytes integer (-2147483648 to 2147483647)
+ushort: 2 bytes unsigned integer (0 to 65535)
 
-	uint: 4 bytes unsigned integer (0 to 4294967296)
+int: 4 bytes integer (-2147483648 to 2147483647)
 
-	float: 4 bytes, single precision float, sign bit, 8 bits exponent, 23 bits mantissa
+uint: 4 bytes unsigned integer (0 to 4294967296)
 
-	double: 8 bytes, double precision float, sign bit, 11 bits exponents, 52 bits mantissa
+float: 4 bytes, single precision float, sign bit, 8 bits exponent, 23 bits mantissa
+
+double: 8 bytes, double precision float, sign bit, 11 bits exponents, 52 bits mantissa
 	
 ex) func().dtype(image, short)
 
