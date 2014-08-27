@@ -14,6 +14,9 @@ def main():
         result = function()
         print result
 ```
+```bash
+vivaldi helloworld.vvl
+```
 **Result**
 ```
 Hello, world!
@@ -62,11 +65,14 @@ def main():
 ```
 **Original**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/aa.jpg?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9hYS5qcGciLCJleHBpcmVzIjoxNDA5MjEwNzc5fQ%3D%3D--8a34d432bd73868779898a451aeb2b06a8ccc335)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/aa.jpg?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9hYS5qcGciLCJleHBpcmVzIjoxNDA5ODkxMDAzfQ%3D%3D--d3c340b997f7ff7a8c4f3bb8c2e337213cba8816)
+
+Colorful Pencils by Petr Kratochvil
 
 **Result**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/aa.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9hYS5wbmciLCJleHBpcmVzIjoxNDA5MjEwODE2fQ%3D%3D--66b78b06206f3737025cb272a18ea54a398b7d37)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/aa.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9hYS5wbmciLCJleHBpcmVzIjoxNDA5ODkxMDQwfQ%3D%3D--48311b2444794436aeee670ac7c5c62a43860090)
+
 
 #3. 2D and 3D	
 ##3.1. MAKE POINT
@@ -102,11 +108,11 @@ def main():
 
 **Reult**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/color1.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9jb2xvcjEucG5nIiwiZXhwaXJlcyI6MTQwOTIxMDg1MH0%3D--533fd16b69cd1211f792a6522fddfc7a411c064d)
+![gradation1](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/color1.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9jb2xvcjEucG5nIiwiZXhwaXJlcyI6MTQwOTg5MTA5M30%3D--57184d962a989e2b2f2b6e8a82f8f37c7ec46ad0)
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/color2.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9jb2xvcjIucG5nIiwiZXhwaXJlcyI6MTQwOTIxMDg3N30%3D--5990238a563aec7710791d10e814df10463fc7be)
+![gradation2](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/color2.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9jb2xvcjIucG5nIiwiZXhwaXJlcyI6MTQwOTg5MTEyNn0%3D--9605413a0efc388abe0659029b77b6c8f900c97f)
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/color3.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9jb2xvcjMucG5nIiwiZXhwaXJlcyI6MTQwOTIxMDg5MX0%3D--49739138d0433bab50b91ba8024503f3c5d94436)
+![gradation3](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/color3.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9jb2xvcjMucG5nIiwiZXhwaXJlcyI6MTQwOTg5MTE0M30%3D--90eefdefcdb9ccec3f0f47b304c8d75cbec24b65)
 
 ##3.2. SAMPLERS	
  Since input data is defined on a rectilinear grid, Vivaldi provides various memory object samplers for hardware-accelerated interpolation.
@@ -138,10 +144,12 @@ def main():
 **Result**
 
 Point query 2d
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/pq2.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9wcTIucG5nIiwiZXhwaXJlcyI6MTQwOTIxODY4MH0%3D--ae8aebad5fa5660096e002711ab724bdaf807204)
+
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/pq2.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9wcTIucG5nIiwiZXhwaXJlcyI6MTQwOTg5MTE3MX0%3D--84d3cef3d7ac5fc558e71dc43d11320d3b4bd18f)
 
 Linear query 2d
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/lq2.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9scTIucG5nIiwiZXhwaXJlcyI6MTQwOTIxODY0Mn0%3D--8518e08ec1f3cd75e5edfc70fe5152dbb6ecdb72)
+
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/lq2.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9scTIucG5nIiwiZXhwaXJlcyI6MTQwOTg5MTE5MH0%3D--f2a1b56fed2f1727c93f941b811aeba976e63466)
 
 ### 3D QUERY	
 - point_query_3d(T* volume, float3 p)
@@ -323,22 +331,25 @@ def main():
 ```
 **Original**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/origin.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9vcmlnaW4ucG5nIiwiZXhwaXJlcyI6MTQwOTIxOTY2N30%3D--c53600d21d0f206888e2cd754bd08efe0c54acc5)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/origin.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9vcmlnaW4ucG5nIiwiZXhwaXJlcyI6MTQwOTg5MTI0Mn0%3D--bfc03fe51fe1401cabc950c4dd5b14a3290bf31b)
+
+Colorful Pencils by Petr Kratochvil
 
 **Reflect**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/reflect.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9yZWZsZWN0LnBuZyIsImV4cGlyZXMiOjE0MDkyMTE5NzZ9--5df4472a4c56dd45e56b6f1eb769a326e32bbd30)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/reflect.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9yZWZsZWN0LnBuZyIsImV4cGlyZXMiOjE0MDk4OTEzMzZ9--93f0d8ef0ac33d85eebdb4478fd66da0c27badc7)
 
 **Reflect_101**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/reflect_101.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9yZWZsZWN0XzEwMS5wbmciLCJleHBpcmVzIjoxNDA5MjEyMDEwfQ%3D%3D--d7716a49249535f1d29341cd4efe3c5133da907b)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/reflect_101.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9yZWZsZWN0XzEwMS5wbmciLCJleHBpcmVzIjoxNDA5ODkxMzU1fQ%3D%3D--fd62dc06288269180536d27d98565e3a0492dc5e)
 
 **Replicate**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/replicate.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9yZXBsaWNhdGUucG5nIiwiZXhwaXJlcyI6MTQwOTIxMjA0MX0%3D--095cf43b3650783731f2f54e2ce155a55699eeb3)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/replicate.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9yZXBsaWNhdGUucG5nIiwiZXhwaXJlcyI6MTQwOTg5MTM2OH0%3D--aa736534ea4862255addf9adc41679d1e9f873cd)
 
 **Wrap**
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/wrap.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS93cmFwLnBuZyIsImV4cGlyZXMiOjE0MDkyMTIwNjd9--927b91d583681f66d72f7a1ceccca4036a94a87c)
+
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/wrap.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS93cmFwLnBuZyIsImV4cGlyZXMiOjE0MDk4OTEzODR9--28cb092831bb2ecc65bd0ff322a20c347fb87fde)
 
 #4. ITERATORS	
  Vivaldi provides several iterator abstractions to access neighborhood values near each data location. ***User-defined iterators*** are used for iteration on *line-*, *plane-*, and *cube-* shaped neighborhood regions.
@@ -425,11 +436,13 @@ def main():
 
 **Original**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/dd.jpg?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9kZC5qcGciLCJleHBpcmVzIjoxNDA5MjEyMTUwfQ%3D%3D--8e31d9a49dc7bfbe0241a0b78a9508139a29f3f3)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/dd.jpg?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9kZC5qcGciLCJleHBpcmVzIjoxNDA5ODkxNDM4fQ%3D%3D--45b7fac15a8bf9dc66359b5feedef0283de93d97)
+
+Pink Rose by Vera Kratochvil
 
 **Result**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/mean.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9tZWFuLnBuZyIsImV4cGlyZXMiOjE0MDkyMTIxMjJ9--c7398516a9af041ed4d7ce00cd01c82cc2373ad8)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/mean.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9tZWFuLnBuZyIsImV4cGlyZXMiOjE0MDk4OTE1MzZ9--a4e8e997cacd1c4511165f0c95fdb9c348d62315)
 
 ##4.3.	CUBE ITERATOR	
 Cube iterator creates a *user-defined iterator* that cube shaped which center is point **center** and radius is value of **radius**. If radius is 2, the size of cube is 5x5x5.
@@ -502,7 +515,7 @@ def main():
 
 **Result**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/orthogonal.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9vcnRob2dvbmFsLnBuZyIsImV4cGlyZXMiOjE0MDkyMTIyOTh9--e4e7ec3bbcca6252cb5364adc4dbc6c75fa7b8d7)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/orthogonal.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9vcnRob2dvbmFsLnBuZyIsImV4cGlyZXMiOjE0MDk4OTE1Nzh9--b431e138c8401b87938f226369bcd48bced616cf)
 
 **Example**
 ```python
@@ -512,7 +525,7 @@ def main():
 
 **Result**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/rotate.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9yb3RhdGUucG5nIiwiZXhwaXJlcyI6MTQwOTIxOTcxOX0%3D--9d52fc5801c707619babac96ccdb6db0447a2f49)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/rotate.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9yb3RhdGUucG5nIiwiZXhwaXJlcyI6MTQwOTg5MTYyN30%3D--ffc0004072a721ab0c296ada684046cee98ef3dd)
 
 **Example**
 ```python
@@ -521,12 +534,12 @@ def main():
 
 **Result**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/translate.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS90cmFuc2xhdGUucG5nIiwiZXhwaXJlcyI6MTQwOTIxMjQ2N30%3D--3529b390acabe283d16ba619e8631b06a83e0bc5)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/translate.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS90cmFuc2xhdGUucG5nIiwiZXhwaXJlcyI6MTQwOTg5MTY1M30%3D--8cc2c03efbfd484beb82acc0b1086634ec9e6710)
 
 ##4.5.	PERSPECTIVE ITERATOR	
 Perspective iterator creates a line iterator for a line segment defined by the intersection of a viewing ray and the 3D volume cube to be rendered.
 
-*near* is distance between viewport and eyes and size of viewport is fixed.
+*near* is distance between viewport and eyes and size of viewport is fixed. Smaller as their distance from the observer increases.
 - perspective_iter(T* volume, float2 orgin, float step, float near)
 
 **Example**
@@ -602,7 +615,7 @@ def main():
 
 **Result**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/cut.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9jdXQucG5nIiwiZXhwaXJlcyI6MTQwOTIxNzk2M30%3D--1a7f69560dd5a94a93ccfb4c66791bc22400ec96)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/cut.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9jdXQucG5nIiwiZXhwaXJlcyI6MTQwOTg5MTY5MH0%3D--b2527dba628199dd50bce9289077b4fd52358696)
 
 **Example**
 ```python
@@ -618,7 +631,7 @@ def main():
 
 **Result**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/dd.jpg?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9kZC5qcGciLCJleHBpcmVzIjoxNDA5MjE4MDA3fQ%3D%3D--6c796f875c9aa08804016a8a46ed5df076f748b3)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/dd.jpg?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9kZC5qcGciLCJleHBpcmVzIjoxNDA5ODkxNzA0fQ%3D%3D--84e54367199ec9bdaf24528c78b85f49c6f06724)
 
 ##5.2.	DTYPE
 Specify the type of input data. *DTYPE* is not always nesessary because Vivaldi automatically checks data type.
@@ -991,11 +1004,13 @@ def main():
 
 **Original**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/cc.jpg?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9jYy5qcGciLCJleHBpcmVzIjoxNDA5MjE4MjI0fQ%3D%3D--9d9fd7448546a2ebd068f6361171597c7d5cd16d)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/cc.jpg?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9jYy5qcGciLCJleHBpcmVzIjoxNDA5ODkxNzc0fQ%3D%3D--c848125514207a9addcfaee4d3355842bbc75c04)
+
+Leopard Head by Vera Kratochvil
 
 **Result**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/lg2.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9sZzIucG5nIiwiZXhwaXJlcyI6MTQwOTIxODE4OX0%3D--1391ce531f962a32026f5e25fb7f7ce870e29d09)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/lg2.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9sZzIucG5nIiwiZXhwaXJlcyI6MTQwOTg5MTc5M30%3D--2765bca6e6dbed555119a33f01f1636b5b8ab4df)
 
 **Example**
 ```python
@@ -1015,7 +1030,7 @@ def main():
 
 **Result**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/lg3_1.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9sZzNfMS5wbmciLCJleHBpcmVzIjoxNDA5MjE4Mjk2fQ%3D%3D--c34dbe8f52a0fda37d73bfd60109e4eb997ec069)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/lg3_1.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9sZzNfMS5wbmciLCJleHBpcmVzIjoxNDA5ODkxODE4fQ%3D%3D--087fbba606816632e26e61dfa3f51678f2fbbe62)
 
 **Example**
 ```python
@@ -1027,7 +1042,7 @@ def main():
 
 **Result**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/lg3_10.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9sZzNfMTAucG5nIiwiZXhwaXJlcyI6MTQwOTIxODMxM30%3D--f6389138792965d60fac83b90b14bde216060362)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/lg3_10.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9sZzNfMTAucG5nIiwiZXhwaXJlcyI6MTQwOTg5MTg0NH0%3D--1444a45658dfd8d00cad572e0514d9c809a93820)
 
 ##6.2.	LAPLACIAN	
 Second order differential operator to compute the divergence of the gradient (Laplace operator). Calculate laplacian using near 4 points.
@@ -1056,7 +1071,7 @@ def main():
 
 **Result**
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/heatflow.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9oZWF0Zmxvdy5wbmciLCJleHBpcmVzIjoxNDA5MjE4MzQ0fQ%3D%3D--c088f579a1bd987ffdecd3f7ea32d27c3f47a6b3)
+![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/heatflow.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9oZWF0Zmxvdy5wbmciLCJleHBpcmVzIjoxNDA5ODkxODY5fQ%3D%3D--6937df23bdeb510fa2bc4f30fed625330653d540)
 
 #7.	SHADING MODELS	
 Vivaldi provides two built-in shading models to easily achieve different shading effects for surface rendering.
@@ -1184,3 +1199,9 @@ def main():
 
 ![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/diffuse.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS9kaWZmdXNlLnBuZyIsImV4cGlyZXMiOjE0MDkzMDE3MTl9--0513fb58a8f54e5aa30ac7814822c908c800abde)
 
+
+
+
+
+
+*Images from PublicDomainPictures.net*

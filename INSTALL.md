@@ -224,15 +224,16 @@ Download and install Vivaldi
 
 ```bash
   $ python install.py
-  $ source ~/.bashRC
+  $ source ~/.bashrc
 ```
-Add node step by step to ferrari/hostfile
+Add node step by step to ferrari/hostfile.
 ```bash
   $ ssh ferrari0
   $ cd hostfile
   $ vi vivaldi_machinefile
 ```
-write below text and execute vivaldi code
+write below text and execute vivaldi code.
+
 In this case, ferrari0 is master node and ferrari1~7 is slave nodes.
 ```
 ferrari0.unist.ac.kr: 
@@ -240,7 +241,7 @@ ferrari0.unist.ac.kr slots=10
 -GPU=2
 -G off
 ```
-then, go to /hostfile/vivaldi_machinefile and add next node, repeatly
+then, go to /hostfile/vivaldi_machinefile and add next node, repeatly.
 ```
 ferrari0.unist.ac.kr:
 ferrari0.unist.ac.kr slots=10
@@ -250,6 +251,8 @@ ferrari0.unist.ac.kr slots=10
 ferrari1.unist.ac.kr slots=10
 -GPU=2
 -G off
+
+#and so on..
 ```
 
 
@@ -520,12 +523,15 @@ Therefore can not use ordinary mpi4py in the Vivaldi.
 How to Install are in the mpi4py folder.
 
 **PyCUDA**
+
 PyCUDA is ordinary version.
 but It is hard to install in the cluster using easy_install.
 Because I added PyCUDA in the Vivaldi.
 
 **Paper folder**
+
 They are all related to Vivaldi paper and involving .tex and etc
 
 **test_set**
+
 There are Vivaldi test set we used when developing.
