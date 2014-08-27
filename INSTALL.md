@@ -20,27 +20,47 @@ to code.
 
 How to install
 =======
-A. Install Cuda Driver and toolkit
-   CUDA > 5.5
-B. Install Library dependencies
+**A. Install Cuda Driver and toolkit**
+
+	CUDA > 5.5
+
+
+
+**B. Install Library dependencies**
+
     1.Openmpi > 1.7.2
+
     2.require libraries: easy_install PIL PyOpenGL
+
     3.PyQt4
 
-C. Install PyCUDA included in VIvaldi package
+
+
+**C. Install PyCUDA included in VIvaldi package**
+```bash
   $cd [VIVALDI_PATH]/pycuda-2013.1.1/pycuda-2013.1.1/
   $python setup.py build
   $python setup.py install
+```
+
+
 
 D. Install mpi4py included in Vivaldi package
+```bash
   $cd [VIVALDI_PATH]/mpi4py-1.3/mpi4py-1.3
   $python setup.py build
   $sudo python setup.py install
+```
+
+
 
 E. add Vivaldi PATH
+```bash
   cd [VIVALDI_PATH]
   $ python install.py
   $ source ~/.bash_profile
+```
+
 
 
 after that you can use Vivaldi command anywhere
