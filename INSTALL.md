@@ -238,42 +238,62 @@ Download and install Vivaldi
 
 How to run
 =======
-Vivaldi [programming code path] [options]
+**Vivaldi [programming code path] [options]**
 
-Usage: Vivaldi [file] [options]
+*Usage: Vivaldi [file] [options]*
+
 Options:
+
   -L
+
   -L time					Display time log
+
   -L parsing				Display parsing log
+
   -L general				Display general log
+
   -L detail					Display detail log
+
   -L image					save all intermediate results
+
   -L all					Display every log
+
   -L progress				Display which process is working with time progress
+ 
   -L retain_count			Display change of retain_count during execution
 
   -hostfile
+
   -hostfile hostfile_name	include machine list in clusters
 
   -G
+  
   -G on						turn on GPU direct(default)
+
   -G off					turn off GPU direct
 
   -B
+
   -B true					blocking data transaction
+
   -B false					non-blocking data transaction(default), it will overlap data transaction with calculation
 
   -S						scheduling algorithm
+
   -S round_robin			round_robin scheduling
+
   -S locality				locality aware scheduling, minimize data transaction.(default)
 
   -D 
+
   -D dynamic				consider working or idle of execution units for scheduling(default)
+
   -D static					not consider working or idle of execution units for scheduling
 
 
 
-examples
+*examples*
+
 ex1) Vivaldi helloworld.vvl
 hello world test
 
@@ -312,64 +332,61 @@ DATA_PATH = VIVALDI_PATH + '/VIVALDI/data/'
 # built in functions
 
 # CPU functions
-get_any_CPU(): get any CPU available
+*get_any_CPU()* : get any CPU available
 
-get_CPU_list(int n): get list of n CPUs  
+*get_CPU_list(int n)* : get list of n CPUs  
 
-get_another_CPU(int e): get any CPU except e
+*get_another_CPU(int e)* : get any CPU except e
 
 # GPU functions
-get_any_GPU: get any GPU avaiable
+*get_any_GPU* : get any GPU avaiable
 
-get_GPU_list(int n): get list of n GPUs
+*get_GPU_list(int n)* : get list of n GPUs
 
-get_another_GPU(int e): get any GPU except e
+*get_another_GPU(int e)* : get any GPU except e
 
 
 # process list
-get_processor_list(): get list of process with machine and type
+*get_processor_list()* : get list of process with machine and type
 
-synchronize(): wait until task que empty and every processes are idle
-
-
+*synchronize()* : wait until task que empty and every processes are idle
 
 
 
 Usage modifiers
 =======
 modifier is ...
-Func(args).modifier().modifier()
+**Func(args).modifier().modifier()**
 
 
-
-**1. range: output size, output halo can be added here for in and in&out split**
+**1. range : output size, output halo can be added here for in and in&out split**
 
 ex) func().range(x=0:123,y=-100:100,halo=..)
 
 
-**2. execid: specifies execution device list**
+**2. execid : specifies execution device list**
 
 ex) func().execid( gpu_list )
 
 
 
-**3. split: decompose tasks using input, output or in&output method**
+**3. split : decompose tasks using input, output or in&output method**
 	output and in&output case, vivaldi automatically collect image
 
 ex) func().split(x=2,y=2)
 
 
-**4. merge: select function and order for merge input decomposition result**
+**4. merge : select function and order for merge input decomposition result**
 
 *order list*
 
-front-to-back: front data first and back data last
+front-to-back : front data first and back data last
 
 ex) func().merge(func_name, 'front-to-back')
 
 
 
-**5. halo: add boundary to input decomposed data**
+**5. halo : add boundary to input decomposed data**
 
 form:	.halo(data_name, halo_size)
 
@@ -377,27 +394,27 @@ ex) func().halo(image, 3)
 
 
 
-**6. dtype: specify data type of object in the function execution**
+**6. dtype : specify data type of object in the function execution**
 
 form: 	.dtype(image, dtype).dtype(imag2, RGB)
 
 *available dtypes :*
 
-char:
+char :
 
-uchar: 1 bytes unsigned integer (0 to 255)
+uchar : 1 bytes unsigned integer (0 to 255)
 
-short: 2 bytes integer (-32768 to 32767)
+short : 2 bytes integer (-32768 to 32767)
 
-ushort: 2 bytes unsigned integer (0 to 65535)
+ushort : 2 bytes unsigned integer (0 to 65535)
 
-int: 4 bytes integer (-2147483648 to 2147483647)
+int : 4 bytes integer (-2147483648 to 2147483647)
 
-uint: 4 bytes unsigned integer (0 to 4294967296)
+uint : 4 bytes unsigned integer (0 to 4294967296)
 
-float: 4 bytes, single precision float, sign bit, 8 bits exponent, 23 bits mantissa
+float : 4 bytes, single precision float, sign bit, 8 bits exponent, 23 bits mantissa
 
-double: 8 bytes, double precision float, sign bit, 11 bits exponents, 52 bits mantissa
+double : 8 bytes, double precision float, sign bit, 11 bits exponents, 52 bits mantissa
 	
 ex) func().dtype(image, short)
 
@@ -407,13 +424,9 @@ domain specific functions
 ## iterators
 **model view matrix is applied here**
 
-*line_iter orthogonal_iter(T* volume, float2 p, float step)*
+*line_iter orthogonal_iter(T* volume, float2 p, float step)* : make perspective iterator and return line iterator travel inside the volume. 
 
-: make perspective iterator and return line iterator travel inside the volume. 
-
-*line_iter perspective_iter(T* volume, float x, float y, float step, float near)*
-
-: make perspective iterator and return line iterator travel inside the volume.
+*line_iter perspective_iter(T* volume, float x, float y, float step, float near)* : make perspective iterator and return line iterator travel inside the volume.
 
 
 
@@ -452,72 +465,50 @@ output of query functions is determined by input volume and image
 
 **2D data query functions**
 
-*point_query_2d(T* image, float2 p)*
+*point_query_2d(T* image, float2 p)* : nearest query of 2d volume
 
-: nearest query of 2d volume
+*linear_query_2d(T* image, float2 p)* : linear query of 2d volume
 
-*linear_query_2d(T* image, float2 p)*
-
-: linear query of 2d volume
-
-*linear_gradient_2d(T* image, float2 p)*
-
-: linear_gradient of 2d volume
+*linear_gradient_2d(T* image, float2 p)* : linear_gradient of 2d volume
 
 
 
 ## 3D data query functions
-*point_query_3d(T* volume, float3 p)*
+*point_query_3d(T* volume, float3 p)* : point query of 3d volume
 
-: point query of 3d volume
+*linear_query_3d(T* volume, float3 p)* : linear query of 3d volume
 
-*linear_query_3d(T* volume, float3 p)*
+*cubic_query_3d(T* volume, float3 p)* :cubic query of 3d volume
 
-: linear query of 3d volume
+*float3 linear_gradient_3d(T* volume, float3 p)* : linear gradient of 3d volume
 
-*cubic_query_3d(T* volume, float3 p)*
-
-:cubic query of 3d volume
-
-*float3 linear_gradient_3d(T* volume, float3 p)*
-
-: linear gradient of 3d volume
-
-*float3 cubic_gradient_3d(T* data, float3 p)*
-
-: cubic gradient of 3d volume
+*float3 cubic_gradient_3d(T* data, float3 p)* : cubic gradient of 3d volume
 
 
 
 ## Image processing functions
 
-*GPU float3 phong(float3 Light_position, float3 pos, float3 N, float3 omega, float3 kd, float3 ks, float n, float3 amb)*
+*GPU float3 phong(float3 Light_position, float3 pos, float3 N, float3 omega, float3 kd, float3 ks, float n, float3 amb)* : calculate phong shading colour using light position, normal vector and etc...
 
-: calculate phong shading colour using light position, normal vector and etc...
+*GPU float3 diffuse(float3 Light_position, float3 N, float3 kd)* : calculate diffuse only using light position and normal vector
 
-*GPU float3 diffuse(float3 Light_position, float3 N, float3 kd)*
-
-: calculate diffuse only using light position and normal vector
-
-*template<typename R,typename T> GPU R laplacian(T* image, float2 p, VIVALDI_DATA_RANGE* sdr)*
-
-: calculate laplacian using near 4 points.
+*template<typename R,typename T> GPU R laplacian(T* image, float2 p, VIVALDI_DATA_RANGE* sdr)* : calculate laplacian using near 4 points.
 
 
 folders 
 =======
-mpi4py
+**mpi4py**
 It is customized for RDMA for GPU direct on PyCUDA. 
 Therefore can not use ordinary mpi4py in the Vivaldi.
 How to Install are in the mpi4py folder.
 
-PyCUDA
+**PyCUDA**
 PyCUDA is ordinary version.
 but It is hard to install in the cluster using easy_install.
 Because I added PyCUDA in the Vivaldi.
 
-Paper folder
+**Paper folder**
 They are all related to Vivaldi paper and involving .tex and etc
 
-test_set
+**test_set**
 There are Vivaldi test set we used when developing.
