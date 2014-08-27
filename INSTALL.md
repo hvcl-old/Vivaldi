@@ -230,7 +230,11 @@ done
 Download and install Vivaldi
 =======
 ```bash
-  cd [VIVALDI_PATH]
+tar -zxvf Vivaldi_a_0.1.tar.gz 
+cd viv_alpha	
+```
+
+```bash
   $ python install.py
   $ source ~/.bash_profile
 ```
