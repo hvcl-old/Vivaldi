@@ -35,25 +35,13 @@ CUDA > 5.5
 3.PyQt4
 
 **C. Install PyCUDA included in VIvaldi package**
-```bash
-  $cd [VIVALDI_PATH]/pycuda-2013.1.1/pycuda-2013.1.1/
-  $python setup.py build
-  $python setup.py install
-```
+
 
 **D. Install mpi4py included in Vivaldi package**
-```bash
-  $cd [VIVALDI_PATH]/mpi4py-1.3/mpi4py-1.3
-  $python setup.py build
-  $sudo python setup.py install
-```
+
 
 **E. add Vivaldi PATH**
-```bash
-  cd [VIVALDI_PATH]
-  $ python install.py
-  $ source ~/.bash_profile
-```
+
 
 after that you can use Vivaldi command anywhere
 
@@ -230,13 +218,38 @@ done
 Download and install Vivaldi
 =======
 ```bash
-tar -zxvf Vivaldi_a_0.1.tar.gz 
-cd viv_alpha	
+  $ tar -zxvf Vivaldi_a_0.1.tar.gz 
+  $ cd viv_alpha	
 ```
 
 ```bash
   $ python install.py
-  $ source ~/.bash_profile
+  $ source ~/.bashRC
+```
+Add node step by step to ferrari/hostfile
+```bash
+  $ ssh ferrari0
+  $ cd hostfile
+  $ vi vivaldi_machinefile
+```
+write below text and execute vivaldi code
+In this case, ferrari0 is master node and ferrari1~7 is slave nodes.
+```
+ferrari0.unist.ac.kr: 
+ferrari0.unist.ac.kr slots=10
+-GPU=2
+-G off
+```
+then, go to /hostfile/vivaldi_machinefile and add next node, repeatly
+```
+ferrari0.unist.ac.kr:
+ferrari0.unist.ac.kr slots=10
+-GPU=2
+-G off
+
+ferrari1.unist.ac.kr slots=10
+-GPU=2
+-G off
 ```
 
 
