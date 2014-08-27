@@ -8,7 +8,7 @@ What is VIVALDI
 =======
 VIVALDI is domain specific language for heterogeneous computing system
 
-// From Anu
+*From Anu*
 VIVALDI is domain specific language on hybrid computing system. It works
 with code that you wrote, the code can be written by users easily. It supports
 some build-in functions, it enable to load data. 
@@ -18,19 +18,20 @@ manager. So, works are divided on target devices. Also, split modifier can
 divide both input and output data. Merge function can be written and applied
 to code.
 
+
 How to install
 =======
 **A. Install Cuda Driver and toolkit**
 
-	CUDA > 5.5
+CUDA > 5.5
 
 **B. Install Library dependencies**
 
-    1.Openmpi > 1.7.2
+1.Openmpi > 1.7.2
 
-    2.require libraries: easy_install PIL PyOpenGL
+2.require libraries: easy_install PIL PyOpenGL
 
-    3.PyQt4
+3.PyQt4
 
 **C. Install PyCUDA included in VIvaldi package**
 ```bash
@@ -368,8 +369,7 @@ ex) func().merge(func_name, 'front-to-back')
 
 **5. halo: add boundary to input decomposed data**
 
-form:	
-	.halo(data_name, halo_size)
+form:	.halo(data_name, halo_size)
 
 ex) func().halo(image, 3)
 
@@ -377,11 +377,9 @@ ex) func().halo(image, 3)
 
 **6. dtype: specify data type of object in the function execution**
 
-form: 
-	.dtype(image, dtype).dtype(imag2, RGB)
+form: 	.dtype(image, dtype).dtype(imag2, RGB)
 
 available dtypes:
-
 	char:
 
 	uchar: 1 bytes unsigned integer (0 to 255)
@@ -404,7 +402,7 @@ ex) func().dtype(image, short)
 domain specific functions
 =======
 ## iterators
-** model view matrix is applied here**
+**model view matrix is applied here**
 
 *line_iter orthogonal_iter(T* volume, float2 p, float step)*
 
@@ -416,40 +414,40 @@ domain specific functions
 
 
 
-** model view matrix is not applied**
+**model view matrix is not applied**
 
 *line_iter(float3 from, float3 to, float d)*
 
-	float3 begin()
+float3 begin()
 
-	bool hasNext()
+bool hasNext()
 
-	float3 next()
+float3 next()
 
-	float3 direction()
+float3 direction()
 
 *plane_iter(float2 point, float size)*
 
-	float3 begin()
+float3 begin()
 
-	bool hasNext()
+bool hasNext()
 
-	float2 next()
+float2 next()
 
 *cube_iter(float3 point, float size)*
 
-	float3 begin()
+float3 begin()
 
-	bool hasNext()
+bool hasNext()
 
-	float3 next()
+float3 next()
 
 
 ##Query and Gradient functions
 output of query functions is determined by input volume and image
 
 
-** 2D data query functions**
+**2D data query functions**
 
 *point_query_2d(T* image, float2 p)*
 
