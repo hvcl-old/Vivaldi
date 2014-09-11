@@ -29,7 +29,6 @@ test_list.append('2_Iterator/cube_iter_count.vvl')
 test_list.append('2_Iterator/orthogonal.vvl')
 test_list.append('2_Iterator/orthogonal_ones.vvl')
 
-
 # input split
 test_list.append('4_Parallelization/input_split/input_split_x_axis.vvl')
 test_list.append('4_Parallelization/input_split/input_split_y_axis.vvl')
@@ -52,6 +51,7 @@ test_list.append('4_Parallelization/in_and_out_split/mat_mul_split_yx.vvl')
 # halo
 test_list.append('5_Halo/in_halo.vvl')
 test_list.append('5_Halo/out_halo.vvl')
+#test_list.append('5_Halo/in_and_out_halo.vvl')
 
 # constant
 test_list.append('6_Constant/constant1.vvl')
@@ -59,6 +59,10 @@ test_list.append('6_Constant/constant4.vvl')
 test_list.append('6_Constant/constant5.vvl')
 test_list.append('6_Constant/constant6.vvl')
 test_list.append('6_Constant/constant7.vvl')
+test_list.append('6_Constant/add.vvl')
+test_list.append('6_Constant/minus.vvl')
+test_list.append('6_Constant/float.vvl')
+
 
 # dtype test
 test_list.append('7_Dtype/uchar.vvl')
@@ -78,6 +82,8 @@ test_list.append('8_Modifier/merge/merge.vvl')
 test_list.append('8_Modifier/range/range.vvl')
 test_list.append('8_Modifier/split/split.vvl')
 
+
+test_list.append('9_VIS/code1.vvl')
 
 n = len(sys.argv)
 if n >= 2:

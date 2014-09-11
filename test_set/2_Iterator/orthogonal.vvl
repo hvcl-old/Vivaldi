@@ -1,0 +1,28 @@
+def line_iter_test(data, x, y):
+	iter = orthogonal_iter(data, x, y, 0.5)
+
+	cnt = 0.0
+	for elem in iter:
+		val = point_query_3d(data, elem)
+		cnt += 1
+	return cnt
+
+def main():
+	import numpy
+	numpy.set_printoptions(linewidth=300)
+	n = 20
+	data = numpy.ones((n,n,n), dtype=numpy.float32)
+	
+	result = line_iter_test(data, x, y).range(x=0:n, y=0:n)
+	
+	correct = numpy.ones((n,n))*2*n
+
+	if (result == correct).all():
+		# asdf
+		print "Ok"
+	else:
+		print "Fail"
+		print "Correct"
+		print correct
+		print "Result"
+		print result

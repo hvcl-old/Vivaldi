@@ -1,0 +1,49 @@
+# 2D border test
+# vivaldi reflect_101.vvl
+
+import numpy
+
+def border_reflect(image, x, y):
+	return point_query_2d(image, x, y, BORDER_REFLECT_101)
+
+def main():
+	# create 2D 
+	# x+y, 5x5 matrix
+	image = numpy.ones((5,5), dtype=numpy.float32)	
+	for i in range(5):
+		for j in range(5):
+			image[i][j] = i+j
+
+	# BORDER_REFLECT_101
+	result = border_reflect(image, x, y).range(x=-5:10,y=-5:10).dtype(image, float)
+
+	# CPU REFLECT_101 implementation for only 15x15 matrix
+	correct = numpy.zeros((15,15), dtype=numpy.float32)
+	correct[5:10,5:10] = image
+
+	for x in range(0,15):
+		for y in range(0,15):
+			# REFLECT x
+			xp = x
+			while True:
+				if xp < 5: xp = 10 - xp
+				elif xp > 9: xp = 18 - xp
+				else: break
+				
+			# REFLECT y
+			yp = y
+			while True:
+				if yp < 5: yp = 10 - yp
+				elif yp > 9: yp = 18 - yp
+				else: break
+
+			correct[x][y] = correct[xp][yp]
+
+	if (correct == result).all():
+		print "Ok"
+	else:
+		print "Fail"
+		print "Correct"
+		print correct
+		print "Result"
+		print result

@@ -1,0 +1,55 @@
+
+def border_test_REFLECT(volume, x, y, z):
+	val = point_query_3d(volume, x, y, z, BORDER_REFLECT)
+	return val
+
+def main():
+	# create input volume
+	import numpy
+	data = numpy.ones((5,5,5),dtype=numpy.float32)
+	numpy.set_printoptions(precision=2, linewidth=150)
+
+	for k in range(5):
+		for j in range(5):
+			for i in range(5):
+				data[k][i][j] = i+j+k
+
+	result = border_test_REFLECT(data,x,y,z).range(x=-5:10,y=-5:10,z=-5:10).dtype(data, float)	
+
+	# create correct data
+	correct = numpy.zeros((15,15,15),dtype=numpy.float32)
+	
+	for z in range(0,5):
+		for y in range(0,5):
+			for x in range(0,5):
+				correct[z+5][y+5][x+5] = x+y+z
+	
+	for z in range(0,15):
+		for y in range(0,15):
+			for x in range(0,15):
+				# REFLECT x
+				xp = x
+				if xp < 5: xp = 10 - xp -1
+				if xp > 9: xp = 18 - xp +1
+			
+				# REFLECT y
+				yp = y
+				if yp < 5: yp = 10 - yp -1
+				if yp > 9: yp = 18 - yp +1
+								
+				# REFLECT y
+				zp = z
+				if zp < 5: zp = 10 - zp -1
+				if zp > 9: zp = 18 - zp +1
+				
+				correct[z][y][x] = correct[zp][yp][xp]
+				
+	# compare with VIVALDI result
+	if (correct == result).all():
+		print "Ok"
+	else:
+		print "Fail"
+		print "Correct"
+		print correct
+		print "Result"
+		print result

@@ -1,0 +1,28 @@
+def test_3d(volume, x, y, z):
+	value = point_query_3d(volume, x, y, z)
+	return value
+
+def main():
+	# create x+y+z, volume
+	volume = numpy.zeros((5,5,5), dtype=numpy.float32)
+	for k in range(5):
+		for j in range(5):
+			for i in range(5):
+				volume[k][j][i] = i+j+k
+
+	result = test_3d(volume, x,y,z).range(x=0:5,y=0:5,z=0:5)
+
+	correct = numpy.zeros((5,5,5), dtype=numpy.float32)
+	for k in range(5):
+		for j in range(5):
+			for i in range(5):
+				correct[k][j][i] = i+j+k
+
+	if (correct == result).all():
+		print "Ok"
+	else:
+		print "Fail"
+		print "Correct"
+		print correct
+		print "Result"
+		print result

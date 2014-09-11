@@ -1,11 +1,41 @@
 K 25
 svn:wc:ra_dav:version-url
 V 39
-/svn/Vivaldi/!svn/ver/107/test_set/1_3D
+/svn/Vivaldi/!svn/ver/181/test_set/1_3D
+END
+wrap.vvl
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/Vivaldi/!svn/ver/181/test_set/1_3D/wrap.vvl
+END
+query_3d.vvl
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/Vivaldi/!svn/ver/181/test_set/1_3D/query_3d.vvl
+END
+reflect.vvl
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/Vivaldi/!svn/ver/181/test_set/1_3D/reflect.vvl
+END
+reflect_101.vvl
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/Vivaldi/!svn/ver/181/test_set/1_3D/reflect_101.vvl
 END
 3d.vvl
 K 25
 svn:wc:ra_dav:version-url
 V 46
 /svn/Vivaldi/!svn/ver/106/test_set/1_3D/3d.vvl
+END
+replicate.vvl
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/Vivaldi/!svn/ver/181/test_set/1_3D/replicate.vvl
 END

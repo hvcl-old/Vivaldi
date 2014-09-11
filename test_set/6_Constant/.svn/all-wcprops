@@ -1,13 +1,19 @@
 K 25
 svn:wc:ra_dav:version-url
 V 45
-/svn/Vivaldi/!svn/ver/152/test_set/6_Constant
+/svn/Vivaldi/!svn/ver/180/test_set/6_Constant
 END
 constant1.vvl
 K 25
 svn:wc:ra_dav:version-url
 V 59
 /svn/Vivaldi/!svn/ver/152/test_set/6_Constant/constant1.vvl
+END
+minus.vvl
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/Vivaldi/!svn/ver/180/test_set/6_Constant/minus.vvl
 END
 constant4.vvl
 K 25
@@ -32,4 +38,16 @@ K 25
 svn:wc:ra_dav:version-url
 V 59
 /svn/Vivaldi/!svn/ver/152/test_set/6_Constant/constant7.vvl
+END
+float.vvl
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/Vivaldi/!svn/ver/180/test_set/6_Constant/float.vvl
+END
+add.vvl
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/Vivaldi/!svn/ver/180/test_set/6_Constant/add.vvl
 END

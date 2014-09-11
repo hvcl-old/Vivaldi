@@ -1,5 +1,11 @@
 K 25
 svn:wc:ra_dav:version-url
 V 41
-/svn/Vivaldi/!svn/ver/142/test_set/5_Halo
+/svn/Vivaldi/!svn/ver/180/test_set/5_Halo
+END
+in_and_out_halo.vvl
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/Vivaldi/!svn/ver/180/test_set/5_Halo/in_and_out_halo.vvl
 END

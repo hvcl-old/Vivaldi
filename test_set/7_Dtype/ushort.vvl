@@ -1,0 +1,21 @@
+def func(data, x, y):
+	val = point_query_2d(data, x, y)
+	return val
+
+def main():
+	import numpy 
+	n = 6
+	data = numpy.ones((n,n), dtype=numpy.uint16)
+	result = func(data, x, y).range(x=0:n, y=0:n)
+							 .dtype(data, ushort)
+	
+	correct = numpy.ones((n,n), dtype=numpy.float32)
+						  
+	if (correct == result).all():
+		print "Ok"
+	else:
+		print "Fail"
+		print "Correct"
+		print correct
+		print "Result"
+		print result

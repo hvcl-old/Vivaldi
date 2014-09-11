@@ -1,0 +1,32 @@
+def func(data, x, y):
+	val = point_query_2d(data, x, y)
+	return val
+
+def add(front, back, x, y):
+	f = point_query_2d(front, x, y)
+	b = point_query_2d(back, x, y)
+	val = f + b
+	return val
+
+def main():
+	import numpy
+	n = 6
+	a = numpy.ones((n,n), dtype=numpy.float32)
+	result = func(a, x, y).range(x=0:n,y=0:n)
+						  .split(a, y=2)
+						  .halo(a, 1)
+						  .merge(add)
+	
+	correct = numpy.ones((n,n), dtype=numpy.float32)
+						  
+	correct[2] = 2
+	correct[3] = 2
+	
+	if (correct == result).all():
+		print "Ok"
+	else:
+		print "Fail"
+		print "Correct"
+		print correct
+		print "Result"
+		print result

@@ -1,0 +1,29 @@
+def cube_iter_test(data, x,y,z):
+
+	point = make_float3(x,y,z)
+	iter = cube_iter(point, 1)
+	cnt = 0
+    for elem in iter:
+		cnt += 1
+	return cnt
+
+def main():
+
+	import numpy as np
+	np.set_printoptions(precision=2)
+
+
+	data = numpy.ones((7,7,7),dtype=numpy.float32)
+
+	result = cube_iter_test(data, x,y,z).range(x=1:6,y=1:6,z=1:6).dtype(data,float)
+
+	correct = numpy.ones((5,5,5), dtype=numpy.float32)*27
+
+	if (correct == result).all():
+		print "Ok"
+	else:
+		print "Fail"
+		print "Correct"
+		print correct
+		print "Result"
+		print result
