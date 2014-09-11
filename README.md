@@ -11,9 +11,9 @@ Contact
 
 Basic git commands
 =======
-git clone https://github.com/hvcl/Vivaldi
+git clone git@github.com:hvcl/Vivaldi.git
 
-git remote add origin https://github.com/hvcl/Vivaldi
+git remote add origin git@github.com:hvcl/Vivaldi.git
 
 git add
 
