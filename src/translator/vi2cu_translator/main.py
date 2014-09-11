@@ -1,6 +1,7 @@
 import os
 import sys
 VIVALDI_PATH = os.environ.get('vivaldi_path')
+VIVALDI_PATH = '/home/hschoi/Vivaldi'
 path = VIVALDI_PATH+'/src/translator'
 if path not in sys.path:
 	sys.path.append(path)
@@ -434,21 +435,30 @@ def change_function(code_list, local_dict):
 						dtype = '<float' + chan + '>'
 					func_name += dtype
 					p_st += len(dtype)
-					
-					"""
-					# float 1 version
-					# no assignment operator float = float1
-					if chan.isdigit():
-						dtype = '<float' + chan + '>'
-					else:
-						dtype = '<float1>'
-					func_name += dtype
-					p_st += len(dtype)	
-					"""
-					
+										
 					# change function args
 					args += ', ' + f_a + '_DATA_RANGE'
+				if sfn in gradient_list:
+					# change function name
+					arg_list = divide_line(args)
+					f_a = arg_list[0]
+					dtype = local_dict[f_a]
+					if dtype.endswith('_volume'):
+						dtype = dtype[:-7]
+
+					in_type = dtype_convert_in_query(dtype)
+					chan = in_type[-1]
 					
+					# float version
+					if chan is 't':	
+						dtype = '<float>'
+					else: 
+						dtype = '<float' + chan + '>'
+					func_name += dtype
+					p_st += len(dtype)
+										
+					# change function args
+					args += ', ' + f_a + '_DATA_RANGE'
 				if sfn in ['orthogonal_iter','perspective_iter']:
 					# change function args
 					arg_list = divide_line(args)
@@ -460,7 +470,7 @@ def change_function(code_list, local_dict):
 				
 				code = before + mid + after
 				n = len(code)
-				
+			
 		code_list[k] = code
 		k += 1
 		
@@ -536,7 +546,6 @@ def parse_block(block='', local_dict={}):
 	# manage special for statements
 	for_flag = False
 	s_block = block.strip()
-	
 	if s_block.startswith('for'): # for statement is special case
 	
 		# manage for statement
@@ -652,7 +661,6 @@ def parse_block(block='', local_dict={}):
 		#		output = for_statement_line + output
 				arg_cnt = elem_list[4].count(',')
 				var = elem_list[1]
-
 				if arg_cnt == 1:
 					range_values = elem_list[4][1:len(elem_list[4])-1].split(",")
 					for_statement_line += "int "+var+"= " + range_values[0] + ";"
@@ -665,7 +673,7 @@ def parse_block(block='', local_dict={}):
 					for_statement_line += var+"="+var+"+(int)"+ range_values[2]+"){\n"
 				elif arg_cnt == 0:
 					for_statement_line += "int "+var+"=0;"
-					for_statement_line += var+"<" + elem_list[4][1] +";"
+					for_statement_line += var+"<" + elem_list[4][1:-1] +";"
 					for_statement_line += var+"++){\n"
 				else:
 					print "RANGE IS NOT SUITABLE"
@@ -1151,57 +1159,18 @@ def vi2cu_translator(vivaldi_code='', local_dict={}):
 	#######################################################
 	# parse vivaldi_code body to CUDA
 
-	argument_list = get_argument(vivaldi_code_head)
-	for elem in argument_list:
-		if elem not in local_dict:
-			local_dict[elem] = 'Unknown'
-	
-	for axis in AXIS:
-		if axis in argument_list:
-			local_dict[axis] = 'integer'
+#	print local_dict
+#	argument_list = get_argument(vivaldi_code_head)
 
-	CUDA_body, return_dtype = parse_body(vivaldi_code_body=vivaldi_code_body, local_dict=local_dict)
-	
-	
-	# add return dtype to dictionary
-	add_dtype('rb', return_dtype, local_dict)
-	
-	# VI2CU head translator
-	#
-	#######################################################
-	# parse vivaldi_code head to CUDA
-	# head must be changed after body
-	# because we don't know data type until parse_body finish
-	CUDA_head = parse_head(vivaldi_code_head, local_dict=local_dict)
-	
-	# Prepare Return
-	#
-	#######################################################
-	# merge parsed head and body
-	CUDA_code = CUDA_head + '\n' + CUDA_body
-	
-	return CUDA_code, return_dtype
-
-def vi2cu_translator_inner(vivaldi_code='', local_dict={}):
-	
-	# initialize variables
-	#######################################################
-	vivaldi_code_head, vivaldi_code_body = split_head_and_body(vivaldi_code=vivaldi_code)
-
-	# VI2CU body translator
-	#
-	#######################################################
-	# parse vivaldi_code body to CUDA
-	
-	argument_list = get_argument(vivaldi_code_head)
-	for elem in argument_list:
-		if elem not in local_dict:
-			local_dict[elem] = 'Unknown'
+	#function_call_argument_list = func['args']
+	#function_argument_list = get_argument(vivaldi_code)
+	#dtype_dict = dtype_matching(function_call_argument_list, function_argument_list, dtype_dict)			
 			
-	for axis in AXIS:
-		local_dict[axis] = 'integer'
-	
+#	print local_dict, argument_list
+#	print vivaldi_code
+#	print "Z",local_dict
 	CUDA_body, return_dtype = parse_body(vivaldi_code_body=vivaldi_code_body, local_dict=local_dict)
+	
 	
 	# add return dtype to dictionary
 	add_dtype('rb', return_dtype, local_dict)
@@ -1220,8 +1189,43 @@ def vi2cu_translator_inner(vivaldi_code='', local_dict={}):
 	# merge parsed head and body
 	CUDA_code = CUDA_head + '\n' + CUDA_body
 	
-	
 	return CUDA_code, return_dtype
+
+def vivaldi_parser(vivaldi_code, argument_package_list): # temp function, it should be moved to parser
+	vivaldi_code_head, vivaldi_code_body = split_head_and_body(vivaldi_code=vivaldi_code)
+	
+	function_argument_list = get_argument(vivaldi_code)
+	def get_dtype_dict(function_argument_list, argument_package_list):
+		
+		n = len(function_argument_list)
+		m = len(argument_package_list)
+		if n != m:
+			print "WARNING"
+			print "---------------------"
+			print "Function argument number is not matching"		
+			print function_call_argument_list
+			print function_argument_list
+			print "---------------------"
+			assert(False)
+		
+		import numpy
+		i = 0
+		dtype_dict = {}
+		for function_argument in function_argument_list:
+			argument_package = argument_package_list[i]
+			if argument_package.data_dtype == numpy.ndarray:
+				dtype_dict[function_argument] = argument_package.data_contents_dtype+'_volume'
+			else:
+				dtype_dict[function_argument] = argument_package.data_contents_dtype
+			i += 1
+		return dtype_dict
+		
+	local_dict = get_dtype_dict(function_argument_list, argument_package_list)	
+		
+	CUDA_body, return_dtype = parse_body(vivaldi_code_body=vivaldi_code_body, local_dict=local_dict)
+	CUDA_head = parse_head(vivaldi_code_head, local_dict=local_dict)
+	
+	return None, return_dtype
 	
 def test(test_data, test_set=True, detail=0):
 	
@@ -1234,7 +1238,7 @@ def test(test_data, test_set=True, detail=0):
 		test_return_dtype = test_data['return_dtype']
 		
 		# test
-		result, result_return_dtype = vi2cu_translator_inner(vivaldi_code=vivaldi_code, local_dict=local_dict)
+		result, result_return_dtype = vi2cu_translator(vivaldi_code=vivaldi_code, local_dict=local_dict)
 		
 		flag = True
 		if flag: # check code

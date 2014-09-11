@@ -1,0 +1,29 @@
+def neiborcolor(image, x, y, value):
+	flag = 0
+	if point_query_2d(image, x-1, y) == value:
+		flag = 1
+	elif point_query_2d(image, x, y-1) == value:
+		flag = 1
+	elif point_query_2d(image, x+1, y) == value:
+		flag = 1
+	elif point_query_2d(image, x, y+1) == value:
+		flag = 1
+
+	val = point_query_2d(image, x, y)
+	if flag == 1 and val == 0:
+		return value + 1
+
+	else:
+		return val
+
+def main():
+	import numpy
+	data = numpy.zeros((7,7), dtype=numpy.uint8)
+
+	data[3][3] = 1
+
+	for elem in range(3):
+		data = neiborcolor(data, x, y, elem).range(x=0:8,y=0:8).dtype(data, uchar)
+		print data
+
+		

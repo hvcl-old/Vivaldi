@@ -3,18 +3,6 @@ svn:wc:ra_dav:version-url
 V 48
 /svn/Vivaldi/!svn/ver/14/src/translator/test_set
 END
-general.py
-K 25
-svn:wc:ra_dav:version-url
-V 58
-/svn/Vivaldi/!svn/ver/4/src/translator/test_set/general.py
-END
-perspective
-K 25
-svn:wc:ra_dav:version-url
-V 59
-/svn/Vivaldi/!svn/ver/4/src/translator/test_set/perspective
-END
 simple
 K 25
 svn:wc:ra_dav:version-url
@@ -33,29 +21,11 @@ svn:wc:ra_dav:version-url
 V 58
 /svn/Vivaldi/!svn/ver/14/src/translator/test_set/test_list
 END
-phong
-K 25
-svn:wc:ra_dav:version-url
-V 53
-/svn/Vivaldi/!svn/ver/4/src/translator/test_set/phong
-END
 simple2
 K 25
 svn:wc:ra_dav:version-url
 V 56
 /svn/Vivaldi/!svn/ver/10/src/translator/test_set/simple2
-END
-orthogonal
-K 25
-svn:wc:ra_dav:version-url
-V 58
-/svn/Vivaldi/!svn/ver/4/src/translator/test_set/orthogonal
-END
-simple3
-K 25
-svn:wc:ra_dav:version-url
-V 55
-/svn/Vivaldi/!svn/ver/4/src/translator/test_set/simple3
 END
 transfer_input_split
 K 25

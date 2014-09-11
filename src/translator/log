@@ -1,0 +1,202 @@
+TEST VI2CU_TRANSLATOR
+========================================================
+DETAIL 0
+CODE
+==============================================
+import numpy
+
+
+
+def init(volume,dimx,dimy,dimz, x, y, z):
+    return point_query_3d(volume, x, y, z)
+
+def bilateral(volume,dimx,dimy,dimz, x, y, z):
+    center      = make_float3(x,y,z)
+    centerVal   = point_query_3d(volume, center)
+
+    radius = 5
+
+
+    id              = 100
+    intensityWeight = 1
+
+    cd              = 100
+    colorWeight     = 1
+    weight          = 0
+    totalWeight     = 0
+
+    count           = 0
+    pointVal        = 0
+
+    out = 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    point = make_float3(x, y, z)
+    for zz in range(z-radius, z+radius):
+        for yy in range(y-radius, y+radius):
+            for xx in range(x-radius, x+radius):
+                point = make_float3(xx, yy, zz)
+                pointVal = point_query_3d(volume, point)
+                intensityWeight    = expf(-0.5* ((x-point.x)*(x-point.x) + (y-point.y)*(y-point.y) + (z-point.z)*(z-point.z) ) / (id*id))
+                colorWeight     = expf(-0.5* ((centerVal-pointVal)*(centerVal-pointVal) ) / (cd*cd))
+                weight = intensityWeight * colorWeight
+                out    = out + weight*centerVal
+                totalWeight = totalWeight + weight
+                count = count + 1
+    out = out/totalWeight
+    return out
+
+def main():
+
+
+    dimx   = 512
+    dimy   = 512
+    dimz   = 1568
+    volume = numpy.random.rand(dimx, dimy, dimz).astype(numpy.float32)
+
+    print "Dimension    : ", dimx, dimy, dimz
+    print "Volume shape : ", volume.shape
+
+
+
+
+    gpu_list = get_GPU_list(1)
+
+
+
+    volume = init(volume,512,512,1568,x,y,z).halo(volume,5).range(volume,halo=5).dtype(volume,float).execid(gpu_list).split(volume, z=1)
+    synchronize()
+
+    print "SYNC DONE"
+
+    start = time.time()
+
+    volume = bilateral(volume,512,512,1568,x,y,z).halo(volume,5).range(volume).dtype(volume,float).execid(gpu_list).split(volume, z=1).output_halo(0)
+
+    synchronize()
+
+    stop  = time.time()
+
+    elapsed = stop - start
+    print "Execution time (s): ", elapsed
+
+if __name__ == '__main__':
+    main()
+
+FUNCTION_LIST
+==============================================
+FUNC {'split_dict': {'volume': {'z': 1}}, 'execid': 'gpu_list', 'halo_dict': {'volume': 5}, 'func_name': 'init', 'args': ['volume', '512', '512', '1568', 'x', 'y', 'z'], 'work_range': 'volume', 'dtype_dict': {'1568': 'float', 'z': 'integer', 'volume': 'float_volume', 'y': 'integer', 'x': 'integer', '512': 'float'}}
+FUNC {'split_dict': {'volume': {'z': 1}}, 'execid': 'gpu_list', 'output_halo': 0, 'halo_dict': {'volume': 5}, 'func_name': 'bilateral', 'args': ['volume', '512', '512', '1568', 'x', 'y', 'z'], 'work_range': 'volume', 'dtype_dict': {'1568': 'float', 'z': 'integer', 'volume': 'float_volume', 'y': 'integer', 'x': 'integer', '512': 'float'}}
+TRNALSATED
+==============================================
+FUNC_NAME bilateralfloatfloatfloatfloatintegerintegerinteger
+==============================================
+__global__ void bilateralfloat(float* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, float* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, float dimx, float dimy, float dimz, int x_start, int x_end, int y_start, int y_end, int z_start, int z_end){
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+    int z_hschoi = threadIdx.z + blockDim.z * blockIdx.z;
+    int z = z_start + z_hschoi;
+
+    if(x_end <= x || y_end <= y || z_end <= z)return;
+    int totalWeightdfdf
+    int iddfdf
+    int outdfdf
+    int pointValdfdf
+    int radiusdfdf
+    int cddfdf
+    int weightdfdf
+    float3 pointdfdf
+    int colorWeightdfdf
+    float centerValdfdf
+    int intensityWeightdfdf
+    float3 centerdfdf
+    int countdfdf
+    center      = make_float3(x,y,z)dfdf
+    centerVal   = point_query_3d<float>(volume, center, volume_DATA_RANGE)dfdf
+
+    radius = 5dfdf
+
+
+    id              = 100dfdf
+    intensityWeight = 1dfdf
+
+    cd              = 100dfdf
+    colorWeight     = 1dfdf
+    weight          = 0dfdf
+    totalWeight     = 0dfdf
+
+    count           = 0dfdf
+    pointVal        = 0dfdf
+
+    out = 0dfdf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    point = make_float3(x, y, z)dfdf
+    for(int zz= z-radius;zz< z+radius;zz++){
+        for(int yy= y-radius;yy< y+radius;yy++){
+            for(int xx= x-radius;xx< x+radius;xx++){
+                point = make_float3(xx, yy, zz)dfdf
+                pointVal = point_query_3d<float>(volume, point, volume_DATA_RANGE)dfdf
+                intensityWeight    = expf(-0.5* ((x-point.x)*(x-point.x) + (y-point.y)*(y-point.y) + (z-point.z)*(z-point.z) ) / (id*id))dfdf
+                colorWeight     = expf(-0.5* ((centerVal-pointVal)*(centerVal-pointVal) ) / (cd*cd))dfdf
+                weight = intensityWeight * colorWeightdfdf
+                out    = out + weight*centerValdfdf
+                totalWeight = totalWeight + weightdfdf
+                count = count + 1dfdf
+            }
+        }
+    }
+    out = out/totalWeightdfdf
+    rb[(x-rb_DATA_RANGE->buffer_start.x)+(y-rb_DATA_RANGE->buffer_start.y)*(rb_DATA_RANGE->buffer_end.x-rb_DATA_RANGE->buffer_start.x)+(z-rb_DATA_RANGE->buffer_start.z)*(rb_DATA_RANGE->buffer_end.x-rb_DATA_RANGE->buffer_start.x)*(rb_DATA_RANGE->buffer_end.y-rb_DATA_RANGE->buffer_start.y)] = outdfdf
+    returndfdf
+
+}
+
+FUNC_NAME initfloatfloatfloatfloatintegerintegerinteger
+==============================================
+__global__ void initfloat(float* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, float* volume, VIVALDI_DATA_RANGE* volume_DATA_RANGE, float dimx, float dimy, float dimz, int x_start, int x_end, int y_start, int y_end, int z_start, int z_end){
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+    int z_hschoi = threadIdx.z + blockDim.z * blockIdx.z;
+    int z = z_start + z_hschoi;
+
+    if(x_end <= x || y_end <= y || z_end <= z)return;
+    rb[(x-rb_DATA_RANGE->buffer_start.x)+(y-rb_DATA_RANGE->buffer_start.y)*(rb_DATA_RANGE->buffer_end.x-rb_DATA_RANGE->buffer_start.x)+(z-rb_DATA_RANGE->buffer_start.z)*(rb_DATA_RANGE->buffer_end.x-rb_DATA_RANGE->buffer_start.x)*(rb_DATA_RANGE->buffer_end.y-rb_DATA_RANGE->buffer_start.y)] = point_query_3d<float>(volume, x, y, z, volume_DATA_RANGE)dfdf
+    returndfdf
+
+}
+

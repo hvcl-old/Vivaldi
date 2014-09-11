@@ -1,0 +1,9 @@
+test_input:
+import numpy
+def main():
+    print "Hello"
+test_output:
+import numpy
+def main():
+	print "Hello"
+	

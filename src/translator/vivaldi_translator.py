@@ -1,5 +1,5 @@
-# this is vivaldi compiler
-# change vivaldi code to several language for each device
+# this is Vivaldi compiler
+# change Vivaldi code to several language for each device
 
 import os
 import sys
@@ -105,7 +105,7 @@ def translate_to_CUDA_func_list(func_list, input_merge_function_list):
 				append_with_redandant_check(merge_function_list, m_elem, m_elem.keys())
 
 	return output, merge_function_list
-	
+"""
 def translate_to_CUDA(func_list, input_merge_function_list, code):
 	full_code = str(code)
 	i = 0
@@ -150,7 +150,7 @@ def translate_to_CUDA(func_list, input_merge_function_list, code):
 	
 	
 	return output
-
+"""
 def chan_temp(dtype_dict, temp, keys, p, final_list):
 	n = len(dtype_dict)
 	if p >= n:
@@ -191,6 +191,56 @@ def duplicate_function_list(func_list):
 	
 # VIVALDI translator
 #######################################################
+def translate_main(code):
+	# initialization
+	###################################################
+	from preprocessing.main import preprocessing
+	from parse_main.main import parse_main
+	# Preprocessing
+	#
+	###################################################
+	code = preprocessing(code)
+	
+	# parse main
+	#
+	###################################################
+	mc = find_main(code)
+	mc, _, _ = parse_main(mc)
+	
+	return mc
+	
+def parse_function(function_code, function_name, argument_package_list):
+	from vi2cu_translator.main import vivaldi_parser
+
+	 # translate
+	code, return_dtype = vivaldi_parser(function_code, argument_package_list)
+
+	return return_dtype
+	
+def translate_to_CUDA(Vivaldi_code='', function_name='', function_arguments=''):
+	from vi2cu_translator.main import vi2cu_translator
+	import numpy
+	func_code = find_code(function_name=function_name, code=Vivaldi_code)
+	
+	function_argument_list = get_argument(func_code)
+	dtype_dict = {}
+	
+	i = 0
+	for dp in function_arguments:
+		data_name = dp.data_name
+		f_data_name = function_argument_list[i]
+		dtype = dp.data_contents_dtype
+		if dp.data_dtype == numpy.ndarray:
+			dtype += '_volume'
+		
+		dtype_dict[f_data_name] = dtype
+		i += 1
+	
+	# translate
+	code, _ = vi2cu_translator(func_code, dtype_dict)
+
+	return code
+	
 def translator(code, target):
 	# initialization
 	###################################################
@@ -240,6 +290,7 @@ def translator(code, target):
 		assert(False)
 	
 	return mc, output, globals
+	assert(False)
 	
 def print_test_output(main_code, output, globals):
 	result = ''

@@ -1,17 +1,11 @@
 K 25
 svn:wc:ra_dav:version-url
-V 59
-/svn/Vivaldi/!svn/ver/79/src/translator/general/divide_line
+V 60
+/svn/Vivaldi/!svn/ver/177/src/translator/general/divide_line
 END
 divide_line.py
 K 25
 svn:wc:ra_dav:version-url
-V 74
-/svn/Vivaldi/!svn/ver/79/src/translator/general/divide_line/divide_line.py
-END
-__init__.py
-K 25
-svn:wc:ra_dav:version-url
-V 70
-/svn/Vivaldi/!svn/ver/4/src/translator/general/divide_line/__init__.py
+V 75
+/svn/Vivaldi/!svn/ver/177/src/translator/general/divide_line/divide_line.py
 END

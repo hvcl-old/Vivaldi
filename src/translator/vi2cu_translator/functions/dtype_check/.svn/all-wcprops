@@ -1,17 +1,11 @@
 K 25
 svn:wc:ra_dav:version-url
 V 79
-/svn/Vivaldi/!svn/ver/160/src/translator/vi2cu_translator/functions/dtype_check
-END
-__init__.py
-K 25
-svn:wc:ra_dav:version-url
-V 89
-/svn/Vivaldi/!svn/ver/4/src/translator/vi2cu_translator/functions/dtype_check/__init__.py
+/svn/Vivaldi/!svn/ver/191/src/translator/vi2cu_translator/functions/dtype_check
 END
 dtype_check.py
 K 25
 svn:wc:ra_dav:version-url
 V 94
-/svn/Vivaldi/!svn/ver/160/src/translator/vi2cu_translator/functions/dtype_check/dtype_check.py
+/svn/Vivaldi/!svn/ver/191/src/translator/vi2cu_translator/functions/dtype_check/dtype_check.py
 END

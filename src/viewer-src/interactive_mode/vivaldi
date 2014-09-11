@@ -1,0 +1,10 @@
+#!/bin/bash
+
+st=$(($(date +%s%N)/1000000))
+
+python $vivaldi_path/src/interactive_mode/main.py $@
+
+end=$(($(date +%s%N)/1000000))
+duration=$((end-st))
+
+echo "Vivaldi execution time:" $duration "msec"

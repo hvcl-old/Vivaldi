@@ -124,6 +124,7 @@ if True:
 import os
 import sys
 VIVALDI_PATH = os.environ.get('vivaldi_path')
+
 path = VIVALDI_PATH+'/src/translator'
 if path not in sys.path:
 	sys.path.append(path)

@@ -3,7 +3,7 @@
 
 import os
 import sys
-VIVALDI_PATH = os.environ.get('vivaldi_path')+'/'
+VIVALDI_PATH = os.environ.get('vivaldi_path')
 sys.path.append(VIVALDI_PATH + "/src/translator")
 
 from common_in_translator import *

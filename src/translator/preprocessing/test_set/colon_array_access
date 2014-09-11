@@ -1,0 +1,6 @@
+test_input:
+def f():
+	image = image[0:5,0:5]
+test_output:
+def f():
+	image = image[0:5,0:5]

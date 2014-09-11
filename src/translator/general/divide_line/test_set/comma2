@@ -1,0 +1,3 @@
+# simple compare left
+test_input: volume,(P+Q)
+test_output: ['volume', ',', '(P+Q)']

@@ -1,5 +1,6 @@
 import sys, os
 VIVALDI_PATH = os.environ.get('vivaldi_path')
+VIVALDI_PATH = '/home/hschoi/Vivaldi'
 path = VIVALDI_PATH + "/src"
 if path not in sys.path:
 	sys.path.append(path)
@@ -9,8 +10,9 @@ OPERATORS = ["==",'+=','-=','*=','/=','=','+','-','*','/',"<=","=>","<",">",".",
 WORD_OPERATORS = ['and','or','not','is','if','for','while','in','return','def', 'print', 'from', 'import', 'as']
 AXIS = ['x','y','z','w']
 	
-query_list = ['point_query_1d', 'linear_query_1d', 'laplacian', 'point_query_2d', 'linear_query_2d', 'linear_gradient_2d', 
-	'point_query_3d','linear_query_3d','cubic_query_3d','cubic_gradient_3d']
+query_list = ['point_query_1d', 'linear_query_1d', 'laplacian', 'point_query_2d', 'linear_query_2d',  
+	'point_query_3d','linear_query_3d','cubic_query_3d']
+gradient_list = ['linear_gradient_2d','linear_gradient_3d','cubic_gradient_3d']
 	
 def test_cuda_compile(code):
 	#attachment = self.attachment
@@ -71,6 +73,8 @@ def skip_parenthesis(line, i, inverse=False):
 	# implementation
 	###################################################
 	
+	if i >= n: 
+		return False, i
 	if inverse == False:
 		w = line[i]
 		if w in pair_start_list:
@@ -292,21 +296,7 @@ def get_dtype(elem, local_dict, special=None):
 			return dtype
 			
 		return 'Unknown'
-
-def get_argument(code): # get arguments list from head
-	from general.divide_line.divide_line import divide_line
-	start = code.find('(')+1
-	end = code.find(')')
 	
-	argument = code[start: end]
-	elem_list = divide_line(argument)
-	
-	output = []
-	for elem in elem_list:
-		if elem != ',':
-			output += [elem]
-	return output
-		
 def split_elem(elem):
 	# split function name and arguments
 	p_type_list = [ ('(',')'), ('[',']')] 

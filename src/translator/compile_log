@@ -1,0 +1,2361 @@
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float4
+
+1 error detected in the compilation of "/tmp/tmpxft_00005a5d_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_00005aaa_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_00005ab1_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_00005ab8_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_00005abf_00000000-6_tmp_compile.cpp1.ii".
+ptxas /tmp/tmpxft_00005ac6_00000000-5_tmp_compile.ptx, line 5480; warning : Double is not supported. Demoting to float
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005af1_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_00005af8_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005aff_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_00005b0f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_00005b16_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_00005b1d_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_00005b24_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_00005b2b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_00005b32_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_00005b39_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float4
+
+1 error detected in the compilation of "/tmp/tmpxft_00005b40_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_000064af_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_000064b7_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_000064be_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_000064c5_00000000-6_tmp_compile.cpp1.ii".
+ptxas /tmp/tmpxft_000064cc_00000000-5_tmp_compile.ptx, line 5480; warning : Double is not supported. Demoting to float
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_000064f7_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_0000652a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_00006541_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_00006548_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_0000654f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006556_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_0000655d_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_00006564_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_0000656b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006572_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float4
+
+1 error detected in the compilation of "/tmp/tmpxft_00006579_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3122): error: no operator "=" matches these operands
+            operand types are: float2 = float3
+
+tmp_compile.cu(3128): error: identifier "alpha_compositing_tmp" is undefined
+
+tmp_compile.cu(3136): error: identifier "alpha_compositing_tmp3" is undefined
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006620_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3128): error: identifier "alpha_compositing_tmp" is undefined
+
+tmp_compile.cu(3136): error: identifier "alpha_compositing_tmp3" is undefined
+
+2 errors detected in the compilation of "/tmp/tmpxft_00006628_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3118): error: identifier "alpha_compositing_tmp2" is undefined
+
+tmp_compile.cu(3120): error: identifier "alpha_compositing_tmp3" is undefined
+
+2 errors detected in the compilation of "/tmp/tmpxft_00006639_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3122): error: no operator "=" matches these operands
+            operand types are: float2 = float
+
+tmp_compile.cu(3128): error: identifier "alpha_compositing_tmp" is undefined
+
+tmp_compile.cu(3136): error: identifier "alpha_compositing_tmp3" is undefined
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006641_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3122): error: no operator "=" matches these operands
+            operand types are: float2 = float4
+
+tmp_compile.cu(3128): error: identifier "alpha_compositing_tmp" is undefined
+
+tmp_compile.cu(3136): error: identifier "alpha_compositing_tmp3" is undefined
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006648_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_000067ea_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_000067f1_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_000067f8_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_000067ff_00000000-6_tmp_compile.cpp1.ii".
+ptxas /tmp/tmpxft_00006806_00000000-5_tmp_compile.ptx, line 5480; warning : Double is not supported. Demoting to float
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_00006832_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_00006839_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_00006840_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_00006847_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_0000684e_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006855_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_0000685c_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_00006863_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_0000686a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006871_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float4
+
+1 error detected in the compilation of "/tmp/tmpxft_00006878_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_000056c9_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_000056d0_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_000056d7_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_000056de_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_0000579f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_000057a6_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_000057ad_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_000057b4_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005821_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005828_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_0000582f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005836_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_000058b2_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_000058b9_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_000058c0_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_000058c7_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005915_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_0000591c_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_0000595c_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005963_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005a08_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005a0f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005a16_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005a1d_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005a6a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005a71_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005a78_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005a7f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005ac2_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005ac9_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005ad0_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "def" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+2 errors detected in the compilation of "/tmp/tmpxft_00005ad7_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+3 errors detected in the compilation of "/tmp/tmpxft_00005b22_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+3 errors detected in the compilation of "/tmp/tmpxft_00005b29_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+3 errors detected in the compilation of "/tmp/tmpxft_00005b30_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+3 errors detected in the compilation of "/tmp/tmpxft_00005b37_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): warning: list initialization syntax is a C++11 feature
+
+tmp_compile.cu(3100): error: type name is not allowed
+
+tmp_compile.cu(3100): error: expected a ","
+
+tmp_compile.cu(3100): error: expected a "}"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+16 errors detected in the compilation of "/tmp/tmpxft_00005dd6_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): warning: list initialization syntax is a C++11 feature
+
+tmp_compile.cu(3100): error: type name is not allowed
+
+tmp_compile.cu(3100): error: expected a ","
+
+tmp_compile.cu(3100): error: expected a "}"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+16 errors detected in the compilation of "/tmp/tmpxft_00005ddd_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): warning: list initialization syntax is a C++11 feature
+
+tmp_compile.cu(3100): error: type name is not allowed
+
+tmp_compile.cu(3100): error: expected a ","
+
+tmp_compile.cu(3100): error: expected a "}"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+16 errors detected in the compilation of "/tmp/tmpxft_00005e08_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): warning: list initialization syntax is a C++11 feature
+
+tmp_compile.cu(3100): error: type name is not allowed
+
+tmp_compile.cu(3100): error: expected a ","
+
+tmp_compile.cu(3100): error: expected a "}"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+16 errors detected in the compilation of "/tmp/tmpxft_00005e24_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00005f01_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00005f08_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00005f0f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00005f1c_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00005f9f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00005fa6_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00005fad_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00005fb4_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006023_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_0000602a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006033_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_0000603a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_0000607f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006086_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_0000608d_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006094_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000061f6_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000061fd_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006204_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_0000620b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: expected an identifier
+
+tmp_compile.cu(3098): error: expected a ")"
+
+tmp_compile.cu(3098): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+4 errors detected in the compilation of "/tmp/tmpxft_00006365_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: expected an identifier
+
+tmp_compile.cu(3098): error: expected a ")"
+
+tmp_compile.cu(3098): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+4 errors detected in the compilation of "/tmp/tmpxft_0000636c_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: expected an identifier
+
+tmp_compile.cu(3098): error: expected a ")"
+
+tmp_compile.cu(3098): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+4 errors detected in the compilation of "/tmp/tmpxft_00006373_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: expected an identifier
+
+tmp_compile.cu(3098): error: expected a ")"
+
+tmp_compile.cu(3098): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+4 errors detected in the compilation of "/tmp/tmpxft_0000637a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006383_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_0000638a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006391_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006398_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006478_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000064c3_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000064ca_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000064d1_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_0000654d_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006554_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_0000655b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006562_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000065b0_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000065b7_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000065be_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000065c5_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000066a7_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000066ae_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000066b5_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000066bc_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000066fe_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006705_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_0000670c_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006713_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+10 errors detected in the compilation of "/tmp/tmpxft_00006a75_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+10 errors detected in the compilation of "/tmp/tmpxft_00006a7c_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+10 errors detected in the compilation of "/tmp/tmpxft_00006a83_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+10 errors detected in the compilation of "/tmp/tmpxft_00006a8a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "in" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+13 errors detected in the compilation of "/tmp/tmpxft_00006c25_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "in" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+13 errors detected in the compilation of "/tmp/tmpxft_00006c2c_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "in" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+13 errors detected in the compilation of "/tmp/tmpxft_00006c33_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: identifier "in" is undefined
+
+tmp_compile.cu(3098): error: expected a ";"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+13 errors detected in the compilation of "/tmp/tmpxft_00006c3a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: expected a ";"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+14 errors detected in the compilation of "/tmp/tmpxft_00006c8b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: expected a ";"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+14 errors detected in the compilation of "/tmp/tmpxft_00006ccb_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: expected a ";"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+14 errors detected in the compilation of "/tmp/tmpxft_00006cd2_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: expected a ";"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+14 errors detected in the compilation of "/tmp/tmpxft_00006cd9_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006d7b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006d82_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006d8a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006d91_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3100): error: expected a ";"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+14 errors detected in the compilation of "/tmp/tmpxft_00006e55_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3100): error: expected a ";"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+14 errors detected in the compilation of "/tmp/tmpxft_00006e62_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3100): error: expected a ";"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+14 errors detected in the compilation of "/tmp/tmpxft_00006e84_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3100): error: expected a ";"
+
+tmp_compile.cu(3101): error: identifier "x_start" is undefined
+
+tmp_compile.cu(3101): error: identifier "x_hschoi" is undefined
+
+tmp_compile.cu(3103): error: identifier "y_start" is undefined
+
+tmp_compile.cu(3105): error: expected a declaration
+
+tmp_compile.cu(3106): error: this declaration has no storage class or type specifier
+
+tmp_compile.cu(3106): error: identifier "image" is undefined
+
+tmp_compile.cu(3106): error: identifier "image_DATA_RANGE" is undefined
+
+tmp_compile.cu(3106): error: no instance of overloaded function "linear_gradient_2d" matches the argument list
+            argument types are: (<error-type>, int, int, <error-type>)
+
+tmp_compile.cu(3107): error: expected a declaration
+
+tmp_compile.cu(3111): warning: parsing restarts here after previous syntax error
+
+tmp_compile.cu(3112): error: expected a declaration
+
+tmp_compile.cu(3113): error: expected a declaration
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+14 errors detected in the compilation of "/tmp/tmpxft_00006eca_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006f0d_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006f14_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006f1b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006f22_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006f6a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006f77_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006f7e_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006f85_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006fc8_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006fcf_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006fd6_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00006fdd_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00007215_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_0000721c_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00007223_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_0000722a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000077d6_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000077dd_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000077e4_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000077eb_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00007873_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_0000787a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00007881_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000078a7_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00007964_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_0000796b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00007972_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00007979_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000079bb_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000079c2_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000079c9_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "dif" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000079d0_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000026ed_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000026f4_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_000026fb_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002702_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002a2c_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002a33_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002a3a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002a41_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002a8d_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002a94_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002a9b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002aa2_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002b49_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002b50_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002b57_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002b5e_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002ba0_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002ba7_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002bae_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3106): error: identifier "temp" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00002bb5_00000000-6_tmp_compile.cpp1.ii".
+nvcc error   : 'gcc' died due to signal 2 
+
+Compilation terminated.
+
+Compilation terminated.
+
+Compilation terminated.
+tmp_compile.cu(3098): error: expected a ")"
+
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+6 errors detected in the compilation of "/tmp/tmpxft_0000428a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: expected a ")"
+
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+6 errors detected in the compilation of "/tmp/tmpxft_00004291_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: expected a ")"
+
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+6 errors detected in the compilation of "/tmp/tmpxft_00004298_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3098): error: expected a ")"
+
+tmp_compile.cu(3098): error: attribute "global" does not apply here
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: incomplete type is not allowed
+
+tmp_compile.cu(3098): error: expected a ";"
+
+At end of source: warning: parsing restarts here after previous syntax error
+
+6 errors detected in the compilation of "/tmp/tmpxft_0000429f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_000069ac_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_000069b3_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_000069ba_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_000069c1_00000000-6_tmp_compile.cpp1.ii".
+ptxas /tmp/tmpxft_000069c8_00000000-5_tmp_compile.ptx, line 5480; warning : Double is not supported. Demoting to float
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_000069f3_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_000069fa_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_00006a01_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_00006a41_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006a48_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006a4f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006a56_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_00006a5d_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_00006a64_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006a6b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float4
+
+1 error detected in the compilation of "/tmp/tmpxft_00006a72_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_00006b95_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006b9d_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006ba4_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_00006bab_00000000-6_tmp_compile.cpp1.ii".
+ptxas /tmp/tmpxft_00006bb2_00000000-5_tmp_compile.ptx, line 5480; warning : Double is not supported. Demoting to float
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_00006bdd_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_00006be4_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_00006beb_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_00006bf5_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006bfc_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006c03_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006c0a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_00006c11_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_00006c18_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_00006c1f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float4
+
+1 error detected in the compilation of "/tmp/tmpxft_00006c26_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_00000539_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_00000540_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_00000547_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_0000054e_00000000-6_tmp_compile.cpp1.ii".
+ptxas /tmp/tmpxft_00000555_00000000-5_tmp_compile.ptx, line 5480; warning : Double is not supported. Demoting to float
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_00000580_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_00000587_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_0000058e_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_00000595_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_0000059c_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_000005a3_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_000005aa_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_000005b2_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_000005c5_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_0000060c_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float4
+
+1 error detected in the compilation of "/tmp/tmpxft_00000627_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_00002fd3_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_00002fda_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_00002fe1_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_00002fe8_00000000-6_tmp_compile.cpp1.ii".
+ptxas /tmp/tmpxft_00002fef_00000000-5_tmp_compile.ptx, line 5480; warning : Double is not supported. Demoting to float
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_00003034_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float3 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_0000305a_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_00003061_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_00003068_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_0000306f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float2
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_00003076_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float3
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_0000307d_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_00003084_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_0000308b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float2 > float4
+
+tmp_compile.cu(3121): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+tmp_compile.cu(3124): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_00003092_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3120): error: no operator ">" matches these operands
+            operand types are: float4 > float4
+
+1 error detected in the compilation of "/tmp/tmpxft_00003099_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float3 > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_0000194b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float3 > float2
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_00001952_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float3 > float4
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_00001959_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float2 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_00001960_00000000-6_tmp_compile.cpp1.ii".
+ptxas /tmp/tmpxft_00001967_00000000-5_tmp_compile.ptx, line 5599; warning : Double is not supported. Demoting to float
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float4 > float
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_000019a0_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float3 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_000019a7_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float > float4
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_000019af_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float2 > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_000019b6_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float2 > float3
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_000019bd_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float4 > float2
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_000019c4_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float4 > float3
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_000019cb_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_000019d2_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_000019d9_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float2 > float4
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_00001a1b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float4 > float4
+
+1 error detected in the compilation of "/tmp/tmpxft_00001a47_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float3 > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_0000365f_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float3 > float2
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_00003666_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float3 > float4
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+3 errors detected in the compilation of "/tmp/tmpxft_0000366d_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float2 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_00003674_00000000-6_tmp_compile.cpp1.ii".
+ptxas /tmp/tmpxft_0000367b_00000000-5_tmp_compile.ptx, line 5599; warning : Double is not supported. Demoting to float
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float4 > float
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_000036a6_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float3 > float
+
+1 error detected in the compilation of "/tmp/tmpxft_000036ad_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float > float4
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float - float4
+
+2 errors detected in the compilation of "/tmp/tmpxft_000036b4_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float2 > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_000036bb_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float2 > float3
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float2 - float3
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float3 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_000036c2_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float4 > float2
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_000036c9_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float4 > float3
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float4 - float3
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float3 - float4
+
+3 errors detected in the compilation of "/tmp/tmpxft_000036d0_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float > float3
+
+1 error detected in the compilation of "/tmp/tmpxft_000036d7_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float > float2
+
+1 error detected in the compilation of "/tmp/tmpxft_000036de_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float2 > float4
+
+tmp_compile.cu(3046): error: no operator "-" matches these operands
+            operand types are: float2 - float4
+
+tmp_compile.cu(3049): error: no operator "-" matches these operands
+            operand types are: float4 - float2
+
+3 errors detected in the compilation of "/tmp/tmpxft_000036e5_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(3045): error: no operator ">" matches these operands
+            operand types are: float4 > float4
+
+1 error detected in the compilation of "/tmp/tmpxft_000036ec_00000000-6_tmp_compile.cpp1.ii".
+nvcc error   : 'cudafe' died due to signal 2 
+nvcc error   : 'gcc' died due to signal 2 
+
+Compilation terminated.
+ptxas /tmp/tmpxft_0000200f_00000000-5_tmp_compile.ptx, line 6364; warning : Double is not supported. Demoting to float
+tmp_compile.cu(2843): error: no operator "<" matches these operands
+            operand types are: int < float3
+
+tmp_compile.cu(2844): error: no suitable conversion function from "float3" to "int" exists
+
+2 errors detected in the compilation of "/tmp/tmpxft_0000203b_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(2843): error: no operator "<" matches these operands
+            operand types are: int < float2
+
+tmp_compile.cu(2844): error: no suitable conversion function from "float2" to "int" exists
+
+2 errors detected in the compilation of "/tmp/tmpxft_00002042_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(2843): error: no operator "<" matches these operands
+            operand types are: int < float4
+
+tmp_compile.cu(2844): error: no suitable conversion function from "float4" to "int" exists
+
+2 errors detected in the compilation of "/tmp/tmpxft_0000204a_00000000-6_tmp_compile.cpp1.ii".
+ptxas /tmp/tmpxft_0000224c_00000000-5_tmp_compile.ptx, line 6364; warning : Double is not supported. Demoting to float
+tmp_compile.cu(2843): error: no operator "<" matches these operands
+            operand types are: int < float3
+
+tmp_compile.cu(2844): error: no suitable conversion function from "float3" to "int" exists
+
+2 errors detected in the compilation of "/tmp/tmpxft_00002277_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(2843): error: no operator "<" matches these operands
+            operand types are: int < float2
+
+tmp_compile.cu(2844): error: no suitable conversion function from "float2" to "int" exists
+
+2 errors detected in the compilation of "/tmp/tmpxft_0000227e_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(2843): error: no operator "<" matches these operands
+            operand types are: int < float4
+
+tmp_compile.cu(2844): error: no suitable conversion function from "float4" to "int" exists
+
+2 errors detected in the compilation of "/tmp/tmpxft_00002285_00000000-6_tmp_compile.cpp1.ii".
+ptxas /tmp/tmpxft_000023a4_00000000-5_tmp_compile.ptx, line 6364; warning : Double is not supported. Demoting to float
+tmp_compile.cu(2843): error: no operator "<" matches these operands
+            operand types are: int < float3
+
+tmp_compile.cu(2844): error: no suitable conversion function from "float3" to "int" exists
+
+2 errors detected in the compilation of "/tmp/tmpxft_000023cf_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(2843): error: no operator "<" matches these operands
+            operand types are: int < float2
+
+tmp_compile.cu(2844): error: no suitable conversion function from "float2" to "int" exists
+
+2 errors detected in the compilation of "/tmp/tmpxft_000023d6_00000000-6_tmp_compile.cpp1.ii".
+tmp_compile.cu(2843): error: no operator "<" matches these operands
+            operand types are: int < float4
+
+tmp_compile.cu(2844): error: no suitable conversion function from "float4" to "int" exists
+
+2 errors detected in the compilation of "/tmp/tmpxft_000023dd_00000000-6_tmp_compile.cpp1.ii".

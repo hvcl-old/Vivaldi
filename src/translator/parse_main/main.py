@@ -569,6 +569,68 @@ def change_modifier(code):
 	m_idx = -1
 	# implementation
 	###################################################
+	def change_line(line):
+		# change to below form
+		# 'run_function( func_name='', args=[], execid=[], range={} or () or var, output_halo=..., modifier_dict={} )'
+		output = ''
+		
+		func_name, idx = get_func_name(line)
+		args = get_args(line[idx:])
+		execid = get_execid(line, idx)
+#				modifier_dict = get_modifier_dict(line, idx)
+		
+		b_idx = line.find(func_name)
+		before = line[:b_idx]
+	
+		output += before
+		output += 'run_function('
+		# output name
+		return_name = get_return_name(line, idx-len(func_name)-1)
+		output += 'return_name=\'' + return_name + '\''
+
+		output += ', func_name=\'' + func_name + '\''
+		#output += ', args=' + str(as_list(args))
+		output += ', args=' + '[' + args + ']'
+		output += ', arg_names=' + str(as_list(args))
+		output += ', execid=' + execid
+		
+		# range
+		range_modifier, flag = get_range(line, idx)
+		if flag:
+			output += ', work_range=' + as_python(range_modifier)
+			
+		# output halo
+		output_halo, flag = get_output_halo(line, args)
+		if flag:
+			output += ', output_halo=' + output_halo
+		
+		# split
+		split, flag = get_split(line, idx)
+		if flag:
+			output += ', split_dict=' + as_python(split)
+		
+		# merge
+		merge_func, merge_order, flag = get_merge(line, idx)
+		if flag:
+			output += ', merge_func=' + merge_func + ', merge_order=' + merge_order
+
+		# halo
+		halo, flag = get_halo(line, args)
+		if flag:
+			output += ', halo_dict=' + as_python(halo)
+		
+		# dtype dict
+		dtype_dict, flag = get_dtype(line, args)
+		if flag:
+			output += ', dtype_dict=' + as_python(dtype_dict)
+
+		#output += ', modifier_dict=' + modifier_dict
+#				output += ')\n'
+		output += ')'
+		left = get_left(line, idx)
+		output += left
+		
+		return output
 	
 	# find VIVALDI_FUNCTION
 	while i < n:
@@ -583,75 +645,21 @@ def change_modifier(code):
 					if code[i+2:].startswith(modifier):
 						m_flag = True # found modifier
 						break
-		
 		if w == '\n':
 			if m_flag: # there are modifier in this line
-				# change to below form
-				# 'run_function( func_name='', args=[], execid=[], range={} or () or var, output_halo=..., modifier_dict={} )'
-				
-				func_name, idx = get_func_name(line)
-				args = get_args(line[idx:])
-				execid = get_execid(line, idx)
-#				modifier_dict = get_modifier_dict(line, idx)
-				
-				b_idx = line.find(func_name)
-				before = line[:b_idx]
-			
-			#	print "LINE", line
-				output += before
-				output += 'run_function('
-				# output name
-				return_name = get_return_name(line, idx-len(func_name)-1)
-				output += 'return_name=\'' + return_name + '\''
-
-				output += ', func_name=\'' + func_name + '\''
-				output += ', args=' + str(as_list(args))
-				output += ', execid=' + execid
-				
-				# range
-				range_modifier, flag = get_range(line, idx)
-				if flag:
-					output += ', work_range=' + as_python(range_modifier)
-					
-				# output halo
-				output_halo, flag = get_output_halo(line, args)
-				if flag:
-					output += ', output_halo=' + output_halo
-				
-				# split
-				split, flag = get_split(line, idx)
-				if flag:
-					output += ', split_dict=' + as_python(split)
-				
-				# merge
-				merge_func, merge_order, flag = get_merge(line, idx)
-				if flag:
-					output += ', merge_func=' + merge_func + ', merge_order=' + merge_order
-
-				# halo
-				halo, flag = get_halo(line, args)
-				if flag:
-					output += ', halo_dict=' + as_python(halo)
-				
-				# dtype dict
-				dtype_dict, flag = get_dtype(line, args)
-				if flag:
-					output += ', dtype_dict=' + as_python(dtype_dict)
-
-				#output += ', modifier_dict=' + modifier_dict
-#				output += ')\n'
-				output += ')'
-				left = get_left(line, idx)
-				output += left
-
+				output += change_line(line)
 				#output += '\n'
 			else: # no modifier in this line
 				output += line
 			line = ''
 			m_flag = False
 		i += 1
+	
 	if line != '':
-		output += line
+		if m_flag:
+			output += change_line(line)
+		else: 
+			output += line
 	return output
 	
 def add_VIVALDI_WRITE(code):

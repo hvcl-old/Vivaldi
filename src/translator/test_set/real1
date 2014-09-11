@@ -1,0 +1,76 @@
+test_input:
+def render(volume1,volume2, x, y):
+	step = 0.8
+	line_iter = orthogonal_iter(volume1, x, y, step)
+	
+	color = make_float4(0)
+	tmp_val = make_float4(0)
+	for elem in line_iter:
+		val1 = linear_query_3d(volume1, elem)
+		val2 = linear_query_3d(volume2, elem)
+		if val1 > val2:
+			tmp_val = transfer(val1-val2)
+		else:
+			tmp_val = transfer(val2-val1)
+
+		color = alpha_compositing(color, tmp_val)
+	
+	return RGBA(color)
+
+def main():
+	volume1 = load_data_3d(DATA_PATH+'/ZF/ZF_bind.dat',dtype="short")
+	volume2 = load_data_3d(DATA_PATH+'/ZF/ZF01.dat',dtype="short")
+	enable_viewer(render(volume1,volume2,x,y).range(x=-512:512,y=-512:512).dtype(volume1,short).dtype(volume2,short).split(Output, x=2, y=2),'TFF','3D', 2000)
+test_output:
+* global variables
+******************************************
+
+* main
+******************************************
+def main():
+    volume1 = VIVALDI_WRITE('volume1', load_data_3d(DATA_PATH+'/ZF/ZF_bind.dat',dtype="short"))
+    volume2 = VIVALDI_WRITE('volume2', load_data_3d(DATA_PATH+'/ZF/ZF01.dat',dtype="short"))
+    enable_viewer(run_function(return_name='', func_name='render', args=['volume1', 'volume2', 'x', 'y'], execid=[], work_range={'y':(-512,512),'x':(-512,512)}, split_dict={'Output':{'y':2,'x':2,}}, dtype_dict={'volume2':'short_volume','volume1':'short_volume'}),'TFF','3D', 2000)
+
+* rendershortshort
+******************************************
+__global__ void rendershortshort(RGBA* rb, VIVALDI_DATA_RANGE* rb_DATA_RANGE, short* volume1, VIVALDI_DATA_RANGE* volume1_DATA_RANGE, short* volume2, VIVALDI_DATA_RANGE* volume2_DATA_RANGE, int x_start, int x_end, int y_start, int y_end){
+
+    int x_hschoi = threadIdx.x + blockDim.x * blockIdx.x;
+    int x = x_start + x_hschoi;
+    int y_hschoi = threadIdx.y + blockDim.y * blockIdx.y;
+    int y = y_start + y_hschoi;
+
+    if(x_end <= x || y_end <= y)return;
+    line_iter line_iter;
+    float4 tmp_val;
+    float step;
+    float4 color;
+    step = 0.8;
+    line_iter = orthogonal_iter(volume1, x, y, step, volume1_DATA_RANGE);
+
+    color = make_float4(0);
+    tmp_val = make_float4(0);
+    for(float3 elem = line_iter.begin(); line_iter.hasNext(); ){
+        float val1;
+        float val2;
+        val1 = linear_query_3d<float>(volume1, elem, volume1_DATA_RANGE);
+        val2 = linear_query_3d<float>(volume2, elem, volume2_DATA_RANGE);
+        if( val1 > val2){
+            tmp_val = transfer(val1-val2);
+        }
+        else{
+            tmp_val = transfer(val2-val1);
+
+        }
+        color = alpha_compositing(color, tmp_val);
+
+        elem = line_iter.next();
+    }
+    rb[(x-rb_DATA_RANGE->start.x)+(y-rb_DATA_RANGE->start.y)*(rb_DATA_RANGE->end.x-rb_DATA_RANGE->start.x)] = RGBA(color);
+    return;
+
+}
+
+return dtype: RGBA
+target:CUDA

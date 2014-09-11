@@ -3,12 +3,6 @@ svn:wc:ra_dav:version-url
 V 54
 /svn/Vivaldi/!svn/ver/111/src/translator/preprocessing
 END
-__init__.py
-K 25
-svn:wc:ra_dav:version-url
-V 64
-/svn/Vivaldi/!svn/ver/4/src/translator/preprocessing/__init__.py
-END
 main.py
 K 25
 svn:wc:ra_dav:version-url

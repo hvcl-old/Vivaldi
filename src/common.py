@@ -11,17 +11,6 @@ if path not in sys.path:
 attachment = ''
 
 # import 
-"""
-try:
-	from general.divide_line.divide_line import divide_line
-except:
-	pass
-	
-try:
-	from general.general import *
-except:
-	pass
-"""
 	
 # functions
 #####################################################################
@@ -202,7 +191,7 @@ def get_writing_3d_functions():
 
 	return attachment
 
-def load_attachment():
+def load_GPU_attachment():
 	includes = '#include "%s/src/py-src/helper_math.h"'%(VIVALDI_PATH) + '\n'
 	attachment = includes + read_file(VIVALDI_PATH+'/src/py-src/Vivaldi_cuda_attachment.cu')
 	attachment += 'extern "C"{\n'
@@ -214,21 +203,23 @@ def load_attachment():
 	writing_3d_functions = get_writing_3d_functions()
 	attachment += writing_3d_functions
 
-	attachment += '}\n'				
+	attachment += '}\n'
 	return attachment
 	
-def find_code(func_name, code):
+def find_code(function_name='', code=''):
+	if function_name == '':
+		print "No function name found"
+		assert(False)
 	# initialization
 	###################################################
-	st = 'def '+func_name+'('
+	st = 'def '+function_name+'('
 	output = ''
 	s_idx = code.find(st)
+	
 	if s_idx == -1:
-		print "CAN NOT FIND FUNCTION"
-		print "FUNCTION WANT TO FIND"
-		print func_name
-		print "CODE"
-		print code
+		print "Error"
+		print "Cannot find the function"
+		print "Function want to find:", function_name
 		assert(False)
 	n = len(code)
 	# implementation
@@ -276,6 +267,25 @@ def find_code(func_name, code):
 	
 	return output
 	
+def get_type_name(data):
+
+	return 'float' if '.' in str(data) else 'integer'
+		
+def get_argument(code): # get arguments list from head
+	from general.divide_line.divide_line import divide_line
+	start = code.find('(')+1
+	end = code.find(')')
+	
+	argument = code[start: end]
+	elem_list = divide_line(argument)
+	
+	output = []
+	for elem in elem_list:
+		if elem != ',':
+			output += [elem]
+	return output
+		
+	
 # get indent of the input line
 def get_indent(line): 
 	s_line = line.strip()
@@ -283,8 +293,3 @@ def get_indent(line):
 	indent = line[:i_idx]
 
 	return indent
-	
-# initialization
-#####################################################################
-
-attachment = load_attachment()
