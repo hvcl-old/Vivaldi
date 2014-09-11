@@ -9,6 +9,26 @@ Contact
 * woslakfh1@unist.ac.kr
 
 
+Add ssh-key across nodes
+=======
+```bash
+cd ~
+ssh-keygen -t rsa
+chmod 700 .ssh
+cd ~/.ssh
+cp id_rsa.pub authorized_keys
+chmod 640 authorized_keys
+```
+
+Add ssh-key to communicate with github
+=======
+Copy the ssh-key to clip board
+```bash
+cat ~/.ssh/id_rsa.pub
+```
+Go to https://github.com/settings/ssh , create a new SSH key and paste that content to it
+
+
 Basic git commands
 =======
 git clone git@github.com:hvcl/Vivaldi.git
