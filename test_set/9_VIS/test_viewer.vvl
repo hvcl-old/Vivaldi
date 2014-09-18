@@ -1,0 +1,19 @@
+
+
+def mip(volume, x, y):
+	step = 0.4                      
+	line_iter = perspective_iter(volume, x, y, step, 226)
+
+	max = 0.0
+	for elem in line_iter:
+		val = linear_query_3d(volume, elem)
+
+		if max < val:
+			 max = val
+
+	return max/10.0
+
+def main():                                                                         
+	volume = load_data_3d(DATA_PATH+'/CThead.dat')
+
+	enable_viewer(mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume, short),None,'3D')
