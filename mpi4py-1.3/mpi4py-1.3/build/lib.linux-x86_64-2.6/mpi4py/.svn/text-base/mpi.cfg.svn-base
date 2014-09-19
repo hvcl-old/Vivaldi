@@ -1,0 +1,8 @@
+[mpi]
+runtime_library_dirs = /cm/shared/custom/apps/openmpi-gpudirect/gcc/64/1.7.2/lib
+libraries = mpi
+mpicc = /cm/shared/custom/apps/openmpi-gpudirect/gcc/64/1.7.2/bin/mpicc
+mpicxx = /cm/shared/custom/apps/openmpi-gpudirect/gcc/64/1.7.2/bin/mpicxx
+library_dirs = /cm/shared/custom/apps/openmpi-gpudirect/gcc/64/1.7.2/lib
+include_dirs = /cm/shared/custom/apps/openmpi-gpudirect/gcc/64/1.7.2/include
+

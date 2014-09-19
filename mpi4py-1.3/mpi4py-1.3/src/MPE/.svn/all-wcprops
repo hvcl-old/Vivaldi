@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPE
+END
+mpe-log.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPE/mpe-log.pxi
+END
+MPE.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPE/MPE.pyx
+END
+helpers.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPE/helpers.pxi
+END
+mpe-log.c
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPE/mpe-log.c
+END
+mpe-log.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPE/mpe-log.h
+END

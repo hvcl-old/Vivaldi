@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/conf
+END
+mpiregexes.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/conf/mpiregexes.py
+END
+cythonize.bat
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/conf/cythonize.bat
+END
+epydoc.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/conf/epydoc.cfg
+END
+mpidistutils.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/conf/mpidistutils.py
+END
+epydocify.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/conf/epydocify.py
+END
+mpiconfig.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/conf/mpiconfig.py
+END
+cythonize.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/conf/cythonize.py
+END
+cythonize.sh
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/conf/cythonize.sh
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/conf/__init__.py
+END
+mpiscanner.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/conf/mpiscanner.py
+END
+MANIFEST.in
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/conf/MANIFEST.in
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/conf/CMakeLists.txt
+END

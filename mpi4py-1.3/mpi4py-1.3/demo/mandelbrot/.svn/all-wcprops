@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/mandelbrot
+END
+mandelbrot-seq.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/mandelbrot/mandelbrot-seq.py
+END
+mandelbrot-master.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/mandelbrot/mandelbrot-master.py
+END
+mandelbrot-worker.f90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/mandelbrot/mandelbrot-worker.f90
+END
+makefile
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/mandelbrot/makefile
+END
+mandelbrot.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/mandelbrot/mandelbrot.py
+END

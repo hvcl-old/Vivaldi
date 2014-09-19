@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/compat
+END
+hpmpi.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/compat/hpmpi.h
+END
+lammpi.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/compat/lammpi.h
+END
+sicortex.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/compat/sicortex.h
+END
+mpich1.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/compat/mpich1.h
+END
+mpich2.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/compat/mpich2.h
+END
+openmpi.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/compat/openmpi.h
+END

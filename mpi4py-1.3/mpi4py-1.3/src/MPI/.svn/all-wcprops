@@ -1,0 +1,191 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI
+END
+stdlib.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/stdlib.pxi
+END
+ExceptionC.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/ExceptionC.pyx
+END
+message.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/message.pxi
+END
+asmemory.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/asmemory.pxi
+END
+asbuffer.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/asbuffer.pxi
+END
+ExceptionP.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/ExceptionP.pyx
+END
+Op.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/Op.pyx
+END
+opimpl.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/opimpl.pxi
+END
+helpers.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/helpers.pxi
+END
+asmpistr.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/asmpistr.pxi
+END
+typeimpl.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/typeimpl.pxi
+END
+Status.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/Status.pyx
+END
+MPI.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/MPI.pyx
+END
+Errhandler.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/Errhandler.pyx
+END
+typestr.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/typestr.pxi
+END
+Info.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/Info.pyx
+END
+Group.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/Group.pyx
+END
+Exception.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/Exception.pyx
+END
+typemap.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/typemap.pxi
+END
+Datatype.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/Datatype.pyx
+END
+atimport.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/atimport.pxi
+END
+File.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/File.pyx
+END
+asarray.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/asarray.pxi
+END
+Request.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/Request.pyx
+END
+reqimpl.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/reqimpl.pxi
+END
+pickled.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/pickled.pxi
+END
+Comm.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/Comm.pyx
+END
+CAPI.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/CAPI.pxi
+END
+commimpl.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/commimpl.pxi
+END
+Win.pyx
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/Win.pyx
+END
+winimpl.pxi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/src/MPI/winimpl.pxi
+END

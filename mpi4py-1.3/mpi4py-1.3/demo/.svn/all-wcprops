@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/shadie/!svn/ver/366/mpi4py-1.3/mpi4py-1.3/demo
+END
+osu_bibw.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/osu_bibw.py
+END
+osu_alltoall.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/osu_alltoall.py
+END
+helloworld.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/helloworld.py
+END
+osu_bw.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/shadie/!svn/ver/366/mpi4py-1.3/mpi4py-1.3/demo/osu_bw.py
+END
+osu_multi_lat.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/osu_multi_lat.py
+END
+helloworld.f90
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/helloworld.f90
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/README.txt
+END
+helloworld.c
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/helloworld.c
+END
+helloworld.cxx
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/helloworld.cxx
+END
+osu_latency.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/osu_latency.py
+END
+makefile
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/shadie/!svn/ver/88/mpi4py-1.3/mpi4py-1.3/demo/makefile
+END
