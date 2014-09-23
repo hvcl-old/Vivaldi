@@ -360,6 +360,7 @@ def mem_release(data_package):
 	
 GPUDIRECT = True
 VIVALDI_BLOCKING = False
+log_type = False
 
 flag_times = {}
 for elem in ["recv","send_order","free","memcpy_p2p_send","wait","cutting"]:
@@ -367,11 +368,25 @@ for elem in ["recv","send_order","free","memcpy_p2p_send","wait","cutting"]:
 	
 flag = ''
 while flag != "finish":
+	if log_type != False: print "Reader waiting"
 	source = comm.recv(source=MPI.ANY_SOURCE,    tag=5)
 	flag = comm.recv(source=source,              tag=5)
 	
-	print "Reader source:", source, "flag:", flag 
-	
+	if log_type != False: print "Reader source:", source, "flag:", flag 
+	# interactive mode functions
+	if flag == "log":
+		log_type = comm.recv(source=source,    tag=5)
+		print "Reader log type changed to", log_type
+	elif flag == 'say':
+		print "GPU hello", rank, name
+	elif flag == "get_data_list":
+		print "Reader data_list:", data_list.keys()
+	elif flag == "remove_data":
+		uid = comm.recv(source=source,    tag=5)
+		if uid in data_list:
+			del data_list[uid]
+			print "Reader removed data"
+	# old functions
 	if flag == "synchronize":
 		# synchronize
 		comm.send("Done", dest=source, tag=999)

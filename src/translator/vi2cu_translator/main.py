@@ -633,6 +633,8 @@ def parse_block(block='', local_dict={}):
 			
 			if get_dtype(elem_list[3],local_dict) in ['line_iter','plane_iter','cube_iter']:
 				# domain specific language iterator case
+				
+				# if next com bottom, cannot use continue
 				var = elem_list[1]
 				iter = elem_list[3]
 			
@@ -642,6 +644,7 @@ def parse_block(block='', local_dict={}):
 				for_statement_line += elem_list[1] + ' = ' + iter + '.begin(); '
 				for_statement_line += iter + '.valid(); '
 				for_statement_line += '){\n' # increment not come here
+				for_statement_line += indent + '    ' + var + ' = ' + elem_list[3] + '.next()\n'
 			
 				if len(code_list) == 0:
 					code_list.append('')
@@ -650,7 +653,7 @@ def parse_block(block='', local_dict={}):
 				#output = for_statement_line + output
 				#output += indent + '\t' + var + ' = ' + var + '.next()\n'
 #				code_list.append(indent + '    ' + var + ' = ' + var + '.next()\n')
-				code_list.append(indent + '    ' + var + ' = ' + elem_list[3] + '.next()\n')
+#				code_list.append(indent + '    ' + var + ' = ' + elem_list[3] + '.next()\n')
 			else:
 				# range case
 				

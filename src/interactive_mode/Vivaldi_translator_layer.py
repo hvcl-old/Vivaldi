@@ -17,6 +17,7 @@ def line_translator(line, data_package_list):
 	line = modifier_translator(line)
 	# translate gather
 	def gather_trnslator(line):
+		#print data_package_list
 		return line
 	line = gather_trnslator(line)
 	return line

@@ -10,7 +10,7 @@ class Function_package():
 		self.reserved = False
 		self.output = Data_package()
 		self.mmtx = numpy.eye(4,dtype=numpy.float32)
-		self.inv_mmtx = numpy.eye(4,dtype=numpy.float32)
+		#self.inv_mmtx = numpy.eye(4,dtype=numpy.float32)
 		
 		self.trans_tex = None
 		self.update_tf = 0
@@ -218,6 +218,10 @@ class Data_package():
 	def get_bytes(self):
 		if self.data_bytes == None: return self.full_data_bytes
 		return self.data_bytes
+	def set_dtype(self, dtype):
+		self.set_data_contents_dtype(dtype)
+		self.set_data_range(self.data_range)
+		self.set_full_data_range(self.full_data_range)
 		
 	def set_data_contents_dtype(self, dtype):
 		dtype = python_dtype_to_Vivaldi_dtype(dtype)
@@ -236,18 +240,12 @@ class Data_package():
 	def set_data_range(self, input):
 		if type(input) == str:
 			input = ast.literal_eval(input)
-
 		self.data_range = input
-
 		shape = range_to_shape(self.data_range)
-		
 		memory_shape = make_memory_shape(shape, self.data_contents_memory_shape)
-
 		bcmd = self.data_contents_memory_dtype
 		bcmb = get_bytes(bcmd)
-
 		bytes = make_bytes(memory_shape, bcmb)
-
 		if bytes < 0:
 			print "VIVALDI system error"
 			print "----------------------------------"
@@ -258,12 +256,10 @@ class Data_package():
 			print "Memory type:",bcmd
 			print "----------------------------------"
 			assert(False)
-		
 		self.data_shape = shape
 		self.data_bytes = int(bytes)
 		self.data_memory_shape = memory_shape
-		pass
-
+		
 	def set_full_data_range(self, full_data_range):
 		if type(full_data_range) == str:
 			full_data_range = ast.literal_eval(full_data_range)

@@ -167,7 +167,6 @@ def binary_conversion(front_dtype, back_dtype):
 		if front_dtype.endswith('2'): pass # nothing 
 		else: front_dtype += '2'
 		
-	
 	# after above rules
 	# if either operand is singed, the other operand is converted to signed
 	f_flag = front_dtype.startswith('unsigned')
@@ -274,9 +273,35 @@ func_dict['max']='float'
 
 func_dict['make_uchar'] = 'uchar'
 
+# 2chan 
+func_dict['make_int2'] = 'int2'
+func_dict['int2.x'] = 'int'
+func_dict['int2.y'] = 'int'
 func_dict['make_float2'] = 'float2'
+func_dict['float2.x'] = 'float'
+func_dict['float2.y'] = 'float'
+
+# 3chan
+func_dict['make_int3'] = 'int3'
+func_dict['int3.x'] = 'int'
+func_dict['int3.y'] = 'int'
+func_dict['int3.z'] = 'int'
 func_dict['make_float3'] = 'float3'
+func_dict['float3.x'] = 'float'
+func_dict['float3.y'] = 'float'
+func_dict['float3.z'] = 'float'
+
+# 4chan
+func_dict['make_int4'] = 'int4'
+func_dict['int4.x'] = 'int'
+func_dict['int4.y'] = 'int'
+func_dict['int4.z'] = 'int'
+func_dict['int4.w'] = 'int'
 func_dict['make_float4'] = 'float4'
+func_dict['float4.x'] = 'float'
+func_dict['float4.y'] = 'float'
+func_dict['float4.z'] = 'float'
+func_dict['float4.w'] = 'float'
 
 func_dict['line_iter'] = 'line_iter'
 func_dict['line_iter.begin'] = 'float3'
@@ -326,7 +351,7 @@ func_dict['RGB'] = 'RGB'
 # viewer function
 func_dict['alpha_compositing'] = 'float4'
 func_dict['alpha_compositing_wo_alpha'] = 'float4'
-func_dict['transfer'] = 'float4'	
+func_dict['transfer'] = 'float4'
 
 def get_function_return_dtype(func_name, args_list, dtype_list, local_dict):
 	sfn = func_name.strip()
@@ -454,10 +479,14 @@ def get_dot_dtype(before, before_dtype, after, after_dtype):
 	# dot is element selection by reference
 	# after dot can be function or variable both
 
-
 	# element + '.' + element = Function or variable
 	if before_dtype == 'integer_constant' and after_dtype == 'integer_constant':
 		return 'float_constant'
+	
+	
+	key = before_dtype + '.' + after
+	if key in func_dict:
+		return func_dict[key]
 	
 #	print "BEFORE"
 #	print before, before_dtype
@@ -528,14 +557,12 @@ def Second_level(elem_list, dtype_list, local_dict, dtype_dict):
 			
 			new_elem = before+elem_list[i+1]+after
 			new_elem_list.append(new_elem)
-			
 			dtype = get_dot_dtype(before, before_dtype, after, after_dtype)
 			new_dtype_list.append(dtype)
 			dtype_dict[new_elem] = dtype
 			i+=2
 			flag = False
-			
-			
+				
 		if flag:
 			new_elem_list.append(elem_list[i])
 			new_dtype_list.append(dtype_list[i])

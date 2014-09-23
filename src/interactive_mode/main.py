@@ -3,9 +3,84 @@ from mpi4py import MPI
 
 from Vivaldi_load import *
 import Vivaldi_install_check
-#import Vivaldi_dsl_functions
-#from OpenGL.GL import *
+import Vivaldi_dsl_functions
+from OpenGL.GL import *
 
+
+# interactive_mode functions
+def log(log_type):
+	dest = 1
+	tag = 5
+	comm.isend(rank,        dest=dest,    tag=tag)
+	comm.isend("log",       dest=dest,    tag=tag)
+	comm.isend(log_type,    dest=dest,    tag=tag)
+def log_on():
+	log(True)
+def log_off():
+	log(False)
+# interactive function management
+def get_function_list(execid_list=[],num=-1): # tag
+	global device_info
+	global comm
+	if execid_list != []:
+		for dest in execid_list:
+			tag = 5
+			comm.send(0, dest=dest, tag=tag)
+			comm.send('say', dest=dest, tag=tag)
+	elif num != -1:
+		pass
+	elif execid_list==[] and num == -1: # all
+		size = comm.Get_size()
+		for i in range(size-1):
+			tag = 5
+			dest = i + 1
+			comm.send(0, dest=dest, tag=tag)
+			comm.send('get_function_list', dest=dest, tag=tag)
+def remove_function(name):
+	dest = 1
+	tag = 5
+	comm.isend(rank,                 dest=dest,    tag=tag)
+	comm.isend("remove_function",    dest=dest,    tag=tag)
+	comm.isend(name,                 dest=dest,    tag=tag)
+# interactive data management
+def get_data_list(): # get current data list 
+	dest = 1
+	tag = 5
+	comm.isend(rank,                 dest=dest,    tag=tag)
+	comm.isend("get_data_list",      dest=dest,    tag=tag)
+def remove_data(input): # free one data
+	dest = 1
+	tag = 5
+	if type(input) == numpy.ndarray:
+		key = id(input)
+		if key in data_package_list:
+			data_package = data_package_list[key]
+			uid = data_package.get_unique_id()
+			comm.isend(rank,             dest=dest,    tag=tag)
+			comm.isend("remove_data",    dest=dest,    tag=tag)
+			comm.isend(uid,              dest=dest,    tag=tag)
+			
+	elif isinstance(input, Data_package):
+		uid = input.get_unique_id()
+		comm.isend(rank,             dest=dest,    tag=tag)
+		comm.isend("remove_data",    dest=dest,    tag=tag)
+		comm.isend(uid,              dest=dest,    tag=tag)
+def free_all_data(): # free all data
+	for key in list(data_package_list):
+		remove_data(data_package_list[key])
+		del(data_package_list[key])
+		
+# interactive process management
+def get_process_status():
+	dest = 1 # scheduler
+	tag = 5 # tag
+	comm.send(0,                dest=dest,    tag=5)
+	comm.send('process_status', dest=dest,    tag=5)
+
+	idle_list = comm.recv(source=dest, tag=5)
+	work_list = comm.recv(source=dest, tag=5)
+	return idle_list, work_list
+	
 # spawn child
 def scheduler_update_computing_unit(cud):
 	dest = 1
@@ -39,11 +114,7 @@ def spawn_all():
 	# local_functions
 	def read_hostfile():
 		# "read hostfile"
-		hostfile = Vivaldi_path + '/hostfile/hostfile'
-		if '--hostfile' in sys.argv:
-			idx = sys.argv.index('--hostfile')
-			hostfile = sys.argv[idx+1]
-			
+		global hostfile
 		f = open(hostfile)
 		x = f.read()
 		f.close()		
@@ -98,6 +169,7 @@ def spawn_all():
 	def add_CPU(COMMAND, ARGS, MAXPROCS, INFO, hostfile):
 		device_type = 'CPU'
 		for host in device_info:
+			if device_type not in device_info[host]:continue
 			if device_info[host][device_type] == 0:continue
 			filename = 'CPU_unit.py'
 			unit = os.path.abspath(os.path.join(os.path.dirname(__file__), filename))
@@ -112,9 +184,9 @@ def spawn_all():
 		return COMMAND, ARGS, MAXPROCS, INFO
 	def add_GPU(COMMAND, ARGS, MAXPROCS, INFO, hostfile):
 		device_type = 'GPU'
-		
 		i = 3
 		for host in device_info:
+			if device_type not in device_info[host]:continue
 			if device_info[host][device_type] == 0:continue
 			filename = 'GPU_unit.py'
 			unit = os.path.abspath(os.path.join(os.path.dirname(__file__), filename))
@@ -152,7 +224,6 @@ def spawn_all():
 			info=INFO, root=0)
 	global comm
 	comm = new_comm.Merge()
-	
 	set_computing_unit_list()
 	scheduler_update_computing_unit(computing_unit_list)
 	
@@ -298,109 +369,52 @@ def load_common(filename): # send functions to computing units
 				i += 1
 			
 			return output
-			
 		function_name_list = get_function_name_list(x)
 		for function_name in function_name_list:
 			function_code = get_code(function_name=function_name, code=x)
 			function_code_dict[function_name] = function_code
 		return function_code_dict
-	
 	new_function_code_dict = get_function_code_dict(code)
 	return new_function_code_dict
-def load_function(filename): # load function only
-	new_function_code_dict = load_common(filename)
-	function_code_dict.update(new_function_code_dict)
-	
-	for elem in new_function_code_dict:
-		if elem == 'main':continue
-		exec new_function_code_dict[elem] in globals()
-def remove_tab_from_main_code(main_code):
-	lines = main_code.splitlines()
-	new_code = ''
-	for line in lines[1:]:
-		new_code += line[4:] + '\n'
-	
-	return new_code
-		
-def load_main(filename): # load main only
-	new_function_code_dict = load_common(filename)
-	function_code_dict.update(new_function_code_dict)
-	if 'main' in function_code_dict:
+def execute_as_main(name='main'):
+	if name in function_code_dict:
 		from Vivaldi_translator_layer import parse_main
-		main_code = new_function_code_dict['main']
+		main_code = function_code_dict['main']
 		main_code = parse_main(main_code)
-		main_code = remove_tab_from_main_code(main_code)
 		exec main_code in globals()
+	#	print "AAA", main_code
+		exec name+'()'
 	else:
-		print "=============================================="
 		print "Vivaldi warning"
-		print filename + " don't have main()"
-		print "=============================================="
-def load_file(filename): # load function and main
+		print "=========================="
+		print "function:",name,"not exist"
+		print "current function liset"
+		print function_code_dict.list()
+		print "=========================="
+def load_file(filename): # load file
 	new_function_code_dict = load_common(filename)
 	function_code_dict.update(new_function_code_dict)
 	
 	for elem in new_function_code_dict:
-		if elem == 'main':continue
-		exec new_function_code_dict[elem] in globals()
+		try:
+			exec new_function_code_dict[elem] in globals()
+		except:
+			pass
+def load_file_init(filename): # load file and main
+	new_function_code_dict = load_common(filename)
+	function_code_dict.update(new_function_code_dict)
+	
+	for elem in new_function_code_dict:
+		try:
+			exec new_function_code_dict[elem] in globals()
+		except:
+			pass
 		
 	if 'main' in function_code_dict:
-		from Vivaldi_translator_layer import parse_main
-		main_code = new_function_code_dict['main']
-		main_code = parse_main(main_code)
-		main_code = remove_tab_from_main_code(main_code)
-		exec main_code in globals()
-		
-def remove_function_from_CPU(function_name): # tag
-	global comm
-	CPU_list = get_CPU_list()
-	for dest in CPU_list:
-		tag = 5
-		comm.isend(0, dest=dest, tag=tag)
-		comm.isend('remove_function', dest=dest, tag=tag)
-		comm.isend(function_name, dest=dest, tag=tag)
-def remove_function_from_GPU(function_name): # tag
-	global comm
-	GPU_list = get_GPU_list()
-	for dest in GPU_list:
-		tag = 5
-		comm.isend(0, dest=dest, tag=tag)
-		comm.isend('remove_function', dest=dest, tag=tag)
-		comm.isend(function_name, dest=dest, tag=tag)
-def remove_function(function_name): # tag
-	remove_function_from_CPU(function_name)
-	remove_function_from_GPU(function_name)
-
-# state check function	
-def get_function_list(execid_list=[],num=-1): # tag
-	global device_info
-	global comm
-	if execid_list != []:
-		for dest in execid_list:
-			tag = 5
-			comm.send(0, dest=dest, tag=tag)
-			comm.send('say', dest=dest, tag=tag)
-	elif num != -1:
-		pass
-	elif execid_list==[] and num == -1: # all
-		size = comm.Get_size()
-		for i in range(size-1):
-			tag = 5
-			dest = i + 1
-			comm.send(0, dest=dest, tag=tag)
-			comm.send('get_function_list', dest=dest, tag=tag)
-def get_process_status():
-	dest = 1 # scheduler
-	tag = 5 # tag
-	comm.send(0,                dest=dest,    tag=5)
-	comm.send('process_status', dest=dest,    tag=5)
-
-	idle_list = comm.recv(source=dest, tag=5)
-	work_list = comm.recv(source=dest, tag=5)
-	return idle_list, work_list
-
+		execute_as_main()
+	
 # data management
-def free_volumes():
+def free_volumes(): # old function
 	# old version function
 	for data_name in data_package_list.keys():
 		u = data_list[data_name]
@@ -471,12 +485,21 @@ def scheduler_merge(function_package, cnt):
 	comm.isend("merge_new",      dest=dest,    tag=5)
 	comm.isend(function_package, dest=dest,    tag=5)
 	comm.isend(cnt,              dest=dest,    tag=5)
+def shchduler_reduce(data_package, function, return_package):
+	global comm
+	dest = 1
+	comm.isend(rank,                 dest=dest,    tag=5)
+	comm.isend("reduce",             dest=dest,    tag=5)
+	send_data_package(data_package,  dest=dest,    tag=5)
+	comm.isend(function_name,        dest=dest,    tag=5)
+	send_data_package(return_package,dest=dest,    tag=5)
+	
 def synchronize():
 	comm.isend(rank,             dest=1,    tag=5)
 	comm.isend("synchronize",    dest=1,    tag=5)
 	comm.recv(source=1,                     tag=999)
 	return True
-def Vivaldi_gather(data_package):
+def Vivaldi_Gather(data_package):
 	dp = data_package
 	if not isinstance(dp, Data_package): return dp
 
@@ -492,7 +515,6 @@ def Vivaldi_gather(data_package):
 	temp2 = dp.devptr
 	dp.data = None
 	dp.devptr = None
-
 	send_data_package(dp,    dest=1,    tag=512)
 	dp.data = temp1
 	dp.devptr = temp2
@@ -516,12 +538,12 @@ def Vivaldi_gather(data_package):
 	data, data_package = recv()
 	return data
 
-def get_file_name(file_name):
+def get_file_name(file_name=''):
 	global cnt
 	if '.' in file_name:
 		file_name, extension = split_file_name_and_extension(file_name)
 	else:
-		file_name = data_name + '_' +str(cnt)
+		file_name = 'result' + '_' +str(cnt)
 		cnt += 1
 		extension = 'png'
 	return file_name, extension.lower()
@@ -569,7 +591,7 @@ def save_image_3d(file_name=None, extension='dat', buf=None, data_shape=None, ch
 		sp = buf.nbytes/MEGA
 		bytes = buf.nbytes
 		log("rank%d, \"%s\", save time to hard disk bytes: %.3fMB %.3f ms %.3f MBytes/sec"%(rank, file_name, bytes/MEGA, ms, sp),'time',log_type)
-def save_image(input1, input2=None, out_of_core=False, normalize=False):
+def save_image(input1, input2=None, out_of_core=False, normalize=True):
 	dtype = 'float32'
 	# merge image
 	##########################################################################################################
@@ -580,7 +602,7 @@ def save_image(input1, input2=None, out_of_core=False, normalize=False):
 		file_name = input2
 	else: # file name is not exist
 		data = input1
-		file_name = gen_file_name();
+		file_name = get_file_name();
 
 	# data generation
 	if isinstance(data, Data_package): 	# data not exist in local
@@ -589,7 +611,6 @@ def save_image(input1, input2=None, out_of_core=False, normalize=False):
 		dp.file_name = file_name
 		dp.extension = extension
 		dp.normalize = normalize
-		
 		if out_of_core:
 			dp.out_of_core = True
 			reader_save_image_out_of_core(dp)
@@ -620,21 +641,59 @@ def VIVALDI_WRITE(data_name, data):
 	return data
 def VIVALDI_GATHER(data_package):
 	if not isinstance(data_package, Data_package): return data_package
-	return Vivaldi_gather(data_package)
-
+	return Vivaldi_Gather(data_package)
+	#return data_package
+def Reduce(data_package, function_name):
+	if not isinstance(data_package, Data_package): return data_package
+	
+	def get_return_package(data_package):
+		return_package = data_package.copy()
+		# set unique_id
+		def get_unique_id():
+			global unique_id
+			unique_id += 1
+			return unique_id
+		return_package.unique_id = get_unique_id()
+		# get new data range
+		def get_new_data_range(data_range, split):
+			new_data_range = {}
+			for axis in data_range:
+				st = data_range[axis][0]
+				ed = data_range[axis][1]
+				width = ed - st
+				div = 1
+				if axis in split: div = split[axis]
+				length = width/div
+				
+				new_data_range[axis] = (0, length)
+				
+			return new_data_range
+		new_data_range = get_new_data_range(data_package.data_range, data_package.split)
+		# set data_range
+		return_package.set_data_range(new_data_range)
+		# set full_data_range
+		return_package.set_full_data_range(new_data_range)
+		# remove split
+		return_package.split = {}
+		
+		return return_package
+	return_package = get_return_package(data_package)
+	scheduler_reduce(data_package, function_name, return_package)
+	return return_package
+	
 # reader function
 def reader_save_image_out_of_core(data_package):
 	dp = data_package
-	dest = 2
+	dest = 1
 	comm.isend(rank,                        dest=dest,    tag=5)
 	comm.isend("save_image_out_of_core",    dest=dest,    tag=5)
-	send_data_package(dp,                   dest=dest,    tag=210)
+	send_data_package(dp,                   dest=dest,    tag=510)
 def reader_save_image_in_core(data_package):
 	dp = data_package
-	dest = 2
+	dest = 1
 	comm.isend(rank,                        dest=dest,    tag=5)
 	comm.isend("save_image_in_core",        dest=dest,    tag=5)
-	send_data_package(dp,                   dest=dest,    tag=211)
+	send_data_package(dp,                   dest=dest,    tag=511)
 	
 # task functions
 from Vivaldi_memory_packages import Data_package, Function_package
@@ -781,20 +840,24 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 		fp = Function_package()
 		fp.set_function_name(function_name)
 		fp.set_function_args(argument_package_list)
-#		from OpenGL.GL import glGetFloatv, GL_MODELVIEW_MATRIX
-#		fp.mmtx					= glGetFloatv(GL_MODELVIEW_MATRIX)
-#		fp.inv_mmtx				= numpy.linalg.inv(fp.mmtx)
+		from OpenGL.GL import glGetFloatv, GL_MODELVIEW_MATRIX
+		fp.mmtx					= glGetFloatv(GL_MODELVIEW_MATRIX)
+		def flip_diagonal(mmtx):
+			new_mmtx = numpy.empty((4,4),dtype=numpy.float32)		
+			for i in range(4):
+				for j in range(4):
+					new_mmtx[i][j] = mmtx[j][i]
+			return new_mmtx
+#		fp.mmtx = flip_diagonal(fp.mmtx)
 		fp.work_range = work_range
-		#fp.merge_func = merge_func
-		#fp.merge_order = merge_order
 		fp.output = return_package
 		return fp
 	function_package = get_function_package(function_name, argument_package_list, return_package, work_range, merge_func, merge_order)
 	register_function_package(function_package)
 	
 	if merge_func != '':
-		return_package = return_package.copy()
-		return_package.set_data_range( return_package.full_data_range)
+		input_package = return_package.copy()
+		input_package.set_data_range(input_package.full_data_range)
 		# function name check
 		if merge_func not in function_code_dict:
 			print "Vivaldi warning"
@@ -806,11 +869,10 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 		merge_function_package = Function_package()
 		# set function name
 		merge_function_package.set_function_name(merge_func)
-		# set return package
-		merge_function_package.output = return_package
+		
 		# set work_range
-		merge_function_package.work_range = return_package.full_data_range
-		def get_merge_package_args(return_package, merge_func):
+		merge_function_package.work_range = input_package.full_data_range
+		def get_merge_package_args(input_package, merge_func):
 			def get_argument_list(function_name):
 				function_code = function_code_dict[merge_func]
 				def get_args(name, code):
@@ -836,13 +898,30 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 				if arg in AXIS:
 					argument_package = Data_package(arg)
 				else:
-					argument_package = return_package.copy()
+					argument_package = input_package.copy()
 				argument_package_list.append(argument_package)
 			return argument_package_list
-		merge_argument_package_list = get_merge_package_args(return_package, merge_func)
+		merge_argument_package_list = get_merge_package_args(input_package, merge_func)
 		# set argument
 		merge_function_package.set_args(merge_argument_package_list)
 		
+		# set return package
+		def get_return_dtype(function_name, argument_package_list):
+			from Vivaldi_translator_layer import get_return_dtype
+			function_code = function_code_dict[function_name]
+			return_dtype = get_return_dtype(function_name, argument_package_list, function_code)
+			if return_dtype.endswith('_volume'):
+				print "Vivaldi_warning"
+				print "---------------------------------"
+				print "Check your function"
+				print "you are trying to return a volume"
+				print "return_dtype: ", return_dtype
+				print "---------------------------------"
+			return return_dtype
+		return_dtype = get_return_dtype(merge_func, merge_argument_package_list)
+		return_package.set_dtype(return_dtype)
+		
+		merge_function_package.output = return_package
 		# split count
 		def get_split_count(argument_package_list):
 			cnt = 1
@@ -908,13 +987,33 @@ def run_function(return_name=None, func_name='', execid=[], work_range=None, arg
 			if data_name not in arg_names:
 				split = split_dict[data_name]
 				break
-		
 		if return_name in split_dict:
 			split = split_dict[return_name]
 		return split
 	output_split = get_output_split(args, arg_names, split_dict, return_name)
 	
-	return parallel(function_name, argument_package_list, work_range, execid, output_halo, output_split,  merge_func, merge_order)
+	if return_name == '':
+		return_name = None
+		#work_range = {'work_range':work_range}
+		
+		args = [function_name, argument_package_list, work_range, execid, output_halo, output_split, merge_func, merge_order]
+
+		return None, parallel, args
+	
+	return parallel(function_name, argument_package_list, work_range, execid, output_halo, output_split, merge_func, merge_order)
+
+	
+# OpenGL matrix function wrapper
+def LoadMatrix(name):
+	glLoadMatrix()
+def LoadIdentity():
+	glLoadIdentity()
+def Rotate(angle, x, y, z):
+	glRotate(angle, x, y, z)
+def Translate(x, y, z):
+	glTranslate(x, y, z)
+def Scaled(x, y, z):
+	glScale(x, y, z)
 	
 # test function
 def say(execid_list=[],num=-1):
@@ -944,6 +1043,12 @@ except:
 	print "Vivaldi_init initialize variables"
 	Vivaldi_path = os.environ.get('vivaldi_path')
 	DATA_PATH = Vivaldi_path + '/data'
+	
+	# set current path to sys.path
+	import sys
+	path = os.getcwd()
+	if path not in sys.path:
+		sys.path.append(path)
 	comm = MPI.COMM_WORLD
 	rank = 0
 	cnt = 0
@@ -966,14 +1071,40 @@ except:
 	y = 'y'
 	z = 'z'
 	w = 'w'
-	spawn_all()
+	
+	hostfile = 'hostfile'
+	
+	from PyQt4 import QtGui, QtCore, QtOpenGL, Qt
+	from PyQt4.QtOpenGL import QGLWidget
+	from OpenGL.GL import *
+
+	# Edit by Anukura $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+	import sys, time
+	sys.path.append(VIVALDI_PATH + "/src/viewer-src")
+
+	import Vivaldi_viewer
+	from Vivaldi_viewer import enable_viewer
+
+	viewer_on = False
+	trans_on = False
+
+#$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
 	
 # argument parsing
 def Vivaldi_input_argument_parsing(argument_list):
+	def hostfile_parsing():
+		if '--hostfile' in sys.argv:
+			idx = sys.argv.index('--hostfile')
+			global hostfile
+			hostfile = sys.argv[idx+1]
+	hostfile_parsing()
+	spawn_all()
 	def option_parsing():
 		if '-L' in argument_list:
 			idx = argument_list.index('-L')
-			GPUDIRECT = argument_list[idx+1]
+			#GPUDIRECT = argument_list[idx+1]
+			log_on()
 	option_parsing()
 	def get_filename(argument_list):
 		filename = None
@@ -991,10 +1122,11 @@ def Vivaldi_input_argument_parsing(argument_list):
 		return filename
 	filename = get_filename(argument_list)
 	if filename != None:
-		load_file(filename)
+		load_file_init(filename)
 import sys
 Vivaldi_input_argument_parsing(sys.argv)
-#say()
+
+#log_on()
 # interactive mode functions
 def interactive_mode():
 	# interactive mode 
@@ -1011,14 +1143,12 @@ def interactive_mode():
 		def __init__(self, *args, **kwargs):
 			self.last_buffer = [] # This holds the last executed statement
 			InteractiveConsole.__init__(self, *args, **kwargs)
-
 		def runsource(self, source, *args):
 			from Vivaldi_translator_layer import line_translator
 			source = line_translator(source, data_package_list)
 	#		print "SSS", source
 			self.last_buffer = [ source.encode('latin-1') ]
 			return InteractiveConsole.runsource(self, source, *args)
-
 		def raw_input(self, *args):
 			line = InteractiveConsole.raw_input(self, *args)
 		#	print "DDDD", line
@@ -1039,5 +1169,11 @@ def interactive_mode():
 
 	Vivaldi_interactive(globals(), locals())
 
-if 'main' not in function_code_dict:
+if 'main' not in globals():
 	interactive_mode()
+else:
+	if Vivaldi_viewer.viewer_on == True:
+		Vivaldi_viewer.VIVALDI_GATHER = VIVALDI_GATHER
+		Vivaldi_viewer.v.show()
+
+	synchronize()

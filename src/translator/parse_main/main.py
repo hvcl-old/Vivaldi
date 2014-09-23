@@ -589,8 +589,21 @@ def change_modifier(code):
 		output += 'return_name=\'' + return_name + '\''
 
 		output += ', func_name=\'' + func_name + '\''
-		#output += ', args=' + str(as_list(args))
-		output += ', args=' + '[' + args + ']'
+		# args
+		
+		output += ', args=['
+		tp = as_list(args)
+		for elem in tp:
+			if elem in AXIS:
+				output += "'" + elem + "'"
+			else:
+				output += elem
+			output += ', '
+		output += ']'
+		
+		#output += 'args=[' + str(args) + ']'
+		#print "O", output
+		# arg names
 		output += ', arg_names=' + str(as_list(args))
 		output += ', execid=' + execid
 		
@@ -1022,7 +1035,6 @@ def parse_function_call(f_call):
 				e_idx += 1
 
 		value = f_call[s_idx+len(key):e_idx]
-
 		if len(value) != 0:
 			try:
 				temp[key[:-1]] = ast.literal_eval(value)
@@ -1074,27 +1086,9 @@ def get_function_list(code):
 		# parsing function call
 		temp = parse_function_call(f_call)
 		function_list.append(temp)
-	
-		"""
-		# duplicate for channels
-		chan_function_list = duplicate_function_list(temp)
-		"""
 		
 		# make merge functions
 		temp_merge_function_list = make_merge_function_list(temp)
-		
-		"""
-		# insert without redundancy
-		for new_elem in chan_function_list:
-			flag = True
-			for elem in function_list:
-				if elem['func_name'] == new_elem['func_name']:
-					if elem['dtype_dict'] == new_elem['dtype_dict']:
-						flag = False
-						break		
-			if flag:
-				function_list += [new_elem]
-		"""
 		
 		for new_elem in temp_merge_function_list:
 			flag = True
@@ -1121,7 +1115,9 @@ def make_dtype_dict(func_list, merge_function_list):
 		# 2. axis [x,y,z,w]
 		# 3. float 1, 3, 5.7 digit
 		# 4. Unknown, volume or value
+		
 		for arg in arg_list:
+			print "AG", arg
 			if arg in dtype_dict: # known dtype from dtype modifier 
 				dtype_dict[arg] = dtype_dict[arg]
 			elif arg in AXIS: # axis 
@@ -1164,8 +1160,9 @@ def parse_main(code):
 	# Matching 
 	#
 	#######################################################
-	func_list, merge_function_list = make_dtype_dict(func_list, merge_function_list)
-
+# 	dtype dict and merge_function_list not used any more from interactive mode start
+#	func_list, merge_function_list = make_dtype_dict(func_list, merge_function_list)
+	
 	return code, func_list, merge_function_list
 
 def test(test_data, test_set=True, detail=0):

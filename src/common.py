@@ -192,8 +192,8 @@ def get_writing_3d_functions():
 	return attachment
 
 def load_GPU_attachment():
-	includes = '#include "%s/src/py-src/helper_math.h"'%(VIVALDI_PATH) + '\n'
-	attachment = includes + read_file(VIVALDI_PATH+'/src/py-src/Vivaldi_cuda_attachment.cu')
+	includes = '#include "%s/src/interactive_mode/helper_math.h"'%(VIVALDI_PATH) + '\n'
+	attachment = includes + read_file(VIVALDI_PATH+'/src/interactive_mode/Vivaldi_cuda_attachment.cu')
 	attachment += 'extern "C"{\n'
 
 	writing_1d_functions = get_writing_1d_functions()
@@ -212,6 +212,7 @@ def find_code(function_name='', code=''):
 		assert(False)
 	# initialization
 	###################################################
+
 	st = 'def '+function_name+'('
 	output = ''
 	s_idx = code.find(st)

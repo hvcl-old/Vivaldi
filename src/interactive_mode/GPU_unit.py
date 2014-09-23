@@ -680,9 +680,9 @@ def kernel_write(function_name, dest_devptr, dest_info, source_devptr, source_in
 	if log_type in ['time', 'all']:
 		st = time.time()
 
+#	print "BL", block, grid
 	func(*cuda_args, block=block, grid=grid, stream=stream)
-
-	#ctx.synchronize()
+	ctx.synchronize()
 	
 	KD.append((dest_info, source_info))
 	
@@ -1121,7 +1121,10 @@ def run_function(function_package, function_name):
 		devptr = dp.devptr
 		output_range = dp.data_range
 		full_output_range = dp.full_data_range
-		ad = data_range_to_cuda_in(output_range, full_output_range, stream=stream)
+		buffer_range = dp.buffer_range
+		buffer_halo = dp.buffer_halo
+		
+		ad = data_range_to_cuda_in(output_range, full_output_range, buffer_range, buffer_halo=buffer_halo, stream=stream)
 		cuda_args += [ad]
 		output_package = dp
 		
@@ -1151,7 +1154,7 @@ def run_function(function_package, function_name):
 	# set work range
 	block, grid = range_to_block_grid(work_range)
 	cuda_args = [devptr] + cuda_args
-
+	
 #	print "GPU", rank, "BEFORE RECV", time.time()
 	# Recv data from other process
 	for data_package in args:
@@ -1196,14 +1199,7 @@ def run_function(function_package, function_name):
 				buffer_range = dp.buffer_range
 				
 				if False:
-					print "DATA_NAME", data_name
-					print "DATA_RANGE", data_range
-					print "FULL_DATA_RANGE", full_data_range
-					print "BUFFER_RANGE", buffer_range
-					print "DATA_HALO", dp.data_halo
-					print "BUFFER_HALO", dp.buffer_halo
-					print dp
-	
+					print "DP", dp.info()
 					print_devptr(dp.devptr, dp)
 				ad = data_range_to_cuda_in(data_range, full_data_range, buffer_range, data_halo=dp.data_halo, buffer_halo=dp.buffer_halo, stream=stream)
 
@@ -1212,25 +1208,24 @@ def run_function(function_package, function_name):
 
 	# set modelview matrix
 	func = mod.get_function(function_name)
-	
 	mmtx,_ = mod.get_global('modelview')
 	inv_mmtx, _ = mod.get_global('inv_modelview')
+	inv_m = numpy.linalg.inv(fp.mmtx)
 	cuda.memcpy_htod_async(mmtx, fp.mmtx.reshape(16), stream=stream)
-	cuda.memcpy_htod_async(inv_mmtx, fp.inv_mmtx.reshape(16), stream=stream)
+	cuda.memcpy_htod_async(inv_mmtx, inv_m.reshape(16), stream=stream)
 
 	stream_list[0].synchronize()
 
 	if log_type in ['time','all']:
 		start = time.time()
-
 	
 	kernel_finish = cuda.Event()
 	func( *cuda_args, block=block, grid=grid, stream=stream_list[0])
 	kernel_finish.record(stream=stream_list[0])
-	
-	#print_devptr(cuda_args[0], func_output)
+	ctx.synchronize()
+#	print "FFFFOOo", func_output.info()
+#	print_devptr(cuda_args[0], func_output)
 	u, ss, sp = func_output.get_id()
-	
 	target = (u,ss,sp)
 
 	Event_dict[target] = kernel_finish
@@ -1286,6 +1281,7 @@ Event_dict = {}
 
 func_dict = {}
 function_code_dict = {} # function
+function_and_kernel_mapping = {}
 source_module_dict = {}
 
 # data pools
@@ -1297,6 +1293,7 @@ Debug = False
 GPUDIRECT = True
 VIVALDI_BLOCKING = False
 
+log_type = False
 n = 2
 flag = ''
 def init_stream():
@@ -1316,10 +1313,65 @@ for elem in ["recv","send_order","free","memcpy_p2p_send","memcpy_p2p_recv","req
 
 flag = ''
 while flag != "finish":
+	if log_type != False: print "GPU:", rank, "waiting"
 	source = comm.recv(source=MPI.ANY_SOURCE,    tag=5)
 	flag = comm.recv(source=source,              tag=5)
-	print "GPU:", rank, "source:", source, "flag:", flag 
-	# state check
+	if log_type != False: print "GPU:", rank, "source:", source, "flag:", flag 
+	# interactive mode functions
+	if flag == "log":
+		log_type = comm.recv(source=source,    tag=5)
+		print "GPU:",rank,"log type changed to", log_type
+	elif flag == 'say':
+		print "GPU hello", rank, name
+	elif flag == 'get_function_list':
+		if len(function_code_dict) == 0:
+			print "GPU:",rank,"Don't have any function"
+			continue
+		for function_name in function_code_dict:
+			print "GPU:", rank, "name:",name, "function_name:",function_name
+	elif flag == "remove_function":
+		name = comm.recv(source=source,    tag=5)
+		if name in function_code_dict:
+			print "GPU:",rank, "function:", name, "is removed"
+			
+			# remove source code
+			try:
+				del function_code_dict[name]
+			except:
+				print "Remove Failed1"
+				print "function want to remove:", name
+				print "exist function_list", function_code_dict.keys()
+				continue
+			
+			# remove kernel function and source modules
+			try:
+				for kernel_function_name in function_and_kernel_mapping:
+					del source_module_dict[kernel_function_name]
+			except:
+				print "Remove Failed2"
+				print "function want to remove:", name
+				print "exist function_list", function_and_kernel_mapping.keys()
+				continue
+			
+			# remove mapping between function name and kernel_function_name
+			try:
+				if name in function_and_kernel_mapping:
+					del function_and_kernel_mapping[name]
+			except:
+				print "Remove Failed3"
+				print "function want to remove:", name
+				print "exist function_list", function_and_kernel_mapping.keys()
+				continue
+		else:
+			print "GPU:",rank, "No function named:", name
+	elif flag == "get_data_list":
+		print "GPU:", rank, "data_list:", data_list.keys()
+	elif flag == "remove_data":
+		uid = comm.recv(source=source,    tag=5)
+		if uid in data_list:
+			del data_list[uid]
+			print "GPU:", rank, "removed data"
+	# old functions
 	if flag == "synchronize":
 		# synchronize
 	
@@ -1437,11 +1489,6 @@ while flag != "finish":
 		data, data_package = data_finder(u,ss,sp, gpu_direct)
 		send(data, data_package, dest=source, gpu_direct=gpu_direct)
 		flag_times[flag] += time.time() - st
-	elif flag == 'say':
-		print "GPU hello", rank, name
-	elif flag == 'get_function_list':
-		for function_name in function_code_dict:
-			print "GPU unit, rank:", rank, "name:",name, "function_name:",function_name
 	elif flag == "finish":
 		disconnect()
 	elif flag == 'set_function':
@@ -1449,20 +1496,29 @@ while flag != "finish":
 		x = comm.recv(source=source, tag=5)
 		new_function_code_dict = get_function_dict(x)
 		function_code_dict.update(new_function_code_dict)
-	elif flag == 'remove_function':
-		filename = comm.recv(source=source, tag=5)
-		del function_code_dict[function_name]
 	elif flag == "run_function":
 		function_package = comm.recv(source=source, tag=51)
 		try:
-			kernel_function_name = function_package.function_name
-			function_args = function_package.function_args
-			for elem in function_args:
-				if elem.data_dtype == numpy.ndarray:
-					kernel_function_name += elem.data_contents_dtype			
+			# get kernel function name
+			def get_kernel_function_name(function_package):
+				kernel_function_name = function_package.function_name
+				function_args = function_package.function_args
+				for elem in function_args:
+					if elem.data_dtype == numpy.ndarray:
+						kernel_function_name += elem.data_contents_dtype
+				return kernel_function_name		
+			kernel_function_name = get_kernel_function_name(function_package)
+			
+			# compile if kernel function not exist
 			if kernel_function_name not in func_dict:
 				compile_for_GPU(function_package, kernel_function_name)
-			
+				# add mapping between function name and kernel function
+				function_name = function_package.function_name
+				if function_name not in function_and_kernel_mapping:
+					function_and_kernel_mapping[function_name] = []
+				if kernel_function_name not in function_and_kernel_mapping[function_name]:
+					function_and_kernel_mapping[function_name].append(kernel_function_name)
+					
 			devptr, output_package = run_function(function_package, kernel_function_name)
 			notice(function_package.output)
 			save_data(devptr, output_package)

@@ -9,6 +9,7 @@ parent = MPI.Comm.Get_parent()
 parent = parent.Merge()
 comm = parent
 rank = comm.Get_rank()
+size = comm.Get_size()
 name = MPI.Get_processor_name()
 	
 # initialize variables
@@ -47,6 +48,8 @@ synchronize_flag = False
 VIVALDI_BLOCKING = False
 VIVALDI_SCHEDULE = False
 VIVALDI_DYNAMIC = True
+
+log_type = False
 
 # MPI communication
 def synchronize():
@@ -421,9 +424,7 @@ def temp_func4(source_list=None): # function execution
 
 	return 
 def launch_task(source_list=None):
-	"""
-	launch every waiting functions
-	"""
+	# launch every waiting functions
 	if source_list == None or VIVALDI_BLOCKING:
 		source_list = list(idle_list)
 	if idle_list == []: return
@@ -486,7 +487,6 @@ def register_function(function_package):
 				inform(arg)
 	
 	if VIVALDI_DYNAMIC:
-		
 		inform(fp.output)
 
 	if not VIVALDI_DYNAMIC:
@@ -625,8 +625,6 @@ def notice(data_package, source, source_package=None):
 	
 	# real work from here
 #	inform(dp, dest=source)
-	#print "NOT", u, ss, sp, data_halo, source
-#	print_write_count()
 	remaining_write_count_list[u][ss][sp][data_halo][source] -= 1
 	counter = remaining_write_count_list[u][ss][sp][data_halo][source]
 	#print "NOT", u, ss, sp, halo, source, counter
@@ -1173,7 +1171,13 @@ def print_write_count():
 			for sp in rc[u][ss]:
 				for data_halo in rc[u][ss][sp]:
 					print u, ss, sp, data_halo, rc[u][ss][sp][data_halo]
-	
+def print_retain_count():
+	for u in retain_count:
+		for ss in retain_count[u]:
+			for sp in retain_count[u][ss]:
+				for data_halo in retain_count[u][ss][sp]:
+					print u, ss, sp, data_halo, retain_count[u][ss][sp][data_halo]
+
 # initialization
 ########################################################
 def init_idle_list():
@@ -1186,6 +1190,7 @@ def init_idle_list():
 	
 	for i in range(2,size):
 		idle_list.append(i)
+	
 init_idle_list()
 for elem in idle_list: making_data[elem] = []
 	
@@ -1197,10 +1202,10 @@ for elem in ["depth","release","retain","synchronize","merge","notice","inform",
 ########################################################
 flag = ''
 while flag != "finish":
-	print "Scheduler wait"
+	if log_type != False: print "Scheduler wait"
 	source = comm.recv(source=MPI.ANY_SOURCE,    tag=5)
 	flag = comm.recv(source=source,              tag=5)
-	print "Scheduler source:", source, "flag:", flag
+	if log_type != False: print "Scheduler source:", source, "flag:", flag
 	
 	# interactive mode functions
 	if flag == "say":
@@ -1211,6 +1216,45 @@ while flag != "finish":
 	elif flag == "update_computing_unit":
 		computing_unit_dict = comm.recv(source=source,    tag=5)
 		computing_unit_list = computing_unit_dict.keys()
+	elif flag == "log":
+		log_type = comm.recv(source=source,    tag=5)
+		print "Scheduler log type changed to", log_type
+		for i in range(2,size):
+			def change_log_type(log_type):
+				dest = i
+				tag = 5
+				comm.isend(rank,        dest=dest,    tag=tag)
+				comm.isend("log",       dest=dest,    tag=tag)
+				comm.isend(log_type,    dest=dest,    tag=tag)
+			change_log_type(log_type)
+	elif flag == "remove_function":
+		name = comm.recv(source=source,    tag=5)
+		for i in range(3,size):
+			def remove_function(name):
+				dest = i
+				tag = 5
+				comm.isend(rank,                 dest=dest,    tag=tag)
+				comm.isend("remove_function",    dest=dest,    tag=tag)
+				comm.isend(name,                 dest=dest,    tag=tag)
+			remove_function(name)
+	elif flag == "get_data_list":
+		for i in range(2,size):
+			def get_data_list():
+				dest = i
+				tag = 5
+				comm.isend(rank,               dest=dest,    tag=tag)
+				comm.isend("get_data_list",    dest=dest,    tag=tag)
+			get_data_list()
+	elif flag == "remove_data":
+		uid = comm.recv(source=source,    tag=5)
+		for i in range(2,size):
+			def remove_data():
+				dest = i
+				tag = 5
+				comm.isend(rank,             dest=dest,    tag=tag)
+				comm.isend("remove_data",    dest=dest,    tag=tag)
+				comm.isend(uid,              dest=dest,    tag=tag)
+			remove_data()
 	# function initialization	
 	if flag == "function":
 		function_package = comm.recv(source=source, tag=52)
@@ -1242,7 +1286,7 @@ while flag != "finish":
 								if end > full_range[axis][1]: end = full_range[axis][1]
 								
 								temp.append( {axis:(start, end)} )
-								
+							
 							if len(range_list) == 0:
 								for elem in temp: range_list.append(elem)
 							else:
@@ -1429,6 +1473,8 @@ while flag != "finish":
 							argument_package.data_halo = halo
 							argument_package.split_position = split_position
 							
+							fp.output.depth = make_depth(work_range, fp.mmtx)
+							
 							argument_package_list[p] = argument_package
 							recursive_task_argument_setting(argument_package_list, p+1)
 					else:
@@ -1442,10 +1488,6 @@ while flag != "finish":
 					for task in new_task_list:
 						task.output.unique_id = task.output.get_unique_id() + '_input_split_' + str(i)
 						i += 1
-						
-					# for task in new_task_list:
-					#	print task.output.info()
-					
 				return new_task_list
 			def output_split(task_list, argument_package_list):
 				# output split change
@@ -1537,6 +1579,13 @@ while flag != "finish":
 			
 			return task_list
 		task_list = create_tasks(function_package)
+		# check task list
+		if len(task_list) == 0:
+			print "Vivaldi Warning"
+			print "--------------------------------------"
+			print "No task is created"
+			print "--------------------------------------"
+		# register task
 		def register_tasks(task_list):
 			for task in task_list:
 				register_function(task)
@@ -1572,39 +1621,146 @@ while flag != "finish":
 		function_package = comm.recv(source=source, tag=5)
 		cnt              = comm.recv(source=source, tag=5)
 		output_package = function_package.output
-		
 		# make merge task list
+		# initialization
 		new_task_list = []
 		in_id = 0
 		ou_id = cnt
-		while cnt > 1:
+		depth_dict = {}
+		# first merge
+		def first_merge(cnt, in_id, ou_id):
+			if cnt == 1: return cnt, in_id, ou_id
 			for i in range(cnt/2):
 				task = function_package.copy()
 				argument_package_list = task.get_args()
-				# set input argument id
+				# set input argument id and calculate depth
+				depth = 0
 				for argument_package in argument_package_list:
 					uid = argument_package.get_unique_id()
 					if uid != '-1':
 						new_id = argument_package.get_unique_id() + '_input_split_' + str(in_id)
 						in_id += 1
 						argument_package.unique_id = new_id
+					
+						# bring depth 
+						u, ss, sp = argument_package.get_id()
+						argument_package = data_packages[u][ss][sp]
+						depth += argument_package.depth		
+				def change_front_and_back(argument_package_list):
+					cnt = 0
+					ft = None
+					bk = None
+					# find first and back
+					for argument_package in argument_package_list:
+						uid = argument_package.get_unique_id()
+						if uid != '-1':
+							if cnt == 0:
+								ft = argument_package
+							else:
+								bk = argument_package
+								break
+							cnt += 1
+					# compare depth
+					f_depth = ft.depth
+					b_depth = bk.depth
+					if f_depth > b_depth:
+						temp = ft
+						ft = bk
+						bk = temp
+				change_front_and_back(argument_package_list)
+				
+				depth /= 2
+				# set depth
+				task.output.depth = depth
 				# set output argument id
 				new_id = task.output.get_unique_id() + '_input_split_' + str(ou_id)
 				ou_id += 1
 				if cnt/2 > 1:
 					task.output.unique_id = new_id
+				# set depth_dict
+				key = str(task.output.get_id())
+				depth_dict[key] = depth
 				# append to task
 				new_task_list.append(task)
-				
 			cnt /= 2
 			
+			return cnt, in_id, ou_id
+		cnt, in_id, ou_id = first_merge(cnt, in_id, ou_id)
+		# second merge
+		# change function_package
+		def change_dtype():			
+			task = function_package
+			argument_package_list = task.get_args()
+			op = task.output
+			k = 0
+			for argument_package in argument_package_list:
+				uid = argument_package.get_unique_id()
+				if uid != '-1':
+					argument_package_list[k] = op.copy()
+				k += 1
+		change_dtype()
+		def second_merge(cnt, in_id, ou_id):
+			while cnt > 1:
+				for i in range(cnt/2):
+					task = function_package.copy()
+					argument_package_list = task.get_args()
+					# set input argument id and calculate depth
+					depth = 0
+					for argument_package in argument_package_list:
+						uid = argument_package.get_unique_id()
+						if uid != '-1':
+							new_id = argument_package.get_unique_id() + '_input_split_' + str(in_id)
+							in_id += 1
+							argument_package.unique_id = new_id
+							
+							# bring depth 
+							key = str(argument_package.get_id())
+							depth += depth_dict[key]
+					def change_front_and_back(argument_package_list):
+						cnt = 0
+						ft = None
+						bk = None
+						# find first and back
+						for argument_package in argument_package_list:
+							uid = argument_package.get_unique_id()
+							if uid != '-1':
+								if cnt == 0:
+									ft = argument_package
+								else:
+									bk = argument_package
+									break
+								cnt += 1
+						# compare depth
+						f_depth = ft.depth
+						b_depth = bk.depth
+						if f_depth > b_depth:
+							temp = ft
+							ft = bk
+							bk = temp
+					change_front_and_back(argument_package_list)
+							
+					depth /= 2
+					# set depth
+					task.output.depth = depth
+					# set output argument id
+					new_id = task.output.get_unique_id() + '_input_split_' + str(ou_id)
+					ou_id += 1
+					if cnt/2 > 1:
+						task.output.unique_id = new_id
+					# set depth_dict
+					key = str(task.output.get_id())
+					depth_dict[key] = depth
+					# append to task
+					new_task_list.append(task)
+				cnt /= 2
+		second_merge(cnt, in_id, ou_id)
 		# register task list
 		def register_tasks(task_list):
 			for task in task_list:
 				register_function(task)	
 		register_tasks(new_task_list)
 		launch_task()
-	# memory management
+		# memory management
 	if flag == "release":
 		data_package = comm.recv(source=source, tag=57)
 		dp = data_package
@@ -1706,8 +1862,7 @@ while flag != "finish":
 		data_package	= comm.recv(source=source, tag=511)
 		dp = data_package
 		u = dp.get_unique_id()
-		halo = dp.buffer_halo
-
+		
 		dp.split_shape = str(SPLIT_BASE)
 		dp.split_position = str(SPLIT_BASE)
 		data_range = dp.full_data_range
@@ -1721,14 +1876,11 @@ while flag != "finish":
 
 		# data_range 
 		data_range = dest_package.data_range
-		data_range = apply_halo(data_range, -data_halo+halo)
 		dest_package.set_data_range(data_range)
 
 		# full_data_range
 		full_data_range = dest_package.full_data_range
-		full_data_range = apply_halo(full_data_range, -data_halo+halo)
 		dest_package.set_full_data_range(full_data_range)
-
 
 		make_a_memcpy_task(dp, dest_package, 2, data_range)
 		launch_task()
@@ -1752,9 +1904,14 @@ while flag != "finish":
 		buffer_halo = dest_package.buffer_halo
 		data_halo = dest_package.data_halo
 
-		# data_range 
+		# data_range
 		data_range = dest_package.data_range
-
 		make_a_memcpy_task(source_package, dest_package, source, data_range)
 		launch_task()
+	elif flag == "reduce":
+		data_package = comm.recv(source=source, tag=5)
+		function_name = comm.recv(source=source, tag=5)
+		return_package = comm.recv(source=source, tag=5)
+		
+		
 		

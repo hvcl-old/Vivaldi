@@ -171,7 +171,6 @@ def VIVALDI_WRITE(data_name, data):
 		dp.data_name = data_name
 
 		u = dp.unique_id
-
 		if u == None:
 			globals()[data_name] = data
 			manage_as_data_package(data_name)

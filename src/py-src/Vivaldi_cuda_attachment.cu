@@ -879,6 +879,7 @@ template<typename R,typename T> GPU R point_query_2d(T* image, float x, float y,
 	return point_query_2d<R>(image, make_float2(x,y), 0, sdr);
 }
 
+
 template<typename R,typename T> GPU R linear_query_2d(T* image, float2 p, int border, VIVALDI_DATA_RANGE* sdr){
 	//range check
 	float x = p.x;
