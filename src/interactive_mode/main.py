@@ -11,9 +11,9 @@ from OpenGL.GL import *
 def log(log_type):
 	dest = 1
 	tag = 5
-	comm.isend(rank,        dest=dest,    tag=tag)
-	comm.isend("log",       dest=dest,    tag=tag)
-	comm.isend(log_type,    dest=dest,    tag=tag)
+	comm.isend(rank,		dest=dest,	  tag=tag)
+	comm.isend("log",		dest=dest,	  tag=tag)
+	comm.isend(log_type,	dest=dest,	  tag=tag)
 def log_on():
 	log(True)
 def log_off():
@@ -39,15 +39,15 @@ def get_function_list(execid_list=[],num=-1): # tag
 def remove_function(name):
 	dest = 1
 	tag = 5
-	comm.isend(rank,                 dest=dest,    tag=tag)
-	comm.isend("remove_function",    dest=dest,    tag=tag)
-	comm.isend(name,                 dest=dest,    tag=tag)
+	comm.isend(rank,				 dest=dest,	   tag=tag)
+	comm.isend("remove_function",	 dest=dest,	   tag=tag)
+	comm.isend(name,				 dest=dest,	   tag=tag)
 # interactive data management
 def get_data_list(): # get current data list 
 	dest = 1
 	tag = 5
-	comm.isend(rank,                 dest=dest,    tag=tag)
-	comm.isend("get_data_list",      dest=dest,    tag=tag)
+	comm.isend(rank,				 dest=dest,	   tag=tag)
+	comm.isend("get_data_list",		 dest=dest,	   tag=tag)
 def remove_data(input): # free one data
 	dest = 1
 	tag = 5
@@ -56,15 +56,15 @@ def remove_data(input): # free one data
 		if key in data_package_list:
 			data_package = data_package_list[key]
 			uid = data_package.get_unique_id()
-			comm.isend(rank,             dest=dest,    tag=tag)
-			comm.isend("remove_data",    dest=dest,    tag=tag)
-			comm.isend(uid,              dest=dest,    tag=tag)
+			comm.isend(rank,			 dest=dest,	   tag=tag)
+			comm.isend("remove_data",	 dest=dest,	   tag=tag)
+			comm.isend(uid,				 dest=dest,	   tag=tag)
 			
 	elif isinstance(input, Data_package):
 		uid = input.get_unique_id()
-		comm.isend(rank,             dest=dest,    tag=tag)
-		comm.isend("remove_data",    dest=dest,    tag=tag)
-		comm.isend(uid,              dest=dest,    tag=tag)
+		comm.isend(rank,			 dest=dest,	   tag=tag)
+		comm.isend("remove_data",	 dest=dest,	   tag=tag)
+		comm.isend(uid,				 dest=dest,	   tag=tag)
 def free_all_data(): # free all data
 	for key in list(data_package_list):
 		remove_data(data_package_list[key])
@@ -74,8 +74,8 @@ def free_all_data(): # free all data
 def get_process_status():
 	dest = 1 # scheduler
 	tag = 5 # tag
-	comm.send(0,                dest=dest,    tag=5)
-	comm.send('process_status', dest=dest,    tag=5)
+	comm.send(0,				dest=dest,	  tag=5)
+	comm.send('process_status', dest=dest,	  tag=5)
 
 	idle_list = comm.recv(source=dest, tag=5)
 	work_list = comm.recv(source=dest, tag=5)
@@ -85,11 +85,11 @@ def get_process_status():
 def scheduler_update_computing_unit(cud):
 	dest = 1
 	tag = 5
-	comm.isend(rank,                       dest=dest,    tag=tag)
-	comm.isend("update_computing_unit",    dest=dest,    tag=tag)
-	comm.isend(cud,                        dest=dest,    tag=tag)
+	comm.isend(rank,					   dest=dest,	 tag=tag)
+	comm.isend("update_computing_unit",	   dest=dest,	 tag=tag)
+	comm.isend(cud,						   dest=dest,	 tag=tag)
 def set_device(host, num, type):
-	# prepare spawn 	####################################################################
+	# prepare spawn		####################################################################
 	info = MPI.Info.Create()
 	info.Set("host", host)
 	
@@ -272,9 +272,9 @@ def load_common(filename): # send functions to computing units
 		global comm
 		tag = 5
 		dest = 1
-		comm.isend(0,              dest=dest, tag=tag)
+		comm.isend(0,			   dest=dest, tag=tag)
 		comm.isend('set_function', dest=dest, tag=tag)
-		comm.isend(x,              dest=dest, tag=tag)
+		comm.isend(x,			   dest=dest, tag=tag)
 	# deploy function 
 	deploy_function_code(code)
 	# make code to new function dictionary
@@ -324,24 +324,24 @@ def load_common(filename): # send functions to computing units
 			# there are n case function finish
 			# ex1) code end
 			# def main()
-			# 	...
+			#	...
 			#
 			# ex2) another function 
 			# def main()
-			# 	...
+			#	...
 			# def func():
 			#
 			# ex3) indent
 			# def main()
-			# 	...
+			#	...
 			# print 
 			
 			# there are n case main not finish
 			# ex1) main
 			# def main():
-			#     ArithmeticError
+			#	  ArithmeticError
 			#
-			#     BaseException
+			#	  BaseException
 			
 			def get_indent(line): 
 				s_line = line.strip()
@@ -436,8 +436,8 @@ def send_data(dest, data, data_package):
 	dp = data_package
 	global rank
 	global comm
-	comm.isend(rank,      dest=dest,    tag=5)
-	comm.isend("recv",    dest=dest,    tag=5)
+	comm.isend(rank,	  dest=dest,	tag=5)
+	comm.isend("recv",	  dest=dest,	tag=5)
 	
 	t_data = dp.data
 	t_devptr = dp.devptr
@@ -451,53 +451,53 @@ def send_data(dest, data, data_package):
 	t_devptr = None
 
 	if type(data) == numpy.ndarray:
-		request = comm.Isend(data,    dest=dest,    tag=57)
+		request = comm.Isend(data,	  dest=dest,	tag=57)
 		#global requests
 		#requests.append((request, data))
 #		MPI.Request.Wait(request)
 	else:
-		comm.isend(data,              dest=dest,    tag=57)
+		comm.isend(data,			  dest=dest,	tag=57)
 def scheduler_release(data_package):
 	global rank
 	global comm
-	comm.isend(rank,                dest=1,     tag=5)
-	comm.isend("release",           dest=1,     tag=5)
-	send_data_package(data_package, dest=1,     tag=57)		
+	comm.isend(rank,				dest=1,		tag=5)
+	comm.isend("release",			dest=1,		tag=5)
+	send_data_package(data_package, dest=1,		tag=57)		
 def scheduler_retain(data_package):
 	global rank
 	global comm
-	comm.isend(rank,                dest=1,     tag=5)
-	comm.isend("retain",            dest=1,     tag=5)
-	send_data_package(data_package, dest=1,     tag=58)
+	comm.isend(rank,				dest=1,		tag=5)
+	comm.isend("retain",			dest=1,		tag=5)
+	send_data_package(data_package, dest=1,		tag=58)
 def scheduler_inform(data_package, execid=None):
 	dp = data_package
 	global rank
 	global comm
 	dest = 1
-	comm.isend(rank,        dest=dest,     tag=5)
-	comm.isend("inform",    dest=dest,     tag=5)
-	send_data_package(dp,   dest=dest,     tag=55)
+	comm.isend(rank,		dest=dest,	   tag=5)
+	comm.isend("inform",	dest=dest,	   tag=5)
+	send_data_package(dp,	dest=dest,	   tag=55)
 	comm.isend(execid,		dest=dest,	   tag=55)
 def scheduler_merge(function_package, cnt):
 	global comm
 	dest = 1
-	comm.isend(rank,             dest=dest,    tag=5)
-	comm.isend("merge_new",      dest=dest,    tag=5)
-	comm.isend(function_package, dest=dest,    tag=5)
-	comm.isend(cnt,              dest=dest,    tag=5)
+	comm.isend(rank,			 dest=dest,	   tag=5)
+	comm.isend("merge_new",		 dest=dest,	   tag=5)
+	comm.isend(function_package, dest=dest,	   tag=5)
+	comm.isend(cnt,				 dest=dest,	   tag=5)
 def shchduler_reduce(data_package, function, return_package):
 	global comm
 	dest = 1
-	comm.isend(rank,                 dest=dest,    tag=5)
-	comm.isend("reduce",             dest=dest,    tag=5)
-	send_data_package(data_package,  dest=dest,    tag=5)
-	comm.isend(function_name,        dest=dest,    tag=5)
-	send_data_package(return_package,dest=dest,    tag=5)
+	comm.isend(rank,				 dest=dest,	   tag=5)
+	comm.isend("reduce",			 dest=dest,	   tag=5)
+	send_data_package(data_package,	 dest=dest,	   tag=5)
+	comm.isend(function_name,		 dest=dest,	   tag=5)
+	send_data_package(return_package,dest=dest,	   tag=5)
 	
 def synchronize():
-	comm.isend(rank,             dest=1,    tag=5)
-	comm.isend("synchronize",    dest=1,    tag=5)
-	comm.recv(source=1,                     tag=999)
+	comm.isend(rank,			 dest=1,	tag=5)
+	comm.isend("synchronize",	 dest=1,	tag=5)
+	comm.recv(source=1,						tag=999)
 	return True
 def Vivaldi_Gather(data_package):
 	dp = data_package
@@ -515,17 +515,17 @@ def Vivaldi_Gather(data_package):
 	temp2 = dp.devptr
 	dp.data = None
 	dp.devptr = None
-	send_data_package(dp,    dest=1,    tag=512)
+	send_data_package(dp,	 dest=1,	tag=512)
 	dp.data = temp1
 	dp.devptr = temp2
 
 	# wati until data created, we don't know where the data will come from
-	source = comm.recv(source=MPI.ANY_SOURCE,    tag=5)
-	flag = comm.recv(source=source,              tag=5)
-	task = comm.recv(source=source,              tag=57)
-	halo_size = comm.recv(source=source,         tag=57)
+	source = comm.recv(source=MPI.ANY_SOURCE,	 tag=5)
+	flag = comm.recv(source=source,				 tag=5)
+	task = comm.recv(source=source,				 tag=57)
+	halo_size = comm.recv(source=source,		 tag=57)
 	def recv():
-		data_package = comm.recv(source=source,  tag=52)
+		data_package = comm.recv(source=source,	 tag=52)
 		dp = data_package
 		data_memory_shape = dp.data_memory_shape
 		
@@ -605,7 +605,7 @@ def save_image(input1, input2=None, out_of_core=False, normalize=True):
 		file_name = get_file_name();
 
 	# data generation
-	if isinstance(data, Data_package): 	# data not exist in local
+	if isinstance(data, Data_package):	# data not exist in local
 		dp = data
 		file_name, extension = get_file_name(file_name)
 		dp.file_name = file_name
@@ -685,15 +685,21 @@ def Reduce(data_package, function_name):
 def reader_save_image_out_of_core(data_package):
 	dp = data_package
 	dest = 1
-	comm.isend(rank,                        dest=dest,    tag=5)
-	comm.isend("save_image_out_of_core",    dest=dest,    tag=5)
-	send_data_package(dp,                   dest=dest,    tag=510)
+	comm.isend(rank,						dest=dest,	  tag=5)
+	comm.isend("save_image_out_of_core",	dest=dest,	  tag=5)
+	send_data_package(dp,					dest=dest,	  tag=510)
 def reader_save_image_in_core(data_package):
 	dp = data_package
 	dest = 1
-	comm.isend(rank,                        dest=dest,    tag=5)
-	comm.isend("save_image_in_core",        dest=dest,    tag=5)
-	send_data_package(dp,                   dest=dest,    tag=511)
+	comm.isend(rank,						dest=dest,	  tag=5)
+	comm.isend("save_image_in_core",		dest=dest,	  tag=5)
+	send_data_package(dp,					dest=dest,	  tag=511)
+def reader_notice_data_out_of_core(data_package):
+	dp = data_package
+	dest = 2
+	comm.isend(rank,						 dest=dest,	   tag=5)
+	comm.isend("notice_data_out_of_core",	 dest=dest,	   tag=5)
+	send_data_package(dp,					 dest=dest,	   tag=501)
 	
 # task functions
 from Vivaldi_memory_packages import Data_package, Function_package
@@ -712,9 +718,9 @@ def register_function_package(function_package):
 	temp_data_list = clear_data() # remove real data before mpi send
 	global comm
 	dest = 1
-	comm.isend(0,					dest=dest,    tag=5)
-	comm.isend("function",			dest=dest,    tag=5)
-	comm.isend(function_package,	dest=dest,    tag=52)
+	comm.isend(0,					dest=dest,	  tag=5)
+	comm.isend("function",			dest=dest,	  tag=5)
+	comm.isend(function_package,	dest=dest,	  tag=52)
 	def recover_data(temp_list):
 		i = 0
 		argument_package_list = function_package.get_args()
@@ -722,7 +728,7 @@ def register_function_package(function_package):
 			argument_package.data = temp_list[i]
 			i += 1
 	recover_data(temp_data_list)
-def parallel(function_name='', argument_package_list=[], work_range={}, execid=[],  output_halo=0, output_split={}, merge_func='', merge_order=''):
+def parallel(function_name='', argument_package_list=[], work_range={}, execid=[],	output_halo=0, output_split={}, merge_func='', merge_order=''):
 	# compatibility to old versions
 	############################################################
 	function_name = function_name.strip()
@@ -853,6 +859,34 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 		fp.output = return_package
 		return fp
 	function_package = get_function_package(function_name, argument_package_list, return_package, work_range, merge_func, merge_order)
+	
+	# setting viewer-src
+	if Vivaldi_viewer.v != None:
+		mmtx = Vivaldi_viewer.mmtx
+		inv_mmtx = Vivaldi_viewer.inv_mmtx
+	
+	v = Vivaldi_viewer.v
+	trans_on = Vivaldi_viewer.trans_on
+	transN = Vivaldi_viewer.transN
+	fp = function_package
+	if trans_on == True:
+		if v.getIsTFupdated() == 1:
+			#if transN >= 1:
+			fp.trans_tex		  = v.getTFF()
+			fp.update_tf = 1
+			fp.update_tf2 = 0
+			v.TFF.widget.updated = 0
+		#if transN >= 2:
+		elif v.getIsTFupdated2() == 1:
+			fp.trans_tex		  = v.getTFF2()
+			fp.update_tf = 0
+			fp.update_tf2 = 1
+			v.TFF2.widget.updated = 0
+		
+		fp.TF_bandwidth		  = v.getTFBW()
+		fp.CRG = v.window.CRG
+		fp.transN = transN
+		
 	register_function_package(function_package)
 	
 	if merge_func != '':
@@ -938,7 +972,7 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 	scheduler_retain(return_package)
 	return return_package
 def run_function(return_name=None, func_name='', execid=[], work_range=None, args=[], arg_names=[], dtype_dict={}, output_halo=0, halo_dict={}, split_dict={}, merge_func='', merge_order=''): # compatibility to old version
-	
+		
 	function_name = func_name
 	def get_argument_package_list(args, arg_names, split_dict, halo_dict):
 		i = 0

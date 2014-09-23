@@ -12,6 +12,7 @@ class Function_package():
 		self.mmtx = numpy.eye(4,dtype=numpy.float32)
 		#self.inv_mmtx = numpy.eye(4,dtype=numpy.float32)
 		
+		self.transN = 0
 		self.trans_tex = None
 		self.update_tf = 0
 		self.update_tf2 = 0
@@ -76,6 +77,7 @@ class Data_package():
 			self.depth = None
 			self.retain_counter = 1
 			self.usage = None
+			self.shared = False
 			
 			# data
 			self.data_range = None

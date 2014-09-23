@@ -849,8 +849,8 @@ def swap_out_to_hard_disk(elem):
 	dp = data_list[u][ss][sp]
 	bytes = dp.data_bytes
 
-    # now we will swap out, this CPU to hard disk
-    # so first we should check hard disk has enough free memory
+	# now we will swap out, this CPU to hard disk
+	# so first we should check hard disk has enough free memory
 	file_name = '%d_temp'%(rank)
 	os.system('df . > %s'%(file_name))
 
@@ -1094,13 +1094,22 @@ def run_function(function_package, function_name):
 	tf1 = mod.get_texref('TFF1')
 	bandwidth,_ = mod.get_global('TF_bandwidth')
 	
-	if fp.update_tf == 1:
+	if fp.transN != 0:
+		tf = mod.get_texref('TFF')
+		tf1 = mod.get_texref('TFF1')
+		bandwidth,_ = mod.get_global('TF_bandwidth')
+
+		if fp.update_tf == 1 and fp.trans_tex != None:
+			global tfTex
+			tfTex = fp.trans_tex
+		if fp.update_tf2 == 1 and fp.trans_tex != None:
+			global tfTex2
+			tfTex2  = fp.trans_tex
+
 		tf.set_filter_mode(cuda.filter_mode.LINEAR)
-		cuda.bind_array_to_texref(cuda.make_multichannel_2d_array(fp.trans_tex.reshape(1,256,4), order='C'), tf)
-		cuda.memcpy_htod_async(bandwidth, numpy.float32(fp.TF_bandwidth), stream=stream)
-	if fp.update_tf2 == 1:
 		tf1.set_filter_mode(cuda.filter_mode.LINEAR)
-		cuda.bind_array_to_texref(cuda.make_multichannel_2d_array(fp.trans_tex.reshape(1,256,4), order='C'), tf1)
+		cuda.bind_array_to_texref(cuda.make_multichannel_2d_array(tfTex.reshape(1,256,4), order='C'), tf)
+		cuda.bind_array_to_texref(cuda.make_multichannel_2d_array(tfTex2.reshape(1,256,4), order='C'), tf1)
 		cuda.memcpy_htod_async(bandwidth, numpy.float32(fp.TF_bandwidth), stream=stream)
 	
 	cuda_args = []
@@ -1292,6 +1301,10 @@ numpy.set_printoptions(linewidth=200)
 Debug = False
 GPUDIRECT = True
 VIVALDI_BLOCKING = False
+
+## transfer function
+tfTex = numpy.zeros(1024,dtype=numpy.uint8)
+tfTex2 = numpy.zeros(1024,dtype=numpy.uint8)
 
 log_type = False
 n = 2
