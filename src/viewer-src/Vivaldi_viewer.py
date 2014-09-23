@@ -127,8 +127,7 @@ class Vivaldi_window(QtGui.QMainWindow):
 		_, self.func_name, self.args = FNandARG
 		#print "\n\n\n\n\n\n\n", self.args[4][0], "\n\n\n\n\n\n\n"
 
-
-		self.widget = Vivaldi_widget(self.args[3])
+		self.widget = Vivaldi_widget(self.args[2])
 
 		self.setGeometry(0, 0, self.widget.width, self.widget.height)
 		self.setCentralWidget(self.widget)
@@ -150,8 +149,9 @@ class Vivaldi_window(QtGui.QMainWindow):
 		#self.z_ = self.args[4][0].full_data_shape[0] * 3.0 / 2.0 * 3.0
 
 		LoadIdentity()
-		Translate(-self.args[4][0].full_data_shape[2]/2.0, -self.args[4][0].full_data_shape[1]/2.0,  self.args[4][0].full_data_shape[0]*2.0)
-		self.z_ = self.args[4][0].full_data_shape[0]*5.0/2.0
+		
+		Translate(-self.args[1][0].full_data_shape[2]/2.0, -self.args[1][0].full_data_shape[1]/2.0,  self.args[1][0].full_data_shape[0]*2.0)
+		self.z_ = self.args[1][0].full_data_shape[0]*5.0/2.0
 
 
 	def set_control_type(self,dim):
@@ -386,9 +386,9 @@ class Vivaldi_window(QtGui.QMainWindow):
 		dy = trans_y - event.y()
 		transX += dx
 		transY += dy
-	
+		
 		viewer_trans(dx, dy, 0)
-
+		
 		trans_x , trans_y = event.x(), event.y()
 
 	def trans_2D(self, event):
@@ -427,6 +427,11 @@ class Vivaldi_window(QtGui.QMainWindow):
 		st = time.time()
 		global FPS_prev, img_cnt, sc_img
 		FPS_prev = st
+		
+		glMatrixMode(GL_MODELVIEW)
+		glLoadIdentity()
+		glMultMatrixf(mmtx)
+#		print "MMMM", mmtx
 		data_pkg = self.func_name(*self.args)
 		viewer_data, viewer_dtype = collect_result(data_pkg)
 		
@@ -547,10 +552,10 @@ class Vivaldi_widget(QGLWidget):
 	
 	def __init__(self, work_range):
 		super(Vivaldi_widget, self).__init__()
-		a = work_range['work_range']['y']
+		a = work_range['y']
 		print a[0], a[1]
-		self.width = work_range['work_range']['x'][1] - work_range['work_range']['x'][0]
-		self.height= work_range['work_range']['y'][1] - work_range['work_range']['y'][0]
+		self.width = work_range['x'][1] - work_range['x'][0]
+		self.height= work_range['y'][1] - work_range['y'][0]
 
 		
 
