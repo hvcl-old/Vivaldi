@@ -452,9 +452,9 @@ def send_data(dest, data, data_package):
 
 	if type(data) == numpy.ndarray:
 		request = comm.Isend(data,	  dest=dest,	tag=57)
-		#global requests
-		#requests.append((request, data))
-#		MPI.Request.Wait(request)
+		global requests
+		requests.append((request, data))
+		MPI.Request.Wait(request)
 	else:
 		comm.isend(data,			  dest=dest,	tag=57)
 def scheduler_release(data_package):
@@ -1108,6 +1108,11 @@ except:
 	
 	hostfile = 'hostfile'
 	
+	# MPI requests
+	global requests
+	requests = []
+	
+	# Viewer
 	from PyQt4 import QtGui, QtCore, QtOpenGL, Qt
 	from PyQt4.QtOpenGL import QGLWidget
 	from OpenGL.GL import *

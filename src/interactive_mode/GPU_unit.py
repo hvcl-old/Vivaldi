@@ -189,10 +189,11 @@ def send(data, data_package, dest=None, gpu_direct=True):
 
 	flag = False
 	request = None
-	if memory_type: # data in the GPU
+	if memory_type == 'devptr': # data in the GPU
 		if gpu_direct: # want to use GPU direct
 			devptr = data
 			buf = MPI.make_buffer(devptr.__int__(), bytes)
+			ctx.synchronize()
 			request = comm.Isend([buf, MPI.BYTE], dest=dest, tag=57)
 			if VIVALDI_BLOCKING: MPI.Request.Wait(request)
 			s_requests.append((request, buf, devptr))
@@ -210,7 +211,7 @@ def send(data, data_package, dest=None, gpu_direct=True):
 			s_requests.append((request, buf, None))
 			
 	else: # data in the CPU
-	
+		print "HHHHHHHHHHHHHHH"
 		# want to use GPU direct, not exist case
 		# not want to use GPU direct
 		if dp.data_dtype == numpy.ndarray: 
@@ -268,6 +269,8 @@ def recv():
 		return data, data_package, request, None
 
 	return None,None,None,None
+	
+
 def memcpy_p2p_send(task, dest):
 	# initialize variables
 	ts = task.source
@@ -375,7 +378,6 @@ def memcpy_p2p_send(task, dest):
 			
 		data = dest_devptr				
 		stream_list[1].synchronize()
-		
 		request = send(data, dp, dest=dest, gpu_direct=GPUDIRECT)
 
 		if temp_data:

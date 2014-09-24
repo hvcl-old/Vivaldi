@@ -434,7 +434,6 @@ class Vivaldi_window(QtGui.QMainWindow):
 #		print "MMMM", mmtx
 		data_pkg = self.func_name(*self.args)
 		viewer_data, viewer_dtype = collect_result(data_pkg)
-		
 		self.widget.setData(viewer_data, viewer_data.shape[1], viewer_data.shape[0])
 
 		self.widget.setDtype(viewer_dtype)
