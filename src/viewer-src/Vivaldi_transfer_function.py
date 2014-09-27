@@ -33,7 +33,13 @@ class TFN_window(QtGui.QMainWindow):
 
 		self.parent = parent
 		self.widget.pixmap = QtGui.QPixmap(10,10)
-
+		
+		
+		# hschoi
+		self.widget.setTexture(0, (0,0,0))
+		self.widget.updateGL()
+		self.widget.setTexture(0, (0,0,0))
+		
 	def set_app(self, app):
 		self.app = app
 
@@ -58,16 +64,13 @@ class TFN_window(QtGui.QMainWindow):
 		tmp_x = int(event.x() * 255 / 600)
 		tmp_y = int((200-event.y()) * 255 / 200)
 
-		print event.x(), event.y()
 		if event.button() == 1:
 			# set alpha value	
-
 			self.widget.transfer_alpha[tmp_x] = tmp_y;
 			self.prev_x, self.prev_y = tmp_x, tmp_y
 		
 		elif event.button() == 2:
 			self.widget.setTexture(tmp_x, self.current_color)
-
 			self.prev_x = tmp_x
 
 		elif event.button() == 4:
@@ -101,27 +104,33 @@ class TFN_window(QtGui.QMainWindow):
 
 				for elem in range(self.prev_x, tmp_x, diff):
 					self.widget.transfer_alpha[elem] = self.prev_y + slope * (elem - self.prev_x)
-					self.widget.updateGL()
-
+					#self.widget.updateGL() # original
+				
 			self.widget.transfer_alpha[tmp_x] = tmp_y
-			self.widget.updateGL()
+			#self.widget.updateGL() # original
 			self.prev_x, self.prev_y = tmp_x, tmp_y
 
 		elif self.mouse_state == 2:
 			tmp_x = int(event.x() * 255 / 600)
 			tmp_y = int((200-event.y()) * 255 / 200)
 			if self.prev_x != tmp_x and self.color_proportion >= 0.3:
+				""" original
 				for elem in range(self.prev_x, tmp_x, (tmp_x- self.prev_x)/abs(self.prev_x - tmp_x)):
 					pro = self.color_proportion
 					self.widget.setTexture(elem, (pro * self.current_color[0], pro * self.current_color[1], pro * self.current_color[2]))
 
 				self.color_proportion -= 0.05
-				self.widget.updateGL()
 				self.prev_x = tmp_x 
-					
+				self.widget.updateGL() # original
+				"""
+				# hschoi 3 lines
+				self.widget.setTexture_range(tmp_x, self.prev_x, self.current_color, self.color_proportion)	
+				self.color_proportion -= 0.05
+				self.prev_x = tmp_x 
+		
+		self.widget.updateGL() # hschoi
 
 	def mouseReleaseEvent(self, event):
-	
 		self.widget.updateGL()
 
 
@@ -134,8 +143,8 @@ class TFN_window(QtGui.QMainWindow):
 
 class TFN_widget(QGLWidget):
 	color_texId = 1
-	transfer_function = numpy.zeros(256*4, dtype=numpy.uint8)
-	transfer_alpha = numpy.zeros(256, dtype = numpy.uint8)
+#	transfer_function = numpy.zeros(256*4, dtype=numpy.uint8) # original
+#	transfer_alpha = numpy.zeros(256, dtype = numpy.uint8) # original
 
 	def __init__(self, cnt, parent):
 		super(TFN_widget, self).__init__()
@@ -144,6 +153,9 @@ class TFN_widget(QGLWidget):
 		self.parent= parent
 		self.pixmap = None
 	
+		self.transfer_function = numpy.zeros(256*4, dtype=numpy.uint8) # hschoi
+		self.transfer_alpha = numpy.zeros(256, dtype = numpy.uint8) # hschoi
+		
 	def enterEvent(self, e):
 		self.parent.app.setOverrideCursor(QtGui.QCursor(self.pixmap))
 
@@ -163,7 +175,19 @@ class TFN_widget(QGLWidget):
 	
 		glBindTexture(GL_TEXTURE_2D, 0)
 
-
+	def setTexture_range(self, tmp_x, prev_x, current_color, pro): # hschoi
+		# make color map
+		for x in range(prev_x, tmp_x, (tmp_x- prev_x)/abs(prev_x - tmp_x)):
+			new_color = (pro * current_color[0], pro * current_color[1], pro * current_color[2])
+			self.transfer_function[x*4+0] = int(new_color[0]*255)
+			self.transfer_function[x*4+1] = int(new_color[1]*255)
+			self.transfer_function[x*4+2] = int(new_color[2]*255)
+			
+		# bind texture
+		glBindTexture(GL_TEXTURE_2D, self.color_texId)
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 256, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, self.transfer_function)
+		glBindTexture(GL_TEXTURE_2D, 0)
+		
 	def setTexture(self, x, col):
 		self.transfer_function[x*4 + 0] = int(col[0]*255)
 		self.transfer_function[x*4 + 1] = int(col[1]*255)
@@ -182,10 +206,9 @@ class TFN_widget(QGLWidget):
 	def paintGL(self):
 		glClear(GL_COLOR_BUFFER_BIT)
 
-
 		glEnable(GL_TEXTURE_2D)
 		glBindTexture(GL_TEXTURE_2D, self.color_texId)
-
+		
 		glBegin(GL_QUADS)
 		glVertex3f(-3.0, 3.0, -2) 
 		glTexCoord2f(1, 1)
@@ -203,18 +226,23 @@ class TFN_widget(QGLWidget):
 
 
 		# Draw Lines
+		glMatrixMode(GL_MODELVIEW)# hschoi
+		glPushMatrix() # hschoi
+		glLoadIdentity()# hschoi
+			
 		glColor3f(1, 1, 1)
 		glLineWidth(3.0)
 		glBegin(GL_LINE_STRIP)
 		glVertex2f(-3.0, 0)
-
+		
 		for elem in range(256):
 			glVertex2f(elem*6.0/255.0-3.0, self.transfer_alpha[elem] * 3.0/255.0 )
 
 		glVertex2f(3.0, 0)
 		glEnd()
 
-
+		glPopMatrix() # hschoi
+		
 		self.updated = 1
 
 	def paintOverlayGL(self):
@@ -250,8 +278,8 @@ class TFN_widget(QGLWidget):
 
 class TFN_widget2(QGLWidget):
 	color_texId = 1
-	transfer_function = numpy.zeros(256*4, dtype=numpy.uint8)
-	transfer_alpha = numpy.zeros(256, dtype = numpy.uint8)
+#	transfer_function = numpy.zeros(256*4, dtype=numpy.uint8) # original
+#	transfer_alpha = numpy.zeros(256, dtype = numpy.uint8) # original
 
 	def __init__(self, cnt, parent):
 		super(TFN_widget2, self).__init__()
@@ -261,6 +289,9 @@ class TFN_widget2(QGLWidget):
 
 		self.pixmap = None
 	
+		self.transfer_function = numpy.zeros(256*4, dtype=numpy.uint8) # hschoi
+		self.transfer_alpha = numpy.zeros(256, dtype = numpy.uint8) # hschoi
+		
 	def enterEvent(self, e):
 		self.parent.app.setOverrideCursor(QtGui.QCursor(self.pixmap))
 
@@ -280,6 +311,18 @@ class TFN_widget2(QGLWidget):
 	
 		glBindTexture(GL_TEXTURE_2D, 0)
 
+	def setTexture_range(self, tmp_x, prev_x, current_color, pro): # hschoi
+		# make color map
+		for x in range(prev_x, tmp_x, (tmp_x- prev_x)/abs(prev_x - tmp_x)):
+			new_color = (pro * current_color[0], pro * current_color[1], pro * current_color[2])
+			self.transfer_function[x*4+0] = int(new_color[0]*255)
+			self.transfer_function[x*4+1] = int(new_color[1]*255)
+			self.transfer_function[x*4+2] = int(new_color[2]*255)
+			
+		# bind texture
+		glBindTexture(GL_TEXTURE_2D, self.color_texId)
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 256, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, self.transfer_function)
+		glBindTexture(GL_TEXTURE_2D, 0)
 
 	def setTexture(self, x, col):
 		self.transfer_function[x*4 + 0] = int(col[0]*255)
@@ -320,18 +363,23 @@ class TFN_widget2(QGLWidget):
 
 
 		# Draw Lines
+		glMatrixMode(GL_MODELVIEW)# hschoi
+		glPushMatrix() # hschoi
+		glLoadIdentity()# hschoi
+			
 		glColor3f(1, 1, 1)
 		glLineWidth(3.0)
 		glBegin(GL_LINE_STRIP)
 		glVertex2f(-3.0, 0)
-
+		
 		for elem in range(256):
 			glVertex2f(elem*6.0/255.0-3.0, self.transfer_alpha[elem] * 3.0/255.0 )
 
 		glVertex2f(3.0, 0)
 		glEnd()
 
-
+		glPopMatrix() # hschoi
+		
 		self.updated = 1
 
 	def paintOverlayGL(self):

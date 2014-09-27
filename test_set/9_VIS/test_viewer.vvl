@@ -16,4 +16,4 @@ def mip(volume, x, y):
 def main():                                                                         
 	volume = load_data_3d(DATA_PATH+'/CThead.dat')
 
-	enable_viewer(mip(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume, short),None,'3D')
+	enable_viewer(mip(volume,x,y).range(x=-256:256,y=-256:256),None,'3D')

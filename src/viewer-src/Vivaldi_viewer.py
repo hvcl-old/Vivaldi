@@ -45,6 +45,9 @@ def enable_viewer(dummy, trans=None, dimension='3D', TF_bandwidth=1):
 	v = Vivaldi_viewer(dummy, dimension, TF_bandwidth)
 
 	print "Viewer is Enabled"
+	
+
+	v.show()
 
 def VIVALDI_GATHER(dp):
 	pass
@@ -312,9 +315,7 @@ class Vivaldi_window(QtGui.QMainWindow):
 				scale_y = event.y()
 			elif event.button() == 4:
 				pass
-
-			
-			
+		
 	def mouseMoveEvent(self, event):
 		global pressedButton
 		if pressedButton == 1:
@@ -432,16 +433,19 @@ class Vivaldi_window(QtGui.QMainWindow):
 		glLoadIdentity()
 		glMultMatrixf(mmtx)
 #		print "MMMM", mmtx
+		st3 = time.time()
 		data_pkg = self.func_name(*self.args)
 		viewer_data, viewer_dtype = collect_result(data_pkg)
+		print "DATA return", time.time() - st3
+		st4 = time.time()
 		self.widget.setData(viewer_data, viewer_data.shape[1], viewer_data.shape[0])
-
 		self.widget.setDtype(viewer_dtype)
+		self.widget.update_texture()
 		self.widget.updateGL()
-
+		print "texture mapping time: ", time.time() - st4
 		self.get_FPS()
 		aft = time.time()
-		print "Processing time : ", aft-st
+		print "Viewer latency: ", aft-st
 
 	def get_FPS(self):
 		global FPS_prev, diff, FPS_cnt
@@ -621,7 +625,7 @@ class Vivaldi_widget(QGLWidget):
 		self.data_width = width
 		self.data_height = height
 
-		self.update_texture()
+		#self.update_texture() original
 	
 	def setDtype(self, dtype):
 		#if type(self.data.shape)
@@ -634,7 +638,7 @@ class Vivaldi_widget(QGLWidget):
 		else: 
 			self.dtype = GL_LUMINANCE
 
-		self.update_texture()
+		#self.update_texture() original
 
 	def trans(self, x, y):
 		self.transx += x

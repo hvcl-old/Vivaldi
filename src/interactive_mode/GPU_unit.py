@@ -379,7 +379,6 @@ def memcpy_p2p_send(task, dest):
 		data = dest_devptr				
 		stream_list[1].synchronize()
 		request = send(data, dp, dest=dest, gpu_direct=GPUDIRECT)
-
 		if temp_data:
 			data_pool_append(data_pool, dest_devptr, usage, request=request)
 def memcpy_p2p_recv(task, data_halo):
@@ -715,7 +714,7 @@ def compile_for_GPU(function_package, kernel_function_name='default'):
 		kernel_code = attachment + 'extern "C"{\n'
 		kernel_code += function_code
 		kernel_code += '\n}'
-		#print function_code
+#		print function_code
 		source_module_dict[kernel_function_name] = SourceModule(kernel_code, no_extern_c = True, options = ["-use_fast_math", "-O3"])
 
 		temp,_ = source_module_dict[kernel_function_name].get_global('DEVICE_NUMBER')
@@ -724,7 +723,7 @@ def compile_for_GPU(function_package, kernel_function_name='default'):
 		func_dict[kernel_function_name] = source_module_dict[kernel_function_name].get_function(kernel_function_name)
 		
 		create_helper_textures(source_module_dict[kernel_function_name])
-dummy = None
+dummy = []
 def create_helper_textures(mod):
 	"create lookup textures for cubic interpolation and random generation"
 
@@ -770,7 +769,7 @@ def create_helper_textures(mod):
 
 	# to prevent GC from destroying the textures
 	global dummy
-	dummy = (hg_texture, dhg_texture)
+	dummy.append((hg_texture, dhg_texture))
 def update_random_texture(random_texture):
 	tmp = numpy.uint32(rand(256, 256) * (2 << 30))
 	update_2d_texture(random_texture, tmp)
@@ -1230,10 +1229,12 @@ def run_function(function_package, function_name):
 	if log_type in ['time','all']:
 		start = time.time()
 	
+#	st = time.time()
 	kernel_finish = cuda.Event()
 	func( *cuda_args, block=block, grid=grid, stream=stream_list[0])
 	kernel_finish.record(stream=stream_list[0])
-	ctx.synchronize()
+#	ctx.synchronize()
+#	print "GPU TIME", time.time() - st
 #	print "FFFFOOo", func_output.info()
 #	print_devptr(cuda_args[0], func_output)
 	u, ss, sp = func_output.get_id()

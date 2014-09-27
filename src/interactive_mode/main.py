@@ -742,8 +742,7 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 
 			if input[n-1] in [1,2,3]:
 				input.pop()
-		
-		
+			
 		if dtype in [tuple, list]:
 			return shape_to_range(input)
 		
@@ -795,9 +794,10 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 					out_of_core = data_package.out_of_core
 					if out_of_core: 
 						reader_notice_data_out_of_core(data_package)
-					else: 
+					else:
 						send_data(2, data_package.data, data_package)
 				reader_give_access(argument_package)
+				argument_package.shared = True
 		for argument_package in argument_package_list:
 			share_argument_package(argument_package)
 	share_argument_package_list(argument_package_list)
@@ -826,6 +826,7 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 				print "---------------------------------"
 			return return_dtype
 		return_dtype = get_return_dtype(function_name, argument_package_list)
+
 		data_package.set_data_contents_dtype(return_dtype)
 		data_package.set_full_data_range(work_range)
 		data_package.set_data_range(work_range)
@@ -834,12 +835,14 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 		data_package.shared = True
 		return data_package
 	return_package = get_return_package(function_name, argument_package_list, work_range, output_halo)
+	
 	# register return package to data_package_list
 	def register_return_package(key, return_package):
 		if key in data_package_list: # cannot happen
 			pass
 		else:
 			data_package_list[key] = return_package
+	
 	register_return_package(id(return_package), return_package)
 	# register function to scheduler
 	def get_function_package(function_name, argument_package_list, return_package, work_range, merge_func='', merge_order=''):
@@ -972,7 +975,6 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 	scheduler_retain(return_package)
 	return return_package
 def run_function(return_name=None, func_name='', execid=[], work_range=None, args=[], arg_names=[], dtype_dict={}, output_halo=0, halo_dict={}, split_dict={}, merge_func='', merge_order=''): # compatibility to old version
-		
 	function_name = func_name
 	def get_argument_package_list(args, arg_names, split_dict, halo_dict):
 		i = 0
@@ -1034,7 +1036,9 @@ def run_function(return_name=None, func_name='', execid=[], work_range=None, arg
 
 		return None, parallel, args
 	
-	return parallel(function_name, argument_package_list, work_range, execid, output_halo, output_split, merge_func, merge_order)
+	rt =  parallel(function_name, argument_package_list, work_range, execid, output_halo, output_split, merge_func, merge_order)
+
+	return rt
 
 	
 # OpenGL matrix function wrapper
@@ -1123,7 +1127,8 @@ except:
 
 	import Vivaldi_viewer
 	from Vivaldi_viewer import enable_viewer
-
+	Vivaldi_viewer.VIVALDI_GATHER = VIVALDI_GATHER
+	
 	viewer_on = False
 	trans_on = False
 
@@ -1211,8 +1216,8 @@ def interactive_mode():
 if 'main' not in globals():
 	interactive_mode()
 else:
-	if Vivaldi_viewer.viewer_on == True:
-		Vivaldi_viewer.VIVALDI_GATHER = VIVALDI_GATHER
-		Vivaldi_viewer.v.show()
+#	if Vivaldi_viewer.viewer_on == True:
+#		Vivaldi_viewer.VIVALDI_GATHER = VIVALDI_GATHER
+#		Vivaldi_viewer.v.show()
 
 	synchronize()
