@@ -1,11 +1,9 @@
-import sys, os, numpy
+import sys, os, numpy, time
 from mpi4py import MPI
 
 from Vivaldi_load import *
-import Vivaldi_install_check
+from Vivaldi_install_check import *
 import Vivaldi_dsl_functions
-from OpenGL.GL import *
-
 
 # interactive_mode functions
 def log(log_type):
@@ -115,9 +113,22 @@ def spawn_all():
 	def read_hostfile():
 		# "read hostfile"
 		global hostfile
-		f = open(hostfile)
-		x = f.read()
-		f.close()		
+		try:
+			f = open(hostfile)
+			x = f.read()
+			f.close()
+		except:
+			print "Vivaldi warnning"
+			print "=============================="
+			print "hostfile not found"
+			print ""
+			print "hostfile example"
+			print "nodename1"
+			print "-GPU=2"
+			print "nodename2"
+			print "-GPU=2"
+			print "=============================="
+			exit()
 		return x
 	def set_device_info(hostfile):
 		my_file = ''
@@ -987,11 +998,14 @@ def run_function(return_name=None, func_name='', execid=[], work_range=None, arg
 				argument_package_list.append(argument_package)
 			else:
 				argument_package = None
+				# get modifier split and halo
 				split = split_dict[data_name] if data_name in split_dict else {}
 				halo = halo_dict[data_name] if data_name in halo_dict else 0 
-				
+				# apply to data_package
 				if isinstance(arg, Data_package):
 					argument_package = arg
+					argument_package.split = split
+					argument_package.halo = halo
 				else:
 					argument_package = Data_package(arg,split=split,halo=halo)
 					def get_unique_id(arg):
@@ -1042,8 +1056,8 @@ def run_function(return_name=None, func_name='', execid=[], work_range=None, arg
 
 	
 # OpenGL matrix function wrapper
-def LoadMatrix(name):
-	glLoadMatrix()
+def glMatrixMode(name):
+	glMatrixMode(name)
 def LoadIdentity():
 	glLoadIdentity()
 def Rotate(angle, x, y, z):
@@ -1117,16 +1131,8 @@ except:
 	requests = []
 	
 	# Viewer
-	from PyQt4 import QtGui, QtCore, QtOpenGL, Qt
-	from PyQt4.QtOpenGL import QGLWidget
-	from OpenGL.GL import *
-
 	# Edit by Anukura $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-	import sys, time
 	sys.path.append(VIVALDI_PATH + "/src/viewer-src")
-
-	import Vivaldi_viewer
-	from Vivaldi_viewer import enable_viewer
 	Vivaldi_viewer.VIVALDI_GATHER = VIVALDI_GATHER
 	
 	viewer_on = False

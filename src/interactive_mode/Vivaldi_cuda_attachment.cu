@@ -84,7 +84,7 @@ public:
 	}
 	GPU RGB(float a)
     {
-        r = g = b = a;
+        r = g = b = clamp(a, 0.0f, 255.0f);
     }
 	GPU RGB()
     {
@@ -335,7 +335,10 @@ GPU float initial2(float a){
 ////////////////////////////////////////////////////////////////////////////////
 
 GPU float length(float a){
-	return sqrt(a*a);
+	if(a < 0){
+		return -a;
+	}
+	return a;
 }
 
 //f = value, a = min, b = max
@@ -625,7 +628,7 @@ public:
 		return true;
 	}
 	GPU bool valid(){
-		if(max_step == step)return false;
+		if(max_step <= step)return false;
 		return true;
 	}
 	GPU float2 next(){
@@ -1077,16 +1080,22 @@ template<typename R, typename T> GPU R linear_query_3d(T* volume, float x, float
 
 template<typename R, typename T> GPU float3 linear_gradient_3d(T* volume, float3 p, VIVALDI_DATA_RANGE* sdr){
     float3 rbf = make_float3(0);
-
 	float delta = 1.0f;
-	R dx = linear_query_3d<R>(volume, make_float3(p.x + delta, p.y, p.z), sdr) - linear_query_3d<R>(volume, make_float3(p.x - delta, p.y, p.z), sdr);
-	R dy = linear_query_3d<R>(volume, make_float3(p.x, p.y + delta, p.z), sdr) - linear_query_3d<R>(volume, make_float3(p.x, p.y - delta, p.z), sdr);
-	R dz = linear_query_3d<R>(volume, make_float3(p.x, p.y, p.z + delta), sdr) - linear_query_3d<R>(volume, make_float3(p.x, p.y, p.z - delta), sdr);
+	//float delta = 0.01f;
+	R dx = linear_query_3d<R>(volume, make_float3(p.x + delta, p.y, p.z), sdr) 
+	     - linear_query_3d<R>(volume, make_float3(p.x - delta, p.y, p.z), sdr);
+	R dy = linear_query_3d<R>(volume, make_float3(p.x, p.y + delta, p.z), sdr)
+         - linear_query_3d<R>(volume, make_float3(p.x, p.y - delta, p.z), sdr);
+	R dz = linear_query_3d<R>(volume, make_float3(p.x, p.y, p.z + delta), sdr)
+	     - linear_query_3d<R>(volume, make_float3(p.x, p.y, p.z - delta), sdr);
 
-	float dxl = length(dx);
-	float dyl = length(dy);
-	float dzl = length(dz);
-	return make_float3(dxl, dyl, dzl) / (2 * delta);
+//	float dxl = length(dx);
+//	float dyl = length(dy);
+//	float dzl = length(dz);
+//	return make_float3(dxl, dyl, dzl) / (2 * delta);
+//	return make_float3(dxl) / (2 * delta);
+//	return make_float3(dx);
+	return make_float3(dx, dy, dz) / (2 * delta);
 }
 template<typename R, typename T> GPU float3 linear_gradient_3d(T* volume, int x, int y, int z, VIVALDI_DATA_RANGE* sdr){
 	return linear_gradient_3d<R>(volume, make_float3(x,y,z), sdr);
@@ -1489,6 +1498,7 @@ GPU float3 phong(float3 L, float3 N, float3 omega, float3 kd, float3 ks, float n
 
 	// diffuse
     float lobe =  max(dot(N, L), 0.0f);
+	//float lobe =  max(dot(-N, L), 0.0f);
     
 	color += kd * lobe;
 

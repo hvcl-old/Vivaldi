@@ -5,10 +5,10 @@ except:
 	print "Vivaldi install warning: Cannot import PyQt"
 	
 # Opengl will be replaced to matrix module
-#try:
-#	from OpenGL.GL import *
-#except:
-#	print "Vivaldi install warning: cannot import OpenGL"
+try:
+	from OpenGL.GL import *
+except:
+	print "Vivaldi install warning: cannot import OpenGL"
 
 try:
 	# Edit by Anukura $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$

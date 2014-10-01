@@ -378,7 +378,7 @@ while flag != "finish":
 		log_type = comm.recv(source=source,    tag=5)
 		print "Reader log type changed to", log_type
 	elif flag == 'say':
-		print "GPU hello", rank, name
+		print "Reader hello", rank, name
 	elif flag == "get_data_list":
 		print "Reader data_list:", data_list.keys()
 	elif flag == "remove_data":
@@ -486,7 +486,5 @@ while flag != "finish":
 			Vivaldi_memory_dtype = python_dtype_to_Vivaldi_dtype(dp.data_contents_memory_dtype)
 			f.write('dtype: %s\n'%(Vivaldi_memory_dtype))
 			f.close()
-	elif flag == 'say':
-		print "Reader hello", rank, name
 	elif flag == "finish":
 		disconnect()

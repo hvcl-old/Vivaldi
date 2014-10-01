@@ -714,7 +714,7 @@ def compile_for_GPU(function_package, kernel_function_name='default'):
 		kernel_code = attachment + 'extern "C"{\n'
 		kernel_code += function_code
 		kernel_code += '\n}'
-#		print function_code
+	#	print function_code
 		source_module_dict[kernel_function_name] = SourceModule(kernel_code, no_extern_c = True, options = ["-use_fast_math", "-O3"])
 
 		temp,_ = source_module_dict[kernel_function_name].get_global('DEVICE_NUMBER')
