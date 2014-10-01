@@ -36,7 +36,6 @@ copy_list = {}
 
 making_data = {}
 
-depth_list = {}
 compositing_method = {}
 
 function_list = []
@@ -50,6 +49,11 @@ VIVALDI_SCHEDULE = False
 VIVALDI_DYNAMIC = True
 
 log_type = False
+
+
+# input split
+ou_id = 0
+depth_dict = {}
 
 # MPI communication
 def synchronize():
@@ -528,10 +532,8 @@ def inform(data_package, source=2, dest=None, count=None):
 	if sp not in retain_count[u][ss]: retain_count[u][ss][sp] = {}
 	if data_halo not in retain_count[u][ss][sp]: retain_count[u][ss][sp][data_halo] = 0
 def register_arg(arg, execid_list = []):
-	u = arg.get_unique_id()
+	u, ss, sp = arg.get_id()
 	if u == '-1': return False
-	ss = arg.get_split_shape()
-	sp = arg.get_split_position()
 	data_halo = arg.data_halo
 
 	if execid_list == []: execid_list = idle_list+work_list.keys()
@@ -543,7 +545,6 @@ def register_arg(arg, execid_list = []):
 	if u not in rc:flag = 1
 	elif ss not in rc[u]:flag = 1
 	elif sp not in rc[u][ss]:flag = 1
-
 	if flag == 1: # data not exist
 		retain(arg)
 		# data_list for make memcpy tasks
@@ -709,18 +710,13 @@ def Free(u,ss,sp,data_halo):
 	if retain_count[u][ss][sp] == {}: del(retain_count[u][ss][sp])
 	if retain_count[u][ss] == {}: del(retain_count[u][ss])
 	if retain_count[u] == {}: del(retain_count[u])
-#			del(depth_list[u])
-#			if u in compositing_method: del(compositing_method[u])
-
 
 	target = (u,ss,sp,data_halo)
 	# free related to function list
 	#################################################
 	for function_package in function_list:
 		dp = function_package.output
-		du = dp.get_unique_id()
-		dss = dp.get_split_shape()
-		dsp = dp.get_split_position()
+		du, dss, dsp = dp.get_id()
 		dh = dp.data_halo
 
 		if target == (du,dss,dsp,dh):
@@ -766,9 +762,7 @@ def Free(u,ss,sp,data_halo):
 	##################################################
 	for elem in data_list:
 		dp = elem[0]
-		du = dp.get_unique_id()
-		dss = dp.get_split_shape()
-		dsp = dp.get_split_position()
+		du, dss, dsp = dp.get_id()
 		dh = dp.data_halo
 
 		if target == (du,dss,dsp,dh):
@@ -824,9 +818,7 @@ def make_a_memcpy_task(source_package, dest_package, dest, work_range, start=Non
 	mt.dest = dest_package
 
 	# append to memcpy task list
-	u = mt.source.get_unique_id()
-	ss = mt.source.get_split_shape()
-	sp = mt.source.get_split_position()
+	u, ss, sp = mt.source.get_id()
 	if dest == 2: 
 		if u not in memcpy_tasks_to_harddisk: memcpy_tasks_to_harddisk[u] = {}
 		if ss not in memcpy_tasks_to_harddisk[u]: memcpy_tasks_to_harddisk[u][ss] = {}
@@ -1453,11 +1445,26 @@ while flag != "finish":
 				fp = task_list[0]
 				new_task_list = []
 				n = len(argument_package_list)
+				global ou_id
+				ou_id = 0
 				def recursive_task_argument_setting(argument_package_list, p):
+					global ou_id
 					if p == n:
+						# copy task
 						new_task = copy.deepcopy(fp)
+						
+						# make input split id
+						new_id = new_task.output.get_unique_id() + '_input_split_' + str(ou_id)
+						ou_id += 1
+						new_task.output.unique_id = new_id
+						
+						# set depth
+						key = str(new_task.output.get_id())
+						depth_dict[key] = new_task.output.depth
+					
 						new_task.set_args(copy.deepcopy(argument_package_list))
 						new_task_list.append(new_task)
+						
 						return 
 					argument_package = argument_package_list[p]
 					if argument_package.get_split_shape() != str(SPLIT_BASE):
@@ -1474,20 +1481,11 @@ while flag != "finish":
 							argument_package.split_position = split_position
 							
 							fp.output.depth = make_depth(work_range, fp.mmtx)
-							
 							argument_package_list[p] = argument_package
 							recursive_task_argument_setting(argument_package_list, p+1)
 					else:
 						recursive_task_argument_setting(argument_package_list, p+1)
 				recursive_task_argument_setting(copy.deepcopy(argument_package_list), 0)
-				
-				# create merge tasks if input split
-				n = len(new_task_list)
-				if n > 1: # input split case, make merge task
-					i = 0
-					for task in new_task_list:
-						task.output.unique_id = task.output.get_unique_id() + '_input_split_' + str(i)
-						i += 1
 				return new_task_list
 			def output_split(task_list, argument_package_list):
 				# output split change
@@ -1564,7 +1562,7 @@ while flag != "finish":
 			task_list = [function_package]
 			
 			flag = in_and_out_check(argument_package_list)
-			print "FLAG", flag
+			#print "FLAG", flag
 			if flag == 'identical':
 				task_list = in_and_out1(task_list, argument_package_list)
 				#print_task_list(task_list)
@@ -1626,7 +1624,6 @@ while flag != "finish":
 		new_task_list = []
 		in_id = 0
 		ou_id = cnt
-		depth_dict = {}
 		# first merge
 		def first_merge(cnt, in_id, ou_id):
 			if cnt == 1: return cnt, in_id, ou_id
@@ -1643,9 +1640,8 @@ while flag != "finish":
 						argument_package.unique_id = new_id
 					
 						# bring depth 
-						u, ss, sp = argument_package.get_id()
-						argument_package = data_packages[u][ss][sp]
-						depth += argument_package.depth		
+						key = str(argument_package.get_id())
+						depth += depth_dict[key]
 				def change_front_and_back(argument_package_list):
 					cnt = 0
 					ft = None
@@ -1661,14 +1657,16 @@ while flag != "finish":
 								break
 							cnt += 1
 					# compare depth
-					f_depth = ft.depth
-					b_depth = bk.depth
+					f_key = str(ft.get_id())
+					b_key = str(bk.get_id())
+					f_depth = depth_dict[f_key]
+					b_depth = depth_dict[b_key]
 					if f_depth > b_depth:
-						temp = ft
-						ft = bk
-						bk = temp
+						temp = ft.unique_id
+						ft.unique_id = bk.unique_id
+						bk.unique_id = temp
+						
 				change_front_and_back(argument_package_list)
-				
 				depth /= 2
 				# set depth
 				task.output.depth = depth
@@ -1681,6 +1679,7 @@ while flag != "finish":
 				key = str(task.output.get_id())
 				depth_dict[key] = depth
 				# append to task
+				print task.get_args()[0].get_id()
 				new_task_list.append(task)
 			cnt /= 2
 			
@@ -1775,21 +1774,6 @@ while flag != "finish":
 		flag_times[flag] += time.time()-st
 	elif flag == "finish":
 		disconnect()
-	elif flag == "depth":
-		st = time.time()
-		unique_id			= comm.recv(source=source, tag=54)
-		ss					= comm.recv(source=source, tag=54)
-		sp					= comm.recv(source=source, tag=54)
-		depth				= comm.recv(source=source, tag=54)
-
-		u = unique_id
-		log("rank%d, u=%d depth=%d"%(rank, u, depth),'general',log_type)
-		
-		if u not in depth_list: depth_list[u] = {}
-		if ss not in depth_list[u]: depth_list[u][ss] = {}
-		depth_list[u][ss][sp] = depth
-		flag_times[flag] += time.time()-st
-
 	elif flag == "notice":
 		st = time.time()
 		data_package	= comm.recv(source=source, tag=51)
