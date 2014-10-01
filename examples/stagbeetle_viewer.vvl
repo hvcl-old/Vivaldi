@@ -1,0 +1,24 @@
+def mip(volume, x, y):
+	step = 1.0                      
+	line_iter = orthogonal_iter(volume, x, y, step)
+	max = 0.0
+	for elem in line_iter:
+		val = linear_query_3d(volume, elem)
+		if max < val:
+			 max = val
+
+	return max
+
+def main():	
+	fp = open("data/stagbeetle832x832x494.dat")
+	import numpy
+	vuSize = numpy.fromstring(fp.read(3*2), numpy.uint16)
+	uCount = int(vuSize[0])*int(vuSize[1])*int(vuSize[2])
+
+	volume = fp.read(uCount*2)
+	volume = numpy.fromstring(volume, numpy.uint16)
+	volume = numpy.reshape(volume, (vuSize[2], vuSize[1], vuSize[0]))
+
+	fp.close()
+
+	enable_viewer(mip(volume,x,y).range(x=0:832,y=0:832),None,'3D')
