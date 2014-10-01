@@ -1,3 +1,0 @@
-head.cm.cluster slots=10
-node001.ib.cluster slots=10
-node002.ib.cluster slots=10
