@@ -577,15 +577,15 @@ near = 1
 
 near = 10
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/10.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS8xMC5wbmciLCJleHBpcmVzIjoxNDA5MjkxNTExfQ%3D%3D--8e88f18b873eb5439c446b9a12f8f723274b21f7)
+![](https://github.com/hvcl/Vivaldi/blob/master/image/10.png)
 
 near = 50
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/50.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS81MC5wbmciLCJleHBpcmVzIjoxNDA5MjkxNTI4fQ%3D%3D--e0615d9c575e42c3b5f85fff886b6af3468ac637)
+![](https://github.com/hvcl/Vivaldi/blob/master/image/50.png)
 
 near = 100
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/100.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS8xMDAucG5nIiwiZXhwaXJlcyI6MTQwOTI5MTUyNH0%3D--6e3d9ac62dc12cc4d007884b0a3da264393fe970)
+![](https://github.com/hvcl/Vivaldi/blob/master/image/100.png)
 
 
 #5.	MODIFIER	
