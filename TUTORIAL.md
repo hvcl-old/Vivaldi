@@ -573,7 +573,7 @@ def main():
 
 near = 1
 
-![](https://raw.githubusercontent.com/hvcl/Vivaldi/master/image/1.png?token=8486747__eyJzY29wZSI6IlJhd0Jsb2I6aHZjbC9WaXZhbGRpL21hc3Rlci9pbWFnZS8xLnBuZyIsImV4cGlyZXMiOjE0MDkyOTE0ODF9--23f9cb7a92b7475b0114f38500807da3b80c22b5)
+![](https://github.com/hvcl/Vivaldi/blob/master/image/1.png)
 
 near = 10
 
