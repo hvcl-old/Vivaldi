@@ -6,9 +6,6 @@ def main():
 	import numpy
 	n = 6
 	a = numpy.ones((n,n), dtype=numpy.float32)
-	result = func(a, x, y).range(x=0:n,y=0:n)
-						  .split(a, x=2)
-						  .split(result, x=2)
-						  .halo(a, 1)
-						  .out_halo(3)
-	print result
+	b = func(a, x, y).range(a).out_halo(0)
+	c = func(b, x, y).range(b).halo(b,6)
+	print c

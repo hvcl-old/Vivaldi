@@ -24,17 +24,6 @@ def combinning(front, back, x, y):
 	return RGBA(ret)
 
 def main():
-	#volume1 = load_data_3d(DATA_PATH+'/ZF/ZF_bind.dat',dtype="short")
-	#volume2 = load_data_3d(DATA_PATH+'/ZF/ZF01.dat',dtype="short")
-	#volume = load_data_3d(DATA_PATH+'/test.dat',out_of_core=True)
 	volume = load_data_3d(DATA_PATH+'/CThead.dat')
 
-
-	#enable_viewer(render(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume, uchar).split(volume, x=2, y=2, z=2).merge(halocondition, 'front-to-back').halo(volume, 1),'TFF', '3D')
-	enable_viewer(render(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume, short).split(volume, x=2).merge(combinning,'front-to-back').halo(volume, 0),'TFF', '3D', 3200)
-	#enable_viewer(render(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume, uchar).halo(volume, 3),'TFF', '3D')
-	#enable_viewer(render(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume, uchar).halo(volume, 3),'TFF', '3D')
-	#enable_viewer(render(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume,short),'TFF', '3D', 3220)
-	#enable_viewer(render(volume,x,y).range(x=-128:128,y=-128:128).dtype(volume,short),'TFF', '3D')
-	#enable_viewer(render(volume1,volume2,x,y).range(x=-512:512,y=-512:512).dtype(volume1,short).dtype(volume2,short).split(Output, x=2, y=2),'TFF','3D', 2000)
-	#enable_viewer(render(volume,x,y).range(x=-2048:2048,y=-2048:2048).dtype(volume,short).split(Output, x=4,y=2),'TFF','3D', 1800)
+	enable_viewer(render(volume,x,y).range(x=-256:256,y=-256:256).split(volume, x=2).merge(combinning,'front-to-back').halo(volume, 1),'TFF', '3D', 3200)

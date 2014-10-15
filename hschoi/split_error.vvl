@@ -1,0 +1,30 @@
+def render(volume1, x, y):
+	step = 0.8
+	line_iter = orthogonal_iter(volume1, x, y, step)
+	
+	color = make_float4(0)
+	tmp_val = make_float4(0)
+	for elem in line_iter:
+		val = point_query_3d(volume1, elem)
+		tmp_val = transfer(val)
+
+		color = alpha_compositing(color, tmp_val)
+		if color.w > 253:
+			break
+	
+	return RGBA(color)
+
+def combinning(front, back, x, y):
+	a = point_query_2d(front, x, y)
+	b = point_query_2d(back , x, y)
+
+	ret = make_float4(0)
+	ret = alpha_compositing_wo_alpha(a, b)
+
+	return RGBA(ret)
+
+def main():
+	volume = load_data_3d(DATA_PATH+'/CThead.dat')
+
+
+	enable_viewer(render(volume,x,y).range(x=-256:256,y=-256:256).dtype(volume, short).split(volume, x=2).merge(combinning,'front-to-back').halo(volume, 0),'TFF', '3D', 3200)

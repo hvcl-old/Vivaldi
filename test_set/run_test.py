@@ -32,6 +32,8 @@ test_list.append('2_Iterator/orthogonal_ones.vvl')
 # input split
 test_list.append('4_Parallelization/input_split/input_split_x_axis.vvl')
 test_list.append('4_Parallelization/input_split/input_split_y_axis.vvl')
+test_list.append('4_Parallelization/input_split/input_split_z2_axis.vvl')
+test_list.append('4_Parallelization/input_split/input_split_z4_axis.vvl')
 test_list.append('4_Parallelization/input_split/mat_mul_split_xy.vvl')
 test_list.append('4_Parallelization/input_split/mat_mul_split_yx.vvl')
 

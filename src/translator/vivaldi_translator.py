@@ -214,7 +214,7 @@ def parse_function(function_code, function_name, argument_package_list):
 
 	 # translate
 	code, return_dtype = vivaldi_parser(function_code, argument_package_list)
-
+	
 	return return_dtype
 	
 def translate_to_CUDA(Vivaldi_code='', function_name='', function_arguments=''):

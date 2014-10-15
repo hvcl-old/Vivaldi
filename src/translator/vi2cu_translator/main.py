@@ -11,6 +11,9 @@ from general.divide_line.divide_line import divide_line
 from functions.split_into_block_and_code.split_into_block_and_code import split_into_block_and_code
 from functions.dtype_check.dtype_check import find_dtype
 	
+	
+return_dtype = None
+	
 def get_CUDA_dtype(elem, local_dict, type):
 
 	# default dtype is float
@@ -324,7 +327,6 @@ def change_return(code_list, local_dict):
 				before = code[:idx2]
 				# mid
 				mid = ''
-				AXIS = ['x','y','z','w']
 				i = 0
 				for axis in AXIS:
 					if axis in local_dict:
@@ -343,6 +345,12 @@ def change_return(code_list, local_dict):
 				idx3 = after.find('\n')
 				indent = get_indent(code[:idx2+1])
 #				after = after[:idx3+1] + indent + 'return\n' + after[idx3+1:] 
+				var_name = after[:idx3+1].strip()
+				
+				global return_dtype
+				return_dtype = find_dtype(var_name, local_dict)
+				return_dtype = to_CUDA_dtype(return_dtype)
+				
 				after = after[:idx3+1].strip() + '\n' + indent + 'return\n' + after[idx3+1:] 
 			
 				# merge
@@ -351,6 +359,7 @@ def change_return(code_list, local_dict):
 				# idx1 = found + mid + idx3 + indent
 				num = idx2 + len(mid) + idx3 + len(indent)
 				idx1 = num + 1
+				
 				
 		code_list[k] = code
 		k += 1
@@ -643,8 +652,8 @@ def parse_block(block='', local_dict={}):
 			
 				for_statement_line += elem_list[1] + ' = ' + iter + '.begin(); '
 				for_statement_line += iter + '.valid(); '
-				for_statement_line += '){\n' # increment not come here
-				for_statement_line += indent + '    ' + var + ' = ' + elem_list[3] + '.next()\n'
+	#			for_statement_line += '){\n' # increment not come here
+				for_statement_line += var + ' = ' + elem_list[3] + '.next()){\n'
 			
 				if len(code_list) == 0:
 					code_list.append('')
@@ -855,9 +864,11 @@ def parse_body(vivaldi_code_body='', local_dict={}):
 	#
 	#######################################################
 	# return compiled code and return data type
-	return_dtype = find_return_dtype(CUDA_body, local_dict)
+	#return_dtype = find_return_dtype(CUDA_body, local_dict)
 
+	global return_dtype
 	return CUDA_body, return_dtype
+	#return CUDA_body, None
 
 # parse head related functions
 ############################################################################################
@@ -1224,7 +1235,7 @@ def vivaldi_parser(vivaldi_code, argument_package_list): # temp function, it sho
 		return dtype_dict
 		
 	local_dict = get_dtype_dict(function_argument_list, argument_package_list)	
-		
+
 	CUDA_body, return_dtype = parse_body(vivaldi_code_body=vivaldi_code_body, local_dict=local_dict)
 	CUDA_head = parse_head(vivaldi_code_head, local_dict=local_dict)
 	

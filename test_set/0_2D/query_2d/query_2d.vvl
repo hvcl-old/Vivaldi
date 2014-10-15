@@ -7,7 +7,6 @@ def lq2(image, x, y):
 def main():
 	import numpy
 	image = numpy.ones((11,11), dtype=numpy.float32)
-
 	# image is 
 	# x + y, 11x11, 2D matrix
 	# but 11 boundary is one

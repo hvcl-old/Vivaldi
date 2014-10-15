@@ -252,12 +252,14 @@ func_dict['phong'] = 'float3'
 func_dict['laplacian'] = 'float3'
 func_dict['pow'] = 'float'
 func_dict['sqrt'] = 'float'
+func_dict['expf'] = 'float'
+func_dict['exp2f'] = 'float'
+func_dict['exp10f'] = 'float'
 
 func_dict['lerp'] = ''
 func_dict['clamp'] = ''
 func_dict['dot'] = ''
 func_dict['length'] = 'float'
-func_dict['normalize'] = ''
 func_dict['floor'] = ''
 func_dict['ceil'] = ''
 func_dict['reflect'] = ''
@@ -428,8 +430,9 @@ def Function_call(elem_list, dtype_list, local_dict, dtype_dict):
 			
 			if func_name in dtype_dict:
 				dtype_dict[func_name] = 'function'
-				
+			
 			dtype = get_function_return_dtype(func_name, arg_list, arg_dtype_list, local_dict)
+			
 			new_dtype_list.append(dtype)
 			new_elem_list.append(new_elem)
 			i += 2
@@ -514,9 +517,7 @@ def Second_level(elem_list, dtype_list, local_dict, dtype_dict):
 			args = elem_list[i+1]
 			find_dtype(args[1:-1], local_dict)
 			
-			
 			func_name = elem_list[i]
-
 			arg_list = divide_line(args[1:-1])
 			arg_dtype_list = []	
 			for arg in arg_list:
@@ -525,7 +526,6 @@ def Second_level(elem_list, dtype_list, local_dict, dtype_dict):
 				else:
 					dtype = 'Unknown'
 				arg_dtype_list.append(dtype)
-			
 			dtype = get_function_return_dtype(func_name, arg_list, arg_dtype_list, local_dict)
 			
 			new_dtype_list.append(dtype)
@@ -679,8 +679,6 @@ def Sixth_level(elem_list, dtype_list, local_dict, dtype_dict):
 	return new_elem_list, new_dtype_list
 		
 def dtype_check(elem_list, dtype_list, local_dict):
-	
-	
 	# return variable
 	dtype_dict = {}
 	
@@ -964,13 +962,14 @@ def find_dtype(line, local_dict):
 	# Data type check
 	#
 	#####################################################################################
+
 	dtype_dict, dtype_list = dtype_check(elem_list, dtype_list, local_dict)
 	
 	# Update dictionary
 	#####################################################################################
 	for elem in dtype_dict:
 		add_dtype(elem, dtype_dict[elem], local_dict)
-		
+	
 	if len(dtype_list) > 0:
 		return dtype_list[0]
 
