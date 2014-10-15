@@ -4,9 +4,9 @@ from OpenGL.GL import *
 import numpy 
 import Image
 
-
+"""
 class TFN_window(QtGui.QMainWindow):
-	mouse_state = 0
+	pressedButton = 0
 	mouse_flag = 0
 	prev_x, prev_y = 0, 0
 	TF_bandwidth = 1
@@ -14,8 +14,8 @@ class TFN_window(QtGui.QMainWindow):
 	data_cover = None
 
 	current_color = (0,0,0)
-	def __init__(self, parent=None, cnt=0):
-		super(TFN_window, self).__init__()
+	def __init__(self, parent, cnt=0):
+		super(TFN_window, self).__init__(parent)
 	
 		
 		if parent.TFF==None:
@@ -53,7 +53,7 @@ class TFN_window(QtGui.QMainWindow):
 				self.parent.window.load_mvmtx_tf(file_name)
 
 	def mousePressEvent(self, event):
-		self.mouse_state = event.button()
+		self.pressedButton = event.button()
 		tmp_x = int(event.x() * 255 / 600)
 		tmp_y = int((200-event.y()) * 255 / 200)
 
@@ -76,7 +76,7 @@ class TFN_window(QtGui.QMainWindow):
 		self.widget.updateGL()
 	
 	def mouseMoveEvent(self, event):
-		if self.mouse_state == 1:
+		if self.pressedButton == 1:
 			tmp_x = int(event.x() * 255 / 600)
 			tmp_y = int((200-event.y()) * 255 / 200)
 	
@@ -97,26 +97,30 @@ class TFN_window(QtGui.QMainWindow):
 
 				for elem in range(self.prev_x, tmp_x, diff):
 					self.widget.transfer_alpha[elem] = self.prev_y + slope * (elem - self.prev_x)
-					#self.widget.updateGL()
+					self.widget.updateGL()
 
 			self.widget.transfer_alpha[tmp_x] = tmp_y
 			self.widget.updateGL()
 			self.prev_x, self.prev_y = tmp_x, tmp_y
 
-		elif self.mouse_state == 2:
+		elif self.pressedButton == 2:
 			pass
 					
 
 	def mouseReleaseEvent(self, event):
 		self.widget.updateGL()
-		self.mouse_state = 0
+		self.pressedButton = 0
 		self.mouse_flag = 0
 		self.prev_x = 0
 		self.prev_y = 0
 
-
+"""
+global_texCnt = 1
 class TFN_widget(QGLWidget):
-	color_texId = 1
+	global global_texCnt
+	color_texId = global_texCnt
+	global_texCnt = global_texCnt + 1
+	
 	transfer_function = numpy.zeros(256*4, dtype=numpy.uint8)
 	for elem in range(256):
 		transfer_function[4*elem + 3] = elem
@@ -126,12 +130,11 @@ class TFN_widget(QGLWidget):
 	for elem in range(256):
 		transfer_alpha[elem] = elem
 
-	def __init__(self, cnt, parent):
-		super(TFN_widget, self).__init__()
-		self.color_texId += cnt
+	def __init__(self, parent):
+		super(TFN_widget, self).__init__(parent)
 		self.updated = 0
 		self.parent= parent
-		self.pixmap = None
+		self.pixmap = QtGui.QPixmap(10,10)
 	
 	def enterEvent(self, e):
 		self.parent.app.setOverrideCursor(QtGui.QCursor(self.pixmap))
@@ -156,7 +159,6 @@ class TFN_widget(QGLWidget):
 		self.color_list[x] = col
 
 
-		print list(self.color_list).sort()
 		elem_prev = (0,self.color_list[0])
 		clist = list(self.color_list)
 		clist.sort()
@@ -168,7 +170,6 @@ class TFN_widget(QGLWidget):
 					self.transfer_function[i*4 + cnt] = int(elem_prev[1][cnt] * ( elem[0] - i) / diff + elem[1][cnt] * (i - elem_prev[0]) / diff)
 
 			elem_prev = elem
-		print self.color_list
 		glBindTexture(GL_TEXTURE_2D, self.color_texId)
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 256, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, self.transfer_function)
 		glBindTexture(GL_TEXTURE_2D, 0)
@@ -192,6 +193,8 @@ class TFN_widget(QGLWidget):
 	def paintGL(self):
 		glClear(GL_COLOR_BUFFER_BIT)
 
+		glPushMatrix()
+		glLoadIdentity()
 
 		glEnable(GL_TEXTURE_2D)
 		glBindTexture(GL_TEXTURE_2D, self.color_texId)
@@ -222,6 +225,8 @@ class TFN_widget(QGLWidget):
 			glVertex2f(elem*6.0/255.0-3.0, self.transfer_alpha[elem] * 3.0/255.0 )
 		glVertex2f(3.0, 0)
 		glEnd()
+	
+		glPopMatrix()
 
 		self.updated = 1
 

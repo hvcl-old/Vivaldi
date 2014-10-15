@@ -1094,6 +1094,13 @@ def run_function(function_package, function_name):
 	tf = mod.get_texref('TFF')	
 	tf1 = mod.get_texref('TFF1')
 	bandwidth,_ = mod.get_global('TF_bandwidth')
+
+	if fp.Sliders != None:
+		sld,_ = mod.get_global('slider')
+		sld_op,_ = mod.get_global('slider_opacity')
+
+		cuda.memcpy_htod_async(sld, fp.Sliders, stream=stream)
+		cuda.memcpy_htod_async(sld_op, fp.Slider_opacity, stream=stream)
 	
 	if fp.transN != 0:
 		tf = mod.get_texref('TFF')

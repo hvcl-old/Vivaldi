@@ -17,7 +17,8 @@ class Function_package():
 		self.update_tf = 0
 		self.update_tf2 = 0
 		self.TF_bandwidth = 1
-		self.CRG = 0
+		self.Sliders = numpy.zeros(4, dtype=numpy.int32)
+		self.Slider_opacity = numpy.zeros(4, dtype=numpy.int32)
 		
 	def info(self):
 		### print Vivaldi_code parsed result

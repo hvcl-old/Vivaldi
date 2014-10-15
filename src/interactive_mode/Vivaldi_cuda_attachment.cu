@@ -13,6 +13,9 @@ __device__ int DEVICE_NUMBER;
 __device__ float modelview[4][4];
 __device__ float inv_modelview[4][4];
 
+__device__ int slider[4];
+__device__ int slider_opacity[4];
+
 __device__ float TF_bandwidth;
 __device__ int front_back;
 

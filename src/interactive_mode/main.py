@@ -881,26 +881,30 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 	
 	v = Vivaldi_viewer.v
 	trans_on = Vivaldi_viewer.trans_on
-	transN = Vivaldi_viewer.transN
+	transN = 0
 	fp = function_package
+	if v != None:
+		trans_on = Vivaldi_viewer.trans_on
+		fp.transN = Vivaldi_viewer.transN
+
+		if v.slider != None:
+			fp.Sliders = v.get_sliders()
+			fp.Slider_opacity = v.get_slider_opacity()
+
 	if trans_on == True:
 		if v.getIsTFupdated() == 1:
-			#if transN >= 1:
-			fp.trans_tex		  = v.getTFF()
+			fp.trans_tex 		  = v.getTFF()
 			fp.update_tf = 1
 			fp.update_tf2 = 0
-			v.TFF.widget.updated = 0
-		#if transN >= 2:
+			v.window.TFF.updated = 0
 		elif v.getIsTFupdated2() == 1:
-			fp.trans_tex		  = v.getTFF2()
+			fp.trans_tex 		  = v.getTFF2()
 			fp.update_tf = 0
 			fp.update_tf2 = 1
-			v.TFF2.widget.updated = 0
-		
+			v.window.TFF2.updated = 0
+	
 		fp.TF_bandwidth		  = v.getTFBW()
-		fp.CRG = v.window.CRG
-		fp.transN = transN
-		
+
 	register_function_package(function_package)
 	
 	if merge_func != '':
@@ -1135,6 +1139,9 @@ except:
 	sys.path.append(VIVALDI_PATH + "/src/viewer-src")
 	Vivaldi_viewer.VIVALDI_GATHER = VIVALDI_GATHER
 	
+	import Vivaldi_viewer
+	from Vivaldi_viewer import enable_viewer
+
 	viewer_on = False
 	trans_on = False
 
