@@ -854,6 +854,7 @@ def increase_sources_retain_count(data_package):
 	u, ss, sp = dp.get_id()
 	data_halo = dp.data_halo
 	rc = remaining_write_count_list
+#	print_write_count()	
 	for SS in rc[u]:
 		SS = ast.literal_eval(SS) # data source
 		boundary_list, full_copy_range, count = find_boundary_range(dp, SS)
@@ -1445,24 +1446,26 @@ while flag != "finish":
 				fp = task_list[0]
 				new_task_list = []
 				n = len(argument_package_list)
-				global ou_id
-				ou_id = 0
+				sw = False
 				def recursive_task_argument_setting(argument_package_list, p):
-					global ou_id
 					if p == n:
+						
 						# copy task
 						new_task = copy.deepcopy(fp)
 						
 						# make input split id
-						new_id = new_task.output.get_unique_id() + '_input_split_' + str(ou_id)
-						ou_id += 1
-						new_task.output.unique_id = new_id
+					#	new_id = new_task.output.get_unique_id() + '_input_split_' + str(ou_id)
+					#	ou_id += 1
+					#	new_task.output.unique_id = new_id
 						
 						# set depth
-						key = str(new_task.output.get_id())
-						depth_dict[key] = new_task.output.depth
-					
+#						key = str(new_task.output.get_id())
+#						depth_dict[key] = new_task.output.depth
+
+						# set task argument
 						new_task.set_args(copy.deepcopy(argument_package_list))
+						
+						# append to task list
 						new_task_list.append(new_task)
 						
 						return 
@@ -1483,9 +1486,17 @@ while flag != "finish":
 							fp.output.depth = make_depth(work_range, fp.mmtx)
 							argument_package_list[p] = argument_package
 							recursive_task_argument_setting(argument_package_list, p+1)
+							# set input split flag
+							sw = True
 					else:
 						recursive_task_argument_setting(argument_package_list, p+1)
 				recursive_task_argument_setting(copy.deepcopy(argument_package_list), 0)
+				# change id
+				if sw: # mean input split occur
+					print "Check"
+					ou_id = 0
+					for new_task in new_task_list:
+						new_id = new_task.output.get_unique_id() + '_input_split_' + str(ou_id)
 				return new_task_list
 			def output_split(task_list, argument_package_list):
 				# output split change
@@ -1623,7 +1634,7 @@ while flag != "finish":
 		# initialization
 		new_task_list = []
 		in_id = 0
-		ou_id = cnt
+		ou_id = cnt	
 		# first merge
 		def first_merge(cnt, in_id, ou_id):
 			if cnt == 1: return cnt, in_id, ou_id
@@ -1679,7 +1690,6 @@ while flag != "finish":
 				key = str(task.output.get_id())
 				depth_dict[key] = depth
 				# append to task
-				print task.get_args()[0].get_id()
 				new_task_list.append(task)
 			cnt /= 2
 			

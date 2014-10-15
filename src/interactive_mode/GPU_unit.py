@@ -7,7 +7,6 @@ comm = parent
 size = comm.Get_size()
 rank = comm.Get_rank()
 name = MPI.Get_processor_name()
-
 	
 import pycuda.driver as cuda
 from pycuda.compiler import SourceModule

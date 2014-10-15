@@ -272,6 +272,7 @@ def load_common(filename): # send functions to computing units
 		f.close()
 		return x
 	code = read_file(filename)
+	
 	# preprocessing to Vivaldi code
 	def preprocessing(code):
 		from Vivaldi_translator_layer import preprocessing as vp
@@ -379,6 +380,9 @@ def load_common(filename): # send functions to computing units
 					line = ''
 				i += 1
 			
+			if line != '':
+				output += line
+			
 			return output
 		function_name_list = get_function_name_list(x)
 		for function_name in function_name_list:
@@ -386,14 +390,16 @@ def load_common(filename): # send functions to computing units
 			function_code_dict[function_name] = function_code
 		return function_code_dict
 	new_function_code_dict = get_function_code_dict(code)
+	
 	return new_function_code_dict
 def execute_as_main(name='main'):
 	if name in function_code_dict:
 		from Vivaldi_translator_layer import parse_main
 		main_code = function_code_dict['main']
+		
 		main_code = parse_main(main_code)
+		
 		exec main_code in globals()
-	#	print "AAA", main_code
 		exec name+'()'
 	else:
 		print "Vivaldi warning"
@@ -423,6 +429,9 @@ def load_file_init(filename): # load file and main
 		
 	if 'main' in function_code_dict:
 		execute_as_main()
+
+def run(filename):
+	return load_file_init(filename)
 	
 # data management
 def free_volumes(): # old function
@@ -900,7 +909,7 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 		fp.TF_bandwidth		  = v.getTFBW()
 		fp.CRG = v.window.CRG
 		fp.transN = transN
-		
+	
 	register_function_package(function_package)
 	
 	if merge_func != '':
@@ -1051,7 +1060,7 @@ def run_function(return_name=None, func_name='', execid=[], work_range=None, arg
 		return None, parallel, args
 	
 	rt =  parallel(function_name, argument_package_list, work_range, execid, output_halo, output_split, merge_func, merge_order)
-
+	
 	return rt
 
 	
