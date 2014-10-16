@@ -107,7 +107,7 @@ class Vivaldi_viewer():
 		if self.window.TFF2 == None:
 			return 0 
 
-		return self.TFF2.widget.updated
+		return self.window.TFF2.updated
 
 	def getFB(self):
 		return self.window.FB
@@ -125,7 +125,7 @@ class Vivaldi_window(QtGui.QMainWindow):
 
 		_, self.func_name, self.args = FNandARG
 		#print "\n\n\n\n\n\n\n", self.args[4][0], "\n\n\n\n\n\n\n"
-	
+		self.inBox_val = 0
 		self.widget = Vivaldi_widget(self, self.args[2])
 
 		global trans_on, transN, slider_on
@@ -137,17 +137,12 @@ class Vivaldi_window(QtGui.QMainWindow):
 			self.TFF = VTF.TFN_widget(self)
 			self.TFF.setGeometry(self.widget.width+20, 30, 400, 200)
 			if transN == 2:
-				self.TFF.setWindowTitle("TransferFunction for ch1")						
-				self.TFF2 = VTF.TFN_window(self)
-				self.TFF.setGeometry(self.widget.width+20, 230, 400, 200)
-			
-				self.TFF2.setWindowTitle("TransferFunction for ch2")
+				self.TFF2 = VTF.TFN_widget(self)
+				self.TFF2.setGeometry(self.widget.width+20, 260, 400, 200)
 
 		if slider_on == True:
 			self.slider = VMS.multi_slider(self)
 			self.slider.setGeometry(self.widget.width+20, 30+200, 400,100)
-			print "ASDF"
-			
 	
 		#self.setCentralWidget(self.widget)
 		self.setWindowTitle("Vivaldi")
@@ -369,15 +364,18 @@ class Vivaldi_window(QtGui.QMainWindow):
 			return 1
 		elif x > self.widget.width+20 and y > 30 and y < 230:
 			return 2
-		else:
+		elif x > self.widget.width+20 and y > 250 and y < 450 and self.TFF2!=None:
 			return 3
+		else:
+			return 0
 
 	def mousePressEvent(self, event):
 		global pressedButton
 		pressedButton = event.button()
 		
-		inBox_val = self.inBox(event.x(), event.y())
-		if inBox_val == 1:
+		self.inBox_val = self.inBox(event.x(), event.y())
+
+		if self.inBox_val == 1:
 			if self.dimension == '3D':
 				if event.button() == 1:
 					import math
@@ -409,9 +407,9 @@ class Vivaldi_window(QtGui.QMainWindow):
 					scale_y = event.y()
 				elif event.button() == 4:
 					pass
-		elif inBox_val == 2:
+		elif self.inBox_val == 2:
 			tmp_x = int((event.x()-(self.widget.width+20)) * 255 / 400)
-			tmp_y = int((230-(event.y()-30)) * 255 / 200)
+			tmp_y = int((200-(event.y()-30)) * 255 / 200)
 
 			if event.button() == 1:
 			 	#set alpha value	
@@ -431,12 +429,33 @@ class Vivaldi_window(QtGui.QMainWindow):
 		
 			self.TFF.updateGL()
 
+		elif self.inBox_val == 3:
+			tmp_x = int((event.x()-(self.widget.width+20)) * 255 / 400)
+			tmp_y = int((200-(event.y()-250)) * 255 / 200)
+
+			if event.button() == 1:
+			 	#set alpha value	
+				self.TFF2.transfer_alpha[tmp_x] = tmp_y;
+				self.prev_x, self.prev_y = tmp_x, tmp_y
+			
+			elif event.button() == 2:
+				self.prev_x = tmp_x
+				self.TFF2.setColor(tmp_x, self.current_color)
 				
+	
+			elif event.button() == 4:
+				self.col = QtGui.QColorDialog.getColor()
+				self.current_color = (self.col.red(),self.col.green(), self.col.blue())
+				self.TFF2.pixmap.fill(self.col)
+			
+		
+			self.TFF2.updateGL()
+
+		
 			
 	def mouseMoveEvent(self, event):
 		global pressedButton
-		inBox_val = self.inBox(event.x(), event.y())
-		if inBox_val == 1:
+		if self.inBox_val == 1:
 			if pressedButton == 1:
 				if self.dimension == '3D':
 					self.rotate_3D(event)
@@ -457,7 +476,7 @@ class Vivaldi_window(QtGui.QMainWindow):
 
 			self.update_widget()
 
-		elif inBox_val == 2:
+		elif self.inBox_val == 2:
 			if pressedButton == 1:
 				tmp_x = int((event.x()-(self.widget.width+20)) * 255 / 400)
 				tmp_y = int((200-(event.y()-30)) * 255 / 200)
@@ -487,7 +506,41 @@ class Vivaldi_window(QtGui.QMainWindow):
 
 			elif pressedButton == 2:
 				pass
+
+			self.update_widget()
+
+		elif self.inBox_val == 3:
+			if pressedButton == 1:
+				tmp_x = int((event.x()-(self.widget.width+20)) * 255 / 400)
+				tmp_y = int((200-(event.y()-250)) * 255 / 200)
+		
+				if tmp_x <= 0: tmp_x = 0
+				elif tmp_x >= 255: tmp_x = 255
+				if tmp_y <= 0: 
+					tmp_y = 0
+					self.prev_y = 0
+				elif tmp_y >= 255: 
+					tmp_y = 255
+					self.prev_y = 255
+				diff = 1
+				if self.prev_x > tmp_x:
+					diff = -1
 	
+				if self.prev_x != tmp_x:
+					slope = (tmp_y - self.prev_y) / (tmp_x - self.prev_x) 
+	
+					for elem in range(self.prev_x, tmp_x, diff):
+						self.TFF2.transfer_alpha[elem] = self.prev_y + slope * (elem - self.prev_x)
+						#self.TFF.updateGL()
+
+				self.TFF2.transfer_alpha[tmp_x] = tmp_y
+				self.TFF2.updateGL()
+				self.prev_x, self.prev_y = tmp_x, tmp_y
+
+			elif pressedButton == 2:
+				pass
+	
+
 			self.update_widget()
 
 	def rotate_3D(self, event):
@@ -535,7 +588,7 @@ class Vivaldi_window(QtGui.QMainWindow):
 	def trans_3D(self, event):
 		global trans_x, trans_y, transX, transY
 		dx = trans_x - event.x()
-		dy = trans_y - event.y()
+		dy = trans_y - (event.y()-30)
 		transX += dx
 		transY += dy
 	
@@ -565,6 +618,7 @@ class Vivaldi_window(QtGui.QMainWindow):
 		self.mouse_flag = 0
 		self.prev_x = 0
 		self.prev_y = 0
+		self.inBox_val = 0
 
 
 	def wheelEvent(self, event):
@@ -579,20 +633,6 @@ class Vivaldi_window(QtGui.QMainWindow):
 		self.app = app
 	
 	def update_widget(self):
-		#import time 
-		#st = time.time()
-		#global FPS_prev, img_cnt, sc_img
-		#FPS_prev = st
-		#data_pkg = self.func_name(*self.args)
-		#viewer_data, viewer_dtype = collect_result(data_pkg)
-		#self.widget.setData(viewer_data, viewer_data.shape[1], viewer_data.shape[0], data_pkg.data_contents_memory_dtype)
-#
-#		self.widget.setDtype(viewer_dtype)
-#		self.widget.updateGL()
-#
-#		self.get_FPS()
-#		aft = time.time()
-#		print "Processing time : ", aft-st
 		import time 
 		st = time.time()
 		global FPS_prev, img_cnt, sc_img
@@ -601,14 +641,13 @@ class Vivaldi_window(QtGui.QMainWindow):
 		glMatrixMode(GL_MODELVIEW)
 		glLoadIdentity()
 		glMultMatrixf(mmtx)
-#		print "MMMM", mmtx
 		st3 = time.time()
 		data_pkg = self.func_name(*self.args)
 		viewer_data, viewer_dtype = collect_result(data_pkg)
 		print "DATA return", time.time() - st3
 		st4 = time.time()
-		self.widget.setData(viewer_data, viewer_data.shape[1], viewer_data.shape[0], data_pkg.data_contents_memory_dtype)
 		self.widget.setDtype(viewer_dtype)
+		self.widget.setData(viewer_data, viewer_data.shape[1], viewer_data.shape[0], data_pkg.data_contents_memory_dtype)
 
 		self.widget.updateGL()
 
@@ -816,8 +855,6 @@ class Vivaldi_widget(QGLWidget):
 			self.dtype = GL_RGB
 		else: 
 			self.dtype = GL_LUMINANCE
-
-		self.update_texture()
 
 	def trans(self, x, y):
 		self.transx += x
