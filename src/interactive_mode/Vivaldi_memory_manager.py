@@ -67,6 +67,7 @@ def synchronize():
 		print memcpy_tasks_to_harddisk
 		print "DDDDD", idle_list
 	if synchronize_flag == True and function_list == [] and memcpy_tasks == {} and work_list == {} and data_list == [] and memcpy_tasks_to_harddisk == {}:
+		
 		for dest in idle_list:
 			comm.isend(rank,			dest=dest,	tag=5)
 			comm.isend("synchronize",	dest=dest,	tag=5)
@@ -200,7 +201,7 @@ def temp_func2(source_list=None): # dynamic function execution
 	return_flag = False
 	for elem in list(task_list):
 		if cur_list == []:break
-		# check execid is avaiable for this functions
+		# check execid is available for this functions
 		fp = elem
 		reserved = fp.reserved
 
@@ -485,6 +486,7 @@ def register_function(function_package):
 		fp.execid_list = idle_list+work_list.keys()
 
 	for arg in args:
+		
 		flag = register_arg(arg, fp.execid_list)
 		if VIVALDI_DYNAMIC: 
 			if arg.get_unique_id() != '-1':
@@ -502,7 +504,7 @@ def run_function(dest, function_package):
 	inform(function_package.output, dest=dest)
 
 # memory management functions
-def inform(data_package, source=2, dest=None, count=None):
+def inform(data_package, dest=None, count=None):
 
 	if not VIVALDI_DYNAMIC:
 		if dest == None:
@@ -531,6 +533,7 @@ def inform(data_package, source=2, dest=None, count=None):
 	if ss not in retain_count[u]: retain_count[u][ss] = {}
 	if sp not in retain_count[u][ss]: retain_count[u][ss][sp] = {}
 	if data_halo not in retain_count[u][ss][sp]: retain_count[u][ss][sp][data_halo] = 0
+	
 def register_arg(arg, execid_list = []):
 	u, ss, sp = arg.get_id()
 	if u == '-1': return False
@@ -538,13 +541,14 @@ def register_arg(arg, execid_list = []):
 
 	if execid_list == []: execid_list = idle_list+work_list.keys()
 
-#	print "REGISTER ARGS", u, ss, sp, data_halo
+	
 	flag = 0
 	# check data is assigned to be created
 	rc = remaining_write_count_list
 	if u not in rc:flag = 1
 	elif ss not in rc[u]:flag = 1
 	elif sp not in rc[u][ss]:flag = 1
+	#print "REGISTER ARGS", u, ss, sp, data_halo, flag
 	if flag == 1: # data not exist
 		retain(arg)
 		# data_list for make memcpy tasks
@@ -600,35 +604,28 @@ def notice(data_package, source, source_package=None):
 	if dp.data != None or dp.devptr != None:
 		assert(False)
 
-	# check is this data already freed
-	deleted = True
-	if u in retain_count:
-		if ss in retain_count[u]:
-			if sp in retain_count[u][ss]:
-				if data_halo in retain_count[u][ss][sp]:
-					deleted = False
+	# check data is initialized
+	def check_init(u,ss,sp):	
+		rc = remaining_write_count_list
+		if u in rc:
+			if ss in rc[u]:
+				if sp in rc[u][ss]:
+					if data_halo in rc[u][ss][sp]:
+						return True
+		return False
+	inited = check_init(u,ss,sp)
 
-	if deleted:
-		print "DELETED", dp, source
-		assert(False)
-#		print_retain_count()
-		dest = source
-		if dest != 2:
-			tag = 5
-			comm.isend(rank,      dest=dest,	tag=tag)
-			comm.isend("free",    dest=dest,	tag=tag)
-			tag = int("%d%d"%(tag,8))
-			comm.isend(u,         dest=dest,	tag=tag)
-			comm.isend(ss,        dest=dest,	tag=tag)
-			comm.isend(sp,        dest=dest,	tag=tag)
-			comm.isend(data_halo, dest=dest,	tag=tag)
-		return True
-	
+	#print dp.info(), data_halo, inited
+	if inited == False:
+		inform(dp, dest=source)
+		
+#	print_write_count()
+#	print "======================="
+#	print_retain_count()
 	# real work from here
-#	inform(dp, dest=source)
 	remaining_write_count_list[u][ss][sp][data_halo][source] -= 1
 	counter = remaining_write_count_list[u][ss][sp][data_halo][source]
-	#print "NOT", u, ss, sp, halo, source, counter
+#	print "NOT", u, ss, sp, data_halo, source, counter
 	if counter == 0:
 		if u not in valid_list: valid_list[u] = {}
 		if ss not in valid_list[u]: valid_list[u][ss] = {}
@@ -853,8 +850,10 @@ def increase_sources_retain_count(data_package):
 	dp = data_package
 	u, ss, sp = dp.get_id()
 	data_halo = dp.data_halo
-	rc = remaining_write_count_list
-#	print_write_count()	
+	rc = remaining_write_count_list			
+	
+	if u not in rc: rc[u] = {}
+	
 	for SS in rc[u]:
 		SS = ast.literal_eval(SS) # data source
 		boundary_list, full_copy_range, count = find_boundary_range(dp, SS)
@@ -871,13 +870,12 @@ def increase_sources_retain_count(data_package):
 			# retain count of sources
 			retain(sdp)
 			
-		if u not in rc: rc[u] = {}
+		
 		if ss not in rc[u]: rc[u][ss] = {}
 		if sp not in rc[u][ss]: rc[u][ss][sp] = {}
 		if data_halo not in rc[u][ss][sp]: rc[u][ss][sp][data_halo] = {}
 		rc[u][ss][sp][data_halo][None] = 1
-		
-		#print "EEE", u, ss, sp, data_halo, full_copy_range
+			
 	#	log("rank%d, u=%d, remaining_write_counter=%d"%(rank, u, count),'general',log_type)
 		return source_list, SP_list, full_copy_range, count
 
@@ -1251,6 +1249,7 @@ while flag != "finish":
 	# function initialization	
 	if flag == "function":
 		function_package = comm.recv(source=source, tag=52)
+		
 		def create_tasks(function_package):
 			argument_package_list = function_package.get_function_args()
 			def print_task_list(task_list):
@@ -1446,29 +1445,18 @@ while flag != "finish":
 				fp = task_list[0]
 				new_task_list = []
 				n = len(argument_package_list)
-				sw = False
 				def recursive_task_argument_setting(argument_package_list, p):
 					if p == n:
-						
 						# copy task
 						new_task = copy.deepcopy(fp)
 						
-						# make input split id
-					#	new_id = new_task.output.get_unique_id() + '_input_split_' + str(ou_id)
-					#	ou_id += 1
-					#	new_task.output.unique_id = new_id
-						
-						# set depth
-#						key = str(new_task.output.get_id())
-#						depth_dict[key] = new_task.output.depth
-
 						# set task argument
 						new_task.set_args(copy.deepcopy(argument_package_list))
 						
 						# append to task list
 						new_task_list.append(new_task)
 						
-						return 
+						return False
 					argument_package = argument_package_list[p]
 					if argument_package.get_split_shape() != str(SPLIT_BASE):
 						work_range = argument_package.full_data_range
@@ -1487,16 +1475,22 @@ while flag != "finish":
 							argument_package_list[p] = argument_package
 							recursive_task_argument_setting(argument_package_list, p+1)
 							# set input split flag
-							sw = True
+						return True
 					else:
-						recursive_task_argument_setting(argument_package_list, p+1)
-				recursive_task_argument_setting(copy.deepcopy(argument_package_list), 0)
+						return recursive_task_argument_setting(argument_package_list, p+1)
+				sw = recursive_task_argument_setting(copy.deepcopy(argument_package_list), 0)
 				# change id
 				if sw: # mean input split occur
-					print "Check"
 					ou_id = 0
 					for new_task in new_task_list:
 						new_id = new_task.output.get_unique_id() + '_input_split_' + str(ou_id)
+						new_task.output.unique_id = new_id
+						
+						key = str(new_task.output.get_id())
+						depth_dict[key] = new_task.output.depth
+						
+						ou_id += 1
+						
 				return new_task_list
 			def output_split(task_list, argument_package_list):
 				# output split change
@@ -1570,13 +1564,15 @@ while flag != "finish":
 				function_package.set_args(prepare_args(function_package.get_args()))
 				
 			prepare_modifier(function_package)
+			
 			task_list = [function_package]
+			#print_task_list(task_list)
 			
 			flag = in_and_out_check(argument_package_list)
-			#print "FLAG", flag
+			#print "in-and-out split model", flag
 			if flag == 'identical':
 				task_list = in_and_out1(task_list, argument_package_list)
-				#print_task_list(task_list)
+			#	print_task_list(task_list)
 				return task_list
 			elif flag == 'different':
 				task_list = in_and_out2(task_list, argument_package_list)
@@ -1584,7 +1580,7 @@ while flag != "finish":
 			else:			
 				task_list = input_split(task_list, argument_package_list)
 				task_list = output_split(task_list, argument_package_list)
-			#print_task_list(task_list)
+				#print_task_list(task_list)
 			
 			return task_list
 		task_list = create_tasks(function_package)
@@ -1652,6 +1648,7 @@ while flag != "finish":
 					
 						# bring depth 
 						key = str(argument_package.get_id())
+						
 						depth += depth_dict[key]
 				def change_front_and_back(argument_package_list):
 					cnt = 0
@@ -1676,6 +1673,7 @@ while flag != "finish":
 						temp = ft.unique_id
 						ft.unique_id = bk.unique_id
 						bk.unique_id = temp
+						
 						
 				change_front_and_back(argument_package_list)
 				depth /= 2
@@ -1740,12 +1738,19 @@ while flag != "finish":
 									break
 								cnt += 1
 						# compare depth
-						f_depth = ft.depth
-						b_depth = bk.depth
+						f_key = str(ft.get_id())
+						b_key = str(bk.get_id())
+						f_depth = depth_dict[f_key]
+						b_depth = depth_dict[b_key]
+						
 						if f_depth > b_depth:
-							temp = ft
-							ft = bk
-							bk = temp
+							temp = ft.unique_id
+							ft.unique_id = bk.unique_id
+							bk.unique_id = temp
+							
+						print "FF", f_depth, b_depth, ft.unique_id, bk.unique_id
+						
+
 					change_front_and_back(argument_package_list)
 							
 					depth /= 2
@@ -1786,15 +1791,17 @@ while flag != "finish":
 		disconnect()
 	elif flag == "notice":
 		st = time.time()
-		data_package	= comm.recv(source=source, tag=51)
+		data_package    = comm.recv(source=source, tag=51)
 		notice(data_package, source)
 		flag_times[flag] += time.time()-st
 	elif flag == "inform":
-		st = time.time()
-		data_package = comm.recv(source=source, tag=55)
-		dest = comm.recv(source=source, tag=55)
-		inform(data_package, source, dest=dest)
-		flag_times[flag] += time.time()-st
+#		st = time.time()
+#		data_package = comm.recv(source=source, tag=55)
+#		dest = comm.recv(source=source, tag=55)
+#		print "INFOM", data_package.info()
+#		inform(data_package, source, dest=dest)
+#		flag_times[flag] += time.time()-st
+		pass
 	elif flag == "method":
 		st = time.time()
 		u	= comm.recv(source=source,	tag=56)
@@ -1818,6 +1825,15 @@ while flag != "finish":
 		synchronize()
 		flag_times["synchronize"] += time.time()-st2
 		flag_times[flag] += time.time()-st
+	elif flag == "notice_data_out_of_core":
+		data_package = comm.recv(source=source, tag=501)
+		notice(data_package, 2)
+
+		dest = 2
+		comm.isend(rank,						 dest=dest,	   tag=5)
+		comm.isend("notice_data_out_of_core",	 dest=dest,	   tag=5)
+		comm.isend(data_package,				 dest=dest,	   tag=501)
+		
 	elif flag == "save_image_out_of_core":
 		data_package = comm.recv(source=source, tag=510)
 		dp = data_package

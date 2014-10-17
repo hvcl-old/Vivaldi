@@ -13,6 +13,9 @@ __device__ int DEVICE_NUMBER;
 __device__ float modelview[4][4];
 __device__ float inv_modelview[4][4];
 
+__device__ int slider[4];
+__device__ int slider_opacity[4];
+
 __device__ float TF_bandwidth;
 __device__ int front_back;
 
@@ -822,14 +825,11 @@ template<typename R,typename T> GPU R point_query_2d(T* data, float2 p, int bord
 
 	int4 full_data_start = sdr->full_data_start;
 	int4 full_data_end = sdr->full_data_end;
-	
-	int4 buffer_start = sdr->buffer_start;
-	int4 buffer_end = sdr->buffer_end;
 
 	int x = p.x;
 	int y = p.y;
 	
-	int X = buffer_end.x - buffer_start.x;
+	int X = data_end.x - data_start.x;
 	R rt;
 	
 	// Data coordinate input
@@ -854,8 +854,8 @@ template<typename R,typename T> GPU R point_query_2d(T* data, float2 p, int bord
 		
 		if(flag_x && flag_y){
 			// to Buffer coordinate 
-			x = x - buffer_start.x;
-			y = y - buffer_start.y;
+			x = x - data_start.x;
+			y = y - data_start.y;
 			
 			rt = convert(data[y*X + x]);
 		}else{

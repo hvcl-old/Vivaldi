@@ -47,7 +47,7 @@ def main():
 	# and save loaded image as user defined type like numpy.float32
 	# DATA_PATH is vivladi environment variable. 
 	# it is defined to $vivladi_path/data
-	image = load_data_2d(DATA_PATH+'/flower.jpg')
+	image = load_data_2d(DATA_PATH+'/Lenna.png')
 
 	# use GPU list which user specified to execute user defined function 'edge_detection' using execid modifier
 	# and below range,x=[0:240),y=[0:240), will be used to projection range

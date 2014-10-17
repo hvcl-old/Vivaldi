@@ -290,7 +290,7 @@ def load_common(filename): # send functions to computing units
 	# deploy function 
 	deploy_function_code(code)
 	# make code to new function dictionary
-	def get_function_code_dict(x):
+	def get_function_dict(x):
 		function_code_dict = {}
 		def get_function_name_list(code=''):
 			def get_head(code='', st=0):
@@ -336,24 +336,19 @@ def load_common(filename): # send functions to computing units
 			# there are n case function finish
 			# ex1) code end
 			# def main()
-			#	...
+			# 	...
 			#
-			# ex2) another function 
+			# ex2) indent
 			# def main()
-			#	...
-			# def func():
-			#
-			# ex3) indent
-			# def main()
-			#	...
+			# 	...
 			# print 
 			
 			# there are n case main not finish
 			# ex1) main
 			# def main():
-			#	  ArithmeticError
+			#     ArithmeticError
 			#
-			#	  BaseException
+			#     BaseException
 			
 			def get_indent(line): 
 				s_line = line.strip()
@@ -362,20 +357,21 @@ def load_common(filename): # send functions to computing units
 
 				return indent
 				
-			line = ''
 			cnt = 1
-			i = s_idx
+			i = s_idx+1
+			line = 'd'
 			while i < n:
 				w = code[i]
 				
 				line += w
 				if w == '\n':
 					indent = get_indent(line)
-					if indent == '' and line.strip().startswith('def'):
-						# ex2 and ex3
-						if cnt == 0:break
+					if indent == '' and line.strip() != '':
+						# ex2
+						if cnt == 0:
+							line = ''
+							break
 						cnt -= 1
-					
 					output += line
 					line = ''
 				i += 1
@@ -384,13 +380,19 @@ def load_common(filename): # send functions to computing units
 				output += line
 			
 			return output
+
 		function_name_list = get_function_name_list(x)
 		for function_name in function_name_list:
 			function_code = get_code(function_name=function_name, code=x)
 			function_code_dict[function_name] = function_code
 		return function_code_dict
-	new_function_code_dict = get_function_code_dict(code)
+	new_function_code_dict = get_function_dict(code)
 	
+	# debug
+	#for key in new_function_code_dict:
+	#	print "============================================"
+	#	print new_function_code_dict[key]
+		
 	return new_function_code_dict
 def execute_as_main(name='main'):
 	if name in function_code_dict:
@@ -398,7 +400,6 @@ def execute_as_main(name='main'):
 		main_code = function_code_dict['main']
 		
 		main_code = parse_main(main_code)
-		
 		exec main_code in globals()
 		exec name+'()'
 	else:
@@ -566,6 +567,7 @@ def get_file_name(file_name=''):
 		file_name = 'result' + '_' +str(cnt)
 		cnt += 1
 		extension = 'png'
+		return file_name + '.' + extension
 	return file_name, extension.lower()
 def save_image_2d(file_name=None, extension='png', buf=None, chan=None):
 	if log_type in ['time','all']:
@@ -583,7 +585,7 @@ def save_image_2d(file_name=None, extension='png', buf=None, chan=None):
 	if chan == 1:	img = Image.fromarray(buf, 'L')
 	elif chan == 3:	img = Image.fromarray(buf, 'RGB')
 	elif chan == 4:	img = Image.fromarray(buf, 'RGBA')
-		
+	
 	e = os.system("mkdir -p result")
 	img.save('./result/%s.png'%(file_name), format=extension)
 		
@@ -611,6 +613,24 @@ def save_image_3d(file_name=None, extension='dat', buf=None, data_shape=None, ch
 		sp = buf.nbytes/MEGA
 		bytes = buf.nbytes
 		log("rank%d, \"%s\", save time to hard disk bytes: %.3fMB %.3f ms %.3f MBytes/sec"%(rank, file_name, bytes/MEGA, ms, sp),'time',log_type)
+
+def get_dimension_and_channel(input):
+	shape = None
+	if type(input) == numpy.ndarray:	shape = input.shape
+	if type(input) == tuple:			shape = input
+	shape = list(shape)
+
+	n = len(shape)
+	chan = shape[n-1]
+	if chan in [2,3,4]:
+		chan = chan
+		shape.pop()
+	else:
+		chan = 1
+
+	dimension = len(shape)
+	return dimension, shape, chan
+		
 def save_image(input1, input2=None, out_of_core=False, normalize=True):
 	dtype = 'float32'
 	# merge image
@@ -623,7 +643,7 @@ def save_image(input1, input2=None, out_of_core=False, normalize=True):
 	else: # file name is not exist
 		data = input1
 		file_name = get_file_name();
-
+		
 	# data generation
 	if isinstance(data, Data_package):	# data not exist in local
 		dp = data
@@ -647,7 +667,7 @@ def save_image(input1, input2=None, out_of_core=False, normalize=True):
 		if normalize:
 			min = data.min()
 			max = data.max()
-			if min != max: data = (data - min)*255/(max-min)
+			if min != max: data = (data - min)*255.0/(max-min)
 
 		if dimension == 2:
 			save_image_2d(file_name=file_name, extension=extension, buf=data, chan=chan)
@@ -714,9 +734,9 @@ def reader_save_image_in_core(data_package):
 	comm.isend(rank,						dest=dest,	  tag=5)
 	comm.isend("save_image_in_core",		dest=dest,	  tag=5)
 	send_data_package(dp,					dest=dest,	  tag=511)
-def reader_notice_data_out_of_core(data_package):
+def scheduler_notice_data_out_of_core(data_package):
 	dp = data_package
-	dest = 2
+	dest = 1
 	comm.isend(rank,						 dest=dest,	   tag=5)
 	comm.isend("notice_data_out_of_core",	 dest=dest,	   tag=5)
 	send_data_package(dp,					 dest=dest,	   tag=501)
@@ -807,13 +827,13 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 				pass
 			elif argument_package.shared == False: # not registered variables
 				def reader_give_access(data_package):
-					scheduler_inform(data_package, 2)
+					#scheduler_inform(data_package, 2)
 					u = data_package.unique_id
 
 					scheduler_retain(data_package)
 					out_of_core = data_package.out_of_core
 					if out_of_core: 
-						reader_notice_data_out_of_core(data_package)
+						scheduler_notice_data_out_of_core(data_package)
 					else:
 						send_data(2, data_package.data, data_package)
 				reader_give_access(argument_package)
@@ -822,7 +842,7 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 			share_argument_package(argument_package)
 	share_argument_package_list(argument_package_list)
 
-	# make return package
+	# get return package
 	def get_return_package(function_name, argument_package_list, work_range, output_halo):
 		data_package = Data_package()
 		def get_unique_id():
@@ -877,7 +897,8 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 				for j in range(4):
 					new_mmtx[i][j] = mmtx[j][i]
 			return new_mmtx
-#		fp.mmtx = flip_diagonal(fp.mmtx)
+		fp.mmtx = flip_diagonal(fp.mmtx)
+		
 		fp.work_range = work_range
 		fp.output = return_package
 		return fp
@@ -890,25 +911,29 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 	
 	v = Vivaldi_viewer.v
 	trans_on = Vivaldi_viewer.trans_on
-	transN = Vivaldi_viewer.transN
+	transN = 0
 	fp = function_package
+	if v != None:
+		trans_on = Vivaldi_viewer.trans_on
+		fp.transN = Vivaldi_viewer.transN
+
+		if v.slider != None:
+			fp.Sliders = v.get_sliders()
+			fp.Slider_opacity = v.get_slider_opacity()
+
 	if trans_on == True:
 		if v.getIsTFupdated() == 1:
-			#if transN >= 1:
-			fp.trans_tex		  = v.getTFF()
+			fp.trans_tex 		  = v.getTFF()
 			fp.update_tf = 1
 			fp.update_tf2 = 0
-			v.TFF.widget.updated = 0
-		#if transN >= 2:
+			v.window.TFF.updated = 0
 		elif v.getIsTFupdated2() == 1:
-			fp.trans_tex		  = v.getTFF2()
+			fp.trans_tex 		  = v.getTFF2()
 			fp.update_tf = 0
 			fp.update_tf2 = 1
-			v.TFF2.widget.updated = 0
-		
+			v.window.TFF2.updated = 0
+	
 		fp.TF_bandwidth		  = v.getTFBW()
-		fp.CRG = v.window.CRG
-		fp.transN = transN
 	
 	register_function_package(function_package)
 	
@@ -978,6 +1003,7 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 		return_dtype = get_return_dtype(merge_func, merge_argument_package_list)
 		return_package.set_dtype(return_dtype)
 		
+		
 		merge_function_package.output = return_package
 		# split count
 		def get_split_count(argument_package_list):
@@ -996,6 +1022,7 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 	return return_package
 def run_function(return_name=None, func_name='', execid=[], work_range=None, args=[], arg_names=[], dtype_dict={}, output_halo=0, halo_dict={}, split_dict={}, merge_func='', merge_order=''): # compatibility to old version
 	function_name = func_name
+	
 	def get_argument_package_list(args, arg_names, split_dict, halo_dict):
 		i = 0
 		argument_package_list = []
@@ -1015,6 +1042,18 @@ def run_function(return_name=None, func_name='', execid=[], work_range=None, arg
 					argument_package = arg
 					argument_package.split = split
 					argument_package.halo = halo
+					
+					if argument_package.unique_id == None:
+						def get_unique_id(arg):
+							aid = id(arg)
+							if aid in data_package_list:
+								return data_package_list[aid].get_unique_id()
+							else:
+								global unique_id
+								unique_id += 1
+							return unique_id
+						argument_package.unique_id = get_unique_id(arg)
+						argument_package.shared = False
 				else:
 					argument_package = Data_package(arg,split=split,halo=halo)
 					def get_unique_id(arg):
@@ -1065,8 +1104,11 @@ def run_function(return_name=None, func_name='', execid=[], work_range=None, arg
 
 	
 # OpenGL matrix function wrapper
-def glMatrixMode(name):
-	glMatrixMode(name)
+def MatrixMode(name):
+	if name == "MODELVIEW":
+		glMatrixMode(GL_MODELVIEW)
+	else:
+		glMatrixMode(name)
 def LoadIdentity():
 	glLoadIdentity()
 def Rotate(angle, x, y, z):
@@ -1144,6 +1186,9 @@ except:
 	sys.path.append(VIVALDI_PATH + "/src/viewer-src")
 	Vivaldi_viewer.VIVALDI_GATHER = VIVALDI_GATHER
 	
+	import Vivaldi_viewer
+	from Vivaldi_viewer import enable_viewer
+
 	viewer_on = False
 	trans_on = False
 
@@ -1205,12 +1250,12 @@ def interactive_mode():
 		def runsource(self, source, *args):
 			from Vivaldi_translator_layer import line_translator
 			source = line_translator(source, data_package_list)
-	#		print "SSS", source
+	
 			self.last_buffer = [ source.encode('latin-1') ]
 			return InteractiveConsole.runsource(self, source, *args)
 		def raw_input(self, *args):
 			line = InteractiveConsole.raw_input(self, *args)
-		#	print "DDDD", line
+		
 			return line
 	def Vivaldi_interactive(_globals, _locals):
 		"""
@@ -1231,8 +1276,6 @@ def interactive_mode():
 if 'main' not in globals():
 	interactive_mode()
 else:
-#	if Vivaldi_viewer.viewer_on == True:
-#		Vivaldi_viewer.VIVALDI_GATHER = VIVALDI_GATHER
-#		Vivaldi_viewer.v.show()
 
 	synchronize()
+	

@@ -16,5 +16,5 @@ def edge_detection(image, x, y):
 def main():
 	image = load_data_2d(DATA_PATH+'/hk_pano_retouched_2G.png')
 
-	result = edge_detection(image, x, y).range(image).dtype(image,uchar)
+	result = edge_detection(image, x, y).range(image)
 	save_image(result,'full_size.png')

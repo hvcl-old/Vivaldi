@@ -87,6 +87,7 @@ def recv():
 	# Vivaldi reader cannot be nonblocking receive
 	# because next operation is save to hard disk, and we need valid data for save
 	MPI.Request.Wait(request)
+	
 	return data, data_package
 def save_data(data, data_package):
 	# if data is numpy.ndarray, copy to GPU and save only devptr
@@ -94,12 +95,14 @@ def save_data(data, data_package):
 	dp.data = data
 	dp.memory_type = 'memory'
 
-	notice(dp)
+	if data != None:
+		notice(dp)
 	
 	u, ss, sp = dp.get_id()
 	if u not in data_list: data_list[u] = {}
 	if str(ss) not in data_list[u]:data_list[u][str(ss)] = {}
 	data_list[u][ss][sp] = dp
+	
 def get_file_pointer(file_name):
 	f = open(file_name,'r')
 
@@ -276,8 +279,8 @@ def memcpy_p2p_send(task, dest_rank, data, halo_size):
 def save_image(buf=None, chan=None, file_name=None, extension=None, normalize=False):
 	st = time.time()
 	img = None
-
 	# if normalize is true, than normalize from 0 ~ 255, because image is 8 bit
+	
 	if normalize == True:
 		min = buf.min()
 		max = buf.max()
@@ -290,10 +293,11 @@ def save_image(buf=None, chan=None, file_name=None, extension=None, normalize=Fa
 	if chan == [1]:   img = Image.fromarray(buf, 'L')
 	elif chan == [3]: img = Image.fromarray(buf, 'RGB')
 	elif chan == [4]: img = Image.fromarray(buf, 'RGBA')
+	
 	e = os.system("mkdir -p result")
 	img.save('./result/%s'%(file_name+'.'+extension), format=extension)
-
-	time.sleep(2)
+	
+	
 	if log_type in ['time','all']:
 		t = time.time()-st
 		ms = 1000*t
@@ -307,9 +311,7 @@ cnt = 0
 def memcpy_p2p_recv(task, halo):
 	data, data_package = recv()
 	dp = task.dest
-
-#	print "SOURCE", dp, source
-	#assert(False)
+	
 	chan = dp.data_contents_memory_shape
 
 	file_name = dp.file_name
@@ -390,6 +392,7 @@ while flag != "finish":
 	if flag == "synchronize":
 		# synchronize
 		comm.send("Done", dest=source, tag=999)
+		
 	elif flag == "recv":
 		st = time.time()
 		data, data_package = recv()
@@ -426,6 +429,7 @@ while flag != "finish":
 		idle()
 		flag_times[flag] += time.time() - st
 	elif flag == "memcpy_p2p_recv":
+		
 		task = comm.recv(source=source, tag=57)
 		halo_size = comm.recv(source=source, tag=57)
 		memcpy_p2p_recv(task, halo_size)

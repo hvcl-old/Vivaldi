@@ -3,9 +3,7 @@ head.cm.cluster
 -GPU=0
 node001.ib.cluster
 -CPU=0
--GPU=2
--G on
+-GPU=1
 node002.ib.cluster
 -CPU=0
 -GPU=0
--G on
