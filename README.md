@@ -80,9 +80,9 @@ to code.
 How to install
 =======
 A. Install Cuda Driver and toolkit
-   CUDA > 5.5
+   CUDA > 6.6
 B. Install Library dependencies
-    1.Openmpi > 1.7.2
+    1.Openmpi > 1.8.3
     2.require libraries: easy_install PIL PyOpenGL
     3.PyQt4
 
@@ -199,7 +199,7 @@ Func(args).modifier().modifier()
 
 1. range: output size, output halo can be added here for in and in&out split
 
-ex) func().range(x=0:123,y=-100:100,halo=..)
+ex) func().range(x=0:123,y=-100:100)
 
 
 2. execid: specifies execution device list
@@ -230,10 +230,6 @@ ex) func().halo(image, 3)
 
 
 
-6. dtype: specify data type of object in the function execution
-form: 
-	.dtype(image, dtype).dtype(imag2, RGB)
-
 available dtypes:
 	char:
 	uchar: 1 bytes unsigned integer (0 to 255)
@@ -243,8 +239,6 @@ available dtypes:
 	uint: 4 bytes unsigned integer (0 to 4294967296)
 	float: 4 bytes, single precision float, sign bit, 8 bits exponent, 23 bits mantissa
 	double: 8 bytes, double precision float, sign bit, 11 bits exponents, 52 bits mantissa
-	
-ex) func().dtype(image, short)
 
 
 
