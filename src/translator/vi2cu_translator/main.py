@@ -841,13 +841,14 @@ def parse_body(vivaldi_code_body='', local_dict={}):
 	#
 	#######################################################
 	# parse Vivaldi code body to CUDA body
+	
 	CUDA_body, inner_dict = parse_block(block=vivaldi_code_body, local_dict=local_dict)
 	
 	# update local_dict
 	for elem in inner_dict:
 		if elem in local_dict and local_dict[elem] == 'Unknown':
 			local_dict[elem] = inner_dict[elem]
-			
+	
 	# Boundary check
 	#
 	#######################################################
