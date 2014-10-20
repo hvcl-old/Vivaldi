@@ -2,7 +2,11 @@
 
 st=$(($(date +%s%N)/1000000))
 
-python $vivaldi_path/src/interactive_mode/main.py $@
+
+OMPI_MCA_mpi_warn_on_fork=0
+export OMPI_MCA_mpi_warn_on_fork
+
+python $vivaldi_path/src/interactive_mode/starter.py $@
 
 end=$(($(date +%s%N)/1000000))
 duration=$((end-st))
