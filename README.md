@@ -3,6 +3,8 @@ Vivaldi
 
 VIsualization LAnguage for DIstributed sytstems
 
+Version ?
+
 Contact
 =======
 * wkjeong@unist.ac.kr
