@@ -138,7 +138,7 @@ def load_common(filename): # send functions to computing units
 	# deploy function 
 	deploy_function_code(code)
 	# make code to new function dictionary
-	def get_function_code_dict(x):
+	def get_function_dict(x):
 		function_code_dict = {}
 		def get_function_name_list(code=''):
 			def get_head(code='', st=0):
@@ -184,24 +184,19 @@ def load_common(filename): # send functions to computing units
 			# there are n case function finish
 			# ex1) code end
 			# def main()
-			#	...
+			# 	...
 			#
-			# ex2) another function 
+			# ex2) indent
 			# def main()
-			#	...
-			# def func():
-			#
-			# ex3) indent
-			# def main()
-			#	...
+			# 	...
 			# print 
 			
 			# there are n case main not finish
 			# ex1) main
 			# def main():
-			#	  ArithmeticError
+			#     ArithmeticError
 			#
-			#	  BaseException
+			#     BaseException
 			
 			def get_indent(line): 
 				s_line = line.strip()
@@ -210,20 +205,21 @@ def load_common(filename): # send functions to computing units
 
 				return indent
 				
-			line = ''
 			cnt = 1
-			i = s_idx
+			i = s_idx+1
+			line = 'd'
 			while i < n:
 				w = code[i]
 				
 				line += w
 				if w == '\n':
 					indent = get_indent(line)
-					if indent == '' and line.strip().startswith('def'):
-						# ex2 and ex3
-						if cnt == 0:break
+					if indent == '' and line.strip() != '':
+						# ex2
+						if cnt == 0:
+							line = ''
+							break
 						cnt -= 1
-					
 					output += line
 					line = ''
 				i += 1
@@ -232,12 +228,13 @@ def load_common(filename): # send functions to computing units
 				output += line
 			
 			return output
+			
 		function_name_list = get_function_name_list(x)
 		for function_name in function_name_list:
 			function_code = get_code(function_name=function_name, code=x)
 			function_code_dict[function_name] = function_code
 		return function_code_dict
-	new_function_code_dict = get_function_code_dict(code)
+	new_function_code_dict = get_function_dict(code)
 	
 	return new_function_code_dict
 def execute_as_main(name='main'):
@@ -925,8 +922,11 @@ def say(execid_list=[],num=-1):
 
 
 # OpenGL matrix function wrapper
-def glMatrixMode(name):
-	glMatrixMode(name)
+def MatrixMode(name):
+	if name == "MODELVIEW":
+		glMatrixMode(GL_MODELVIEW)
+	else:
+		glMatrixMode(name)
 def LoadIdentity():
 	glLoadIdentity()
 def Rotate(angle, x, y, z):
