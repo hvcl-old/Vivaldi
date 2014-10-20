@@ -483,7 +483,7 @@ def save_image(input1, input2=None, out_of_core=False, normalize=True):
 		if normalize:
 			min = data.min()
 			max = data.max()
-			if min != max: data = (data - min)*255/(max-min)
+			if min != max: data = (data - min)*255.0/(max-min)
 
 		if dimension == 2:
 			save_image_2d(file_name=file_name, extension=extension, buf=data, chan=chan)
