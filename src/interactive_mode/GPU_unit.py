@@ -133,16 +133,17 @@ def wait_data_arrive(data_package, stream=None):
 				cuda.memcpy_htod_async(t_devptr, t_data, stream=stream)
 				elem['t_devptr'] = t_devptr
 				elem['usage'] = usage	
-				
 			else:
 				t_devptr = t_data
 				elem['t_devptr'] = t_devptr
 				
-			dest_info = data_range_to_cuda_in(dest_data_range, dest_data_range, dest_buffer_range, data_halo=dest_package.data_halo, buffer_halo=dest_package.buffer_halo, stream=stream)
-			t_info = data_range_to_cuda_in(t_data_range, t_data_range, t_buffer_range, data_halo=t_data_halo, buffer_halo=t_buffer_halo, stream=stream)
-				
+			dest_info = data_range_to_cuda_in(dest_data_range, dest_data_range, data_halo=dest_package.data_halo, stream=stream)
+			t_info = data_range_to_cuda_in(t_data_range, t_data_range, data_halo=t_data_halo, stream=stream)
+			
 			kernel_write(func_name, dest_devptr, dest_info, t_devptr, t_info, work_range, stream=stream)
-		
+			#print dest_package.info(), dest_devptr
+			#print_devptr(dest_devptr, dest_package)
+			
 			target = (u,ss,sp)
 			if target not in gpu_list:
 				gpu_list.append((u,ss,sp))
@@ -210,7 +211,6 @@ def send(data, data_package, dest=None, gpu_direct=True):
 			s_requests.append((request, buf, None))
 			
 	else: # data in the CPU
-		print "HHHHHHHHHHHHHHH"
 		# want to use GPU direct, not exist case
 		# not want to use GPU direct
 		if dp.data_dtype == numpy.ndarray: 
@@ -297,15 +297,16 @@ def memcpy_p2p_send(task, dest):
 		wait_data_arrive(task.source)
 		
 	# check copy to same rank or somewhere else
-	
-#	print "p2p_send", task.source.data_range, dest_package.data_range, wr, rank, dest
 	sr = (task.execid == rank)
+	#print "p2p_send", task.source.data_range, dest_package.data_range, wr, rank, dest, sr
 	if sr:
-		# source is not necessary anymore
+		# source is not necessary any more
 		if du not in recv_list: recv_list[du] = {}
 		if dss not in recv_list[du]: recv_list[du][dss] = {}
 		if dsp not in recv_list[du][dss]: recv_list[du][dss][dsp] = []
 
+		#print "DT", data_list[u][ss][sp].info()
+		#print_devptr(data_list[u][ss][sp].devptr, data_list[u][ss][sp])
 		recv_list[du][dss][dsp].append({'task':task, 'data':data_list[u][ss][sp].devptr, 'data_package':data_list[u][ss][sp],'mem_release':True,'usage':data_list[u][ss][sp].usage})
 
 		if VIVALDI_BLOCKING:
@@ -313,11 +314,8 @@ def memcpy_p2p_send(task, dest):
 		notice(task.dest)
 	else:
 		# different machine
-		# check data will be cutted or not
+		# check data will be cuted or not
 		source_package = data_list[u][ss][sp]
-
-		cut = False
-		if wr != source_package.buffer_range: cut = True
 
 		bytes = 0
 		data_halo = 0
@@ -330,6 +328,17 @@ def memcpy_p2p_send(task, dest):
 		dp.data_halo = data_halo
 		dp.set_data_range(wr)
 		
+		# wait real data arrive
+		target = (u,ss,sp)
+		if target in Event_dict:
+			Event_dict[target].synchronize()
+		
+		if target not in valid_list:
+			wait_data_arrive(dp)
+		
+		# prepare send buffer
+		cut = False
+		if wr != source_package.data_range: cut = True
 		# prepare data
 		if cut:
 			dp.set_buffer_range(0)
@@ -368,14 +377,9 @@ def memcpy_p2p_send(task, dest):
 		comm.isend(data_halo,			dest=dest,	tag=57)
 		
 		# send data
-		target = (u,ss,sp)
-		if target in Event_dict:
-			Event_dict[target].synchronize()
+		#print_devptr(dest_devptr, dp)
 		
-		if target not in valid_list:
-			wait_data_arrive(dp)
-			
-		data = dest_devptr				
+		data = dest_devptr
 		stream_list[1].synchronize()
 		request = send(data, dp, dest=dest, gpu_direct=GPUDIRECT)
 		if temp_data:
@@ -643,11 +647,12 @@ def print_devptr(devptr, data_package):
 	try:
 		data_range = data_package.data_range
 		dtype = data_package.data_contents_memory_dtype
-		data_memory_shape = data_package.data_shape
+		data_memory_shape = data_package.data_memory_shape
 		data = numpy.empty(data_memory_shape, dtype=dtype)
 		cuda.memcpy_dtoh(data, devptr)
 		
-		print "PRINT DEVPTR", data
+		print "PRINT DEVPTR", data, data.info(), data.min(), data.max()
+		
 	except:
 		print data_package.info()
 global KD
@@ -713,7 +718,7 @@ def compile_for_GPU(function_package, kernel_function_name='default'):
 		kernel_code = attachment + 'extern "C"{\n'
 		kernel_code += function_code
 		kernel_code += '\n}'
-	#	print function_code
+		#print function_code
 		source_module_dict[kernel_function_name] = SourceModule(kernel_code, no_extern_c = True, options = ["-use_fast_math", "-O3"])
 
 		temp,_ = source_module_dict[kernel_function_name].get_global('DEVICE_NUMBER')
@@ -976,6 +981,7 @@ def malloc_with_swap_out(bytes, arg_lock=[]):
 		# reuse empty data
 		return devptr, usage
 
+	#print "BYTE", bytes
 	flag, devptr = mem_check_and_malloc(bytes)
 	if flag:
 		# we have enough memory
@@ -985,7 +991,7 @@ def malloc_with_swap_out(bytes, arg_lock=[]):
 	else:
 		print data_pool
 
-
+	print "We don't have enough memory"
 	assert(False)
 	# we don't have enough memory, we will try swap out one by one
 	for elem in gpu_list:	
@@ -1037,7 +1043,7 @@ def malloc_with_swap_out(bytes, arg_lock=[]):
 # CUDA execute function
 global a
 a = numpy.zeros((26),dtype=numpy.int32)
-def data_range_to_cuda_in(data_range, full_data_range, buffer_range, data_halo=0, buffer_halo=0, stream=None):
+def data_range_to_cuda_in(data_range, full_data_range, buffer_range=None, data_halo=0, buffer_halo=0, stream=None):
 #	global a
 	i = 0 
 	a = numpy.empty((26), dtype=numpy.int32)
@@ -1093,6 +1099,13 @@ def run_function(function_package, function_name):
 	tf = mod.get_texref('TFF')	
 	tf1 = mod.get_texref('TFF1')
 	bandwidth,_ = mod.get_global('TF_bandwidth')
+	
+	if fp.Sliders != None:
+		sld,_ = mod.get_global('slider')
+		sld_op,_ = mod.get_global('slider_opacity')
+
+		cuda.memcpy_htod_async(sld, fp.Sliders, stream=stream)
+		cuda.memcpy_htod_async(sld_op, fp.Slider_opacity, stream=stream)
 	
 	if fp.transN != 0:
 		tf = mod.get_texref('TFF')
@@ -1205,12 +1218,10 @@ def run_function(function_package, function_name):
 				cuda_args.append(dp.devptr)
 				data_range = dp.data_range
 				full_data_range = dp.full_data_range
-				buffer_range = dp.buffer_range
-				
 				if False:
 					print "DP", dp.info()
 					print_devptr(dp.devptr, dp)
-				ad = data_range_to_cuda_in(data_range, full_data_range, buffer_range, data_halo=dp.data_halo, buffer_halo=dp.buffer_halo, stream=stream)
+				ad = data_range_to_cuda_in(data_range, full_data_range, data_halo=dp.data_halo, stream=stream)
 
 				cuda_args.append(ad)
 				FD.append(ad)
