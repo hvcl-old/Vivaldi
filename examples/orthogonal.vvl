@@ -1,0 +1,19 @@
+def mip(volume, x, y):
+	step = 1.0
+	line_iter = orthogonal_iter(volume, x, y, step)
+
+	max = 0
+	for elem in line_iter:
+		val = linear_query_3d(volume, elem)
+		if max < val:max = val
+	return max
+
+def main():                                                                         
+	volume = load_data_3d(DATA_PATH+'/CThead.dat')
+
+	Translate(-20, -60, 300)
+	Rotate(230, 1, 0, 0)
+	Rotate(20, 0, 1, 0)
+	Translate(-128, -128, 0)
+	result = mip(volume,x,y).range(x=-256:256,y=-256:256)
+	save_image(result,'orthogonal_2.png')

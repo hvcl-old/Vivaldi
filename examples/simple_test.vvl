@@ -1,0 +1,28 @@
+# user can import python modules because our language based on python
+import numpy
+
+def edge_detection(image, x, y):
+	dif = linear_gradient_2d(image, x, y)
+	if length(dif) > 20: return 255
+	return 0
+
+def downsample(image, x, y):
+	sum = (point_query_2d(image,2*x , 2*y ) + 
+	       point_query_2d(image,2*x+1,2*y ) +
+		   point_query_2d(image,2*x , 2*y+1) +
+		   point_query_2d(image,2*x+1,2*y+1))/4.0
+	return sum
+
+# Vivaldi always start from main
+# end after every tasks created done
+def main():
+	image = load_data_2d(DATA_PATH+'/Lenna.png')
+
+	# GPU test
+	gpu_list = get_GPU_list(1)
+
+	result = edge_detection(image, x, y).execid(gpu_list).range(x=0:330,y=0:330)
+	result2 = downsample(result, x, y).execid(gpu_list).range(x=0:165,y=0:165)
+
+	save_image(result,'full_size.png')
+	save_image(result2, 'half_size.png')

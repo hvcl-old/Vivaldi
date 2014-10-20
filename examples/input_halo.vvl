@@ -1,0 +1,27 @@
+# how to start,
+# vivaldi input_halo.vvl
+
+import numpy
+
+def heatflow(buf, x, y):
+	a = laplacian(buf, x, y)
+	b = point_query_2d(buf, x, y)
+	return b + 0.25*a
+
+def main():
+
+	m = 251
+	b = numpy.ones((m,m), dtype=numpy.float32)
+
+	# set value at 4 corners
+	k = 2/float(m)
+	for i in range(m):
+		for j in range(m):
+			b[i][j] = 255*(m/2-i)*(m/2-i)*k*k*(m/2-j)*(m/2-j)*k*k
+
+	# blurring image recursively 
+	# there are no halo communication, because we invalid a halo per iteration
+	num = 100
+	for i in range(num):
+		b = heatflow(b, x, y).range(x=0:m,y=0:m).output_halo(num-i-1).split(b,x=2,y=2).halo(b,num-i)
+	save_image(b)

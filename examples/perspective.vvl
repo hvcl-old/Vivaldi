@@ -1,0 +1,30 @@
+def mip(volume, x, y):
+	step = 0.4
+	line_iter = perspective_iter(volume, x, y, step, 226)
+	#line_iter = orthogonal_iter(volume, x, y, step)
+
+	max = 0.0
+	for elem in line_iter:
+		val = linear_query_3d(volume, elem)
+		if max < val:
+			 max = val
+	return max/30.0
+
+def combinning(front, back, x, y):
+	a = point_query_2d(front, x, y)
+	b = point_query_2d(back, x, y)
+	
+	if a>b:
+		return a
+	else:
+		return b
+
+def main():                                                                         
+	volume = load_data_3d(DATA_PATH+'/CThead.dat')
+	MatrixMode("MODELVIEW")
+
+	LoadIdentity()
+	Translate(0, 0, 50)
+	Rotate(90, 0, 0, 1)
+	Translate(-128, -128, 0)
+	enable_viewer(mip(volume,x,y).range(x=-256:256,y=-256:256).split(volume, x=2).merge(combinning,'front-to-back'),'NO', '3D')

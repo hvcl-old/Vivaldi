@@ -1,4 +1,4 @@
 head
 -GPU=0
 node002
--GPU=2
+-GPU=1

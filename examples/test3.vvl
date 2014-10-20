@@ -1,0 +1,51 @@
+import numpy
+from scipy import misc
+
+def heatflow(image, x, y):
+#	a = laplacian(image, x, y)
+	b = point_query_2d(image, x, y)
+
+#	dt =  0.25
+	ret =  b # + dt*a
+
+	return ret
+
+def downsample(image, x, y):
+	a = point_query_2d(image, 2*x, 2*y)
+	b = point_query_2d(image, 2*x+1, 2*y)
+	c = point_query_2d(image, 2*x, 2*y+1)
+	d = point_query_2d(image, 2*x+1, 2*y+1)
+
+	ret = (a+b+c+d)/4.0
+	return ret
+
+def main():
+
+	print "+++ Loading image ..."
+	image = load_data_2d(DATA_PATH+'/Tile_001.png')
+	print "+++ Loading Done!"
+
+	# GPU test
+
+	print "+++ Input & output split test +++"
+
+	glist = get_GPU_list(8)
+
+	# Heatflow iteration
+	for i in range(10):
+		image = heatflow(image, x, y).range(x=0:8196,y=0:8196).execid(glist)
+									 .split(image, x=4, y=2).halo(image,1)
+									 .output_halo(1)
+
+
+	# Downsampling
+	#image2 = downsample(image, x, y).range(x=1:image.x/2,y=1:image.y/2)
+	#image2 = downsample(image, x, y).range(x=1:100,y=1:100)
+
+	synchronize()
+	print "+++ Done! +++"
+	print "   "
+
+	print "+++ Save image +++"
+	save_image(image, "result-heatflow.png")
+	print "+++ Done! +++"

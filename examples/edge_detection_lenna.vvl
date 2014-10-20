@@ -1,0 +1,68 @@
+# This example is written by Choi HyungSuk
+# contact: wkjeong@unist.ac.kr
+#
+# This example shows n method to edge detection.
+# First, ordinary method using a GPU
+# Second, ordinary method but only part of image
+# Third, parallel method using screen decomposition and prepared compositing function
+# Fourth, parallel method using in and out split model
+
+# you can test using 'vivladi edge_detection_flower.vvl'
+# 'lenna.png' is uesd and the size is 330 width and 330 height.
+# result images are saved at $vivladi_path/py-src/result
+#
+#---------------------------------------------------------------------------------------------------
+
+# user can import python modules because our language based on python
+import numpy
+
+# user defined image filter function
+# this functions will be applied per pixel
+def edge_detection(image, x, y):
+	# get linear gradient of 2d rgb image at x, y position
+	# than it will return x and y direction gradient of rgb value
+	dif = linear_gradient_2d(image, x, y)
+	# edge detection need float type return value
+	# so use length function for make one float value from x and y direction gradient values
+	# return value of length is sqrt(dot(dif,dif))
+	if length(dif) > 20: return 255
+	return 0
+
+# Vivaldi always start from main
+# end after every tasks created done
+def main():
+	# DATA_PATH is Vivladi environment variable. 
+	# it is defined to $vivladi_path/data
+	image = load_data_2d(DATA_PATH+'/Lenna.png')
+
+	# use GPU list which user specified to execute user defined function 'edge_detection' using execid modifier
+	# and below range,x=[0:330),y=[0:330), will be used to work range
+	result = edge_detection(image, x, y).range(x=0:330,y=0:330)
+
+	# save contents in the variable 'result', output of 'edge_detection' executed
+	# the saved image exist in the result folder in the $pwd/result
+	# saved result will be edge_detection of 330 width and 330 height and saved file name will be 'full_lenna.png'
+	synchronize()
+	save_image(result,'edge_detection_lenna.png')
+	
+	#---------------------------------------------------------------------------------------------------------
+	# Draw a part of the image
+	# from x=0:100 will be not drawn and only x=100:330 will be drawn.
+	# therefore, size of result image will be 230 width and 230 height.
+	result = edge_detection(image, x, y).range(x=100:330,y=100:330)
+	save_image(result,'edge_detection_part_of_lenna.png')
+
+	#---------------------------------------------------------------------------------------------------------
+	# edge_detection will be executed in parallel using screen decomposition method.
+	# after worker function execution, four small size of images will be stored in the rendered GPU.
+	# so we need to additional compositing step for make full size image.
+	# and Vivaldi runtime system will do compositing when it needed
+	result = edge_detection(image, x, y).range(x=0:330,y=0:330).split(result,x=2,y=2)
+	synchronize()
+	save_image(result,'edge_detection_lenna_output_split.png')
+
+
+	#---------------------------------------------------------------------------------------------------------
+	result = edge_detection(image, x, y).range(x=0:330,y=0:330).split(image,x=1,y=2).split(result,x=1,y=2).halo(image,1).output_halo(1)
+	synchronize()
+	save_image(result,'edge_detection_in_and_out_lenna.png')

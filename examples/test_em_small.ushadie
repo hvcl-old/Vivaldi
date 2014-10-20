@@ -1,4 +1,0 @@
-def main():                                                 
-	volume = load_data_3d(DATA_PATH + 'em_small.dat','uchar', out_of_core=False)
-	save_image(volume[0], 'orthogonal_1.png')
-#	save_image(volume[300:301,:,:].reshape((512,512)) ,'orthogonal_1.png')
