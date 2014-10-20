@@ -1,0 +1,10 @@
+# CT scan of a walnut, conducted on a small-animal CT scanner.
+# Data set courtesy of European Institut of Molecular Imaging (EIMI)
+# Muenster, Germany (http://www.uni-muenster.de/EIMI/)
+# Please contact the Voreen team (www.voreen.org) for obtaining the full-resolution scan.
+ObjectFileName:	walnut.raw
+Resolution:	    400 296 352
+SliceThickness:	1 1 1
+Format:         USHORT
+ObjectModel:	I
+
