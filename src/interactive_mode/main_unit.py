@@ -999,6 +999,14 @@ while True:
 		symbol="single"
 		x = compile(x, filename, symbol)
 		
+		# redirect standard out
+		from cStringIO import StringIO
+		import sys
+
+		old_stdout = sys.stdout
+		sys.stdout = mystdout = StringIO()
+		
+		# execute code
 		try:
 			result = eval(x, locals())
 		except SystemExit:
@@ -1008,7 +1016,13 @@ while True:
 			exc_type, exc_value, exc_traceback = sys.exc_info()
 			print ''.join(traceback.format_exception(exc_type, exc_value, exc_traceback))
 			print "-"*40
-		comm.send("done", dest=0, tag=5)
+			
+		# redirect stdout
+		sys.stdout = old_stdout
+		
+		comm.send(mystdout.getvalue(), dest=0, tag=5)
+		mystdout = StringIO()
+		
 	if flag == 'run':
 		x = comm.recv(source=source, tag=5)
 		run(x)

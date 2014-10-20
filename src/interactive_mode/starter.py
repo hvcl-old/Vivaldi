@@ -189,7 +189,7 @@ def free_volumes(): # old function
 
 try:
 	cache
-	#print "Vivaldi_init not initialize variables"
+	print "Vivaldi_init not initialize variables"
 except:
 	hostfile = 'hostfile'
 	main_unit_rank = -1
@@ -208,7 +208,7 @@ def Vivaldi_input_argument_parsing(argument_list):
 			idx = argument_list.index('-L')
 			#GPUDIRECT = argument_list[idx+1]
 			#log_on()
-#	option_parsing()
+	option_parsing()
 	def get_filename(argument_list):
 		filename = None
 		skip = False
@@ -257,6 +257,9 @@ else:
 			
 			def runsource(self, source, filename="<input>", symbol="single"):
 			
+				if source == 'exit()':
+					exit()
+			
 				try:
 					code = self.compile(source, filename, symbol)
 					eval_expression = True
@@ -275,6 +278,13 @@ else:
 				comm.send(source,    dest=main_unit_rank, tag=5)
 				
 				x = comm.recv(       source=main_unit_rank, tag=5)
+				
+				# print output
+				if len(x) == 0:
+					#print, 
+					pass
+				else:
+					print x.rstrip()
 				return False
 				
 		#	def raw_input(self, *args):
