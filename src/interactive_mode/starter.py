@@ -257,6 +257,8 @@ else:
 			
 			def runsource(self, source, filename="<input>", symbol="single"):
 			
+				if source == '':
+					return False
 				if source == 'exit()':
 					exit()
 			
@@ -267,6 +269,7 @@ else:
 					# Case 1
 					self.showsyntaxerror(filename)
 					return False
+				
 				if code is None:
 					# Case 2
 					return True
@@ -285,6 +288,7 @@ else:
 					pass
 				else:
 					print x.rstrip()
+				
 				return False
 				
 		#	def raw_input(self, *args):
