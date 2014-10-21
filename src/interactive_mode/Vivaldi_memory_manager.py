@@ -13,6 +13,10 @@ size = comm.Get_size()
 name = MPI.Get_processor_name()
 	
 # initialize variables
+main_unit_rank = size-1
+
+working_list = {}
+
 data_list = [] #which computing unit have data
 source_list_dict = {}
 data_packages = {}
@@ -65,16 +69,38 @@ def synchronize():
 		print work_list
 		print data_list
 		print memcpy_tasks_to_harddisk
+		print working_list
 		print "DDDDD", idle_list
 	
-	if synchronize_flag == True and function_list == [] and memcpy_tasks == {} and work_list == {} and data_list == [] and memcpy_tasks_to_harddisk == {}:
-		for dest in idle_list:
-			comm.isend(rank,			dest=dest,	tag=5)
-			comm.isend("synchronize",	dest=dest,	tag=5)
-			comm.recv(source=dest, tag=999)
-		
-		comm.isend(True, dest=size-1, tag=999)
-		synchronize_flag = False
+	if synchronize_flag != True: return False
+	if function_list != []: 
+#		print "sync, function_list:", function_list
+		return False
+	if memcpy_tasks != {}: 
+#		print "sync, memcpy_task:", memcpy_task
+		return False
+	if work_list != {}: 
+#		print "sync, work_list:", work_list
+		return False
+	if data_list != []: 
+#		print "sync, data_list:", data_list
+		return False
+	if memcpy_tasks_to_harddisk != {}:
+#		print "sync, memcpy_task_to_harddisk:", memcpy_tasks_to_harddisk
+		return False
+	if working_list != {}:
+#		print "sync, working_list:", working_list
+		return False
+	
+#	print "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+	for dest in idle_list:
+		comm.isend(rank,			dest=dest,	tag=5)
+		comm.isend("synchronize",	dest=dest,	tag=5)
+		comm.recv(source=dest, tag=999)
+	
+	comm.isend(True, dest=size-1, tag=999)
+	synchronize_flag = False
+	
 def disconnect():
 	print "Disconnect", rank, name
 	comm.Disconnect()
@@ -86,8 +112,13 @@ def memcpy_p2p(source, dest, task):
 	comm.isend(dest,				dest=source,		tag=56)
 	comm.isend(task,				dest=source,		tag=56)
 	
+	if dest not in working_list:
+		working_list[dest] = []
+	working_list[dest].append(task.dest)
+#	print "COPY", source, dest, working_list
+	
 # scheduling
-def temp_func1(for_save=False, source_list=None):
+def temp_func1(for_save=False, source_list=None): # memcpy
 	return_flag = True
 
 	if for_save: cur_dict = memcpy_tasks_to_harddisk
@@ -626,8 +657,21 @@ def notice(data_package, source, source_package=None):
 	# real work from here
 	remaining_write_count_list[u][ss][sp][data_halo][source] -= 1
 	counter = remaining_write_count_list[u][ss][sp][data_halo][source]
+	
+#	print "source", source
+#	print working_list
+#	print data_package.info()
+	if source in working_list:
+		#print "AAAAAAAAAA", working_list
+		for elem in list(working_list[source]):
+			if elem.get_id() == dp.get_id():
+				working_list[source].remove(elem)
+		#print "BBBBBBBBBB", working_list, source
+		if working_list[source] == []:
+			del( working_list[source])
+		#print "CCCCCCCCCC", counter
 #	print "NOT", u, ss, sp, data_halo, source, counter
-	if counter == 0:
+	if counter == 0 and source != main_unit_rank:
 		if u not in valid_list: valid_list[u] = {}
 		if ss not in valid_list[u]: valid_list[u][ss] = {}
 		if sp not in valid_list[u][ss]: valid_list[u][ss][sp] = []
@@ -698,7 +742,6 @@ def Free(u,ss,sp,data_halo):
 	if remaining_write_count_list[u][ss] == {}: del(remaining_write_count_list[u][ss])
 	if remaining_write_count_list[u] == {}: del(remaining_write_count_list[u])
 
-
 	if free_list == [None] or free_list == []:
 		return 
 
@@ -755,7 +798,6 @@ def Free(u,ss,sp,data_halo):
 						if memcpy_tasks_to_harddisk[du] == {}: del memcpy_tasks_to_harddisk[du]
 						release(task.source)
 
-
 	# free data_list
 	##################################################
 	for elem in data_list:
@@ -770,7 +812,7 @@ def release(data_package):
 
 	u, ss, sp = dp.get_id()
 	data_halo = dp.data_halo
-	
+	#print "Release", u, ss, sp, data_halo
 	if ss == 'None': ss = str(SPLIT_BASE)
 	if sp == 'None': sp = str(SPLIT_BASE)
 	
@@ -1194,11 +1236,12 @@ for elem in ["depth","release","retain","synchronize","merge","notice","inform",
 ########################################################
 flag = ''
 while flag != "finish":
+#	print "Scheduler wait"
 	if log_type != False: print "Scheduler wait"
 	source = comm.recv(source=MPI.ANY_SOURCE,    tag=5)
 	flag = comm.recv(source=source,              tag=5)
 	if log_type != False: print "Scheduler source:", source, "flag:", flag
-
+#	print "Scheduler source:", source, "flag:", flag
 	# interactive mode functions
 	if flag == "say":
 		print "Scheduler hello", rank, name		
@@ -1570,7 +1613,7 @@ while flag != "finish":
 			#print_task_list(task_list)
 			
 			flag = in_and_out_check(argument_package_list)
-			#print "in-and-out split model", flag
+			#print "FLAG", flag
 			if flag == 'identical':
 				task_list = in_and_out1(task_list, argument_package_list)
 			#	print_task_list(task_list)

@@ -273,7 +273,7 @@ def memcpy_p2p_send(task, dest_rank, data, halo_size):
 	dp.buffer_halo = 0
 	
 	send(data, dp, dest=dest, gpu_direct=False)
-
+	
 	buf = None
 	dest_devptr = None	
 def save_image(buf=None, chan=None, file_name=None, extension=None, normalize=False):
@@ -317,7 +317,6 @@ def memcpy_p2p_recv(task, halo):
 	file_name = dp.file_name
 	extension = dp.extension
 	halo = dp.data_halo
-
 	if extension in ['png','jpg','jpeg'] or file_name == '':
 		if file_name == '':
 			file_name += dp.data_name + str(dp.unique_id)
@@ -326,7 +325,9 @@ def memcpy_p2p_recv(task, halo):
 			file_name += dp.split_shape + dp.split_position
 
 		normalize = dp.normalize
+
 		save_image(buf=data, chan=chan, file_name=file_name, extension=extension, normalize=normalize)
+
 	else:
 
 		# if normalize is true, normalize from 0 to 1
@@ -346,7 +347,8 @@ def memcpy_p2p_recv(task, halo):
 			f.close()
 			cnt += 1
 
-		return
+	notice(dp)
+	return
 
 # Computing_unit related function
 #####################################################################################################
@@ -370,10 +372,13 @@ for elem in ["recv","send_order","free","memcpy_p2p_send","wait","cutting"]:
 	
 flag = ''
 while flag != "finish":
+#	print "Reader waiting"
 	if log_type != False: print "Reader waiting"
 	source = comm.recv(source=MPI.ANY_SOURCE,    tag=5)
 	flag = comm.recv(source=source,              tag=5)
 	if log_type != False: print "Reader source:", source, "flag:", flag 
+#	print "Reader source:", source, "flag:", flag 
+	
 	# interactive mode functions
 	if flag == "log":
 		log_type = comm.recv(source=source,    tag=5)

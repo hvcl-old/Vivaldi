@@ -331,6 +331,12 @@ def scheduler_inform(data_package, execid=None):
 	comm.isend("inform",	dest=dest,	   tag=5)
 	send_data_package(dp,	dest=dest,	   tag=55)
 	comm.isend(execid,		dest=dest,	   tag=55)
+def scheduler_notice(data_package):
+	rank = comm.Get_rank()
+	comm.isend(rank,                dest=1,    tag=5)
+	comm.isend("notice",            dest=1,    tag=5)
+	send_data_package(data_package, dest=1,    tag=51)
+	
 def scheduler_merge(function_package, cnt):
 	global comm
 	dest = 1
@@ -338,7 +344,7 @@ def scheduler_merge(function_package, cnt):
 	comm.isend("merge_new",		 dest=dest,	   tag=5)
 	comm.isend(function_package, dest=dest,	   tag=5)
 	comm.isend(cnt,				 dest=dest,	   tag=5)
-def shchduler_reduce(data_package, function, return_package):
+def scheduler_reduce(data_package, function, return_package):
 	global comm
 	dest = 1
 	comm.isend(rank,				 dest=dest,	   tag=5)
@@ -372,11 +378,11 @@ def Vivaldi_Gather(data_package):
 	dp.data = temp1
 	dp.devptr = temp2
 
-	# wati until data created, we don't know where the data will come from
-	source = comm.recv(source=MPI.ANY_SOURCE,	 tag=5)
-	flag = comm.recv(source=source,				 tag=5)
-	task = comm.recv(source=source,				 tag=57)
-	halo_size = comm.recv(source=source,		 tag=57)
+	# wait until data created, we don't know where the data will come from
+	source = comm.recv(source=MPI.ANY_SOURCE, tag=5)
+	flag = comm.recv(source=source,           tag=5)
+	task = comm.recv(source=source,           tag=57)
+	data_halo = comm.recv(source=source,      tag=57)
 	def recv():
 		data_package = comm.recv(source=source,	 tag=52)
 		dp = data_package
@@ -387,6 +393,7 @@ def Vivaldi_Gather(data_package):
 		request = comm.Irecv(data, source=source,tag=57)
 		MPI.Request.wait(request)
 		
+		scheduler_notice(dp)
 		return data, data_package
 	data, data_package = recv()
 	return data
@@ -444,6 +451,23 @@ def save_image_3d(file_name=None, extension='dat', buf=None, data_shape=None, ch
 		sp = buf.nbytes/MEGA
 		bytes = buf.nbytes
 		log("rank%d, \"%s\", save time to hard disk bytes: %.3fMB %.3f ms %.3f MBytes/sec"%(rank, file_name, bytes/MEGA, ms, sp),'time',log_type)
+def get_dimension_and_channel(input):
+
+	shape = None
+	if type(input) == numpy.ndarray:	shape = input.shape
+	if type(input) == tuple:			shape = input
+	shape = list(shape)
+
+	n = len(shape)
+	chan = shape[n-1]
+	if chan in [2,3,4]:
+		chan = chan
+		shape.pop()
+	else:
+		chan = 1
+
+	dimension = len(shape)
+	return dimension, shape, chan
 def save_image(input1, input2=None, out_of_core=False, normalize=True):
 	dtype = 'float32'
 	# merge image
