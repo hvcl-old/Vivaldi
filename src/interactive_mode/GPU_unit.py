@@ -733,13 +733,8 @@ def compile_for_GPU(function_package, kernel_function_name='default'):
 		kernel_code += function_code
 		kernel_code += '\n}'
 		#print function_code
-			
 		source_module_dict[kernel_function_name] = SourceModule(kernel_code, no_extern_c = True, options = ["-use_fast_math", "-O3"])
-		if False:
-			f = open('aaaa.cu','w')
-			f.write(kernel_code)
-			f.close()
-		
+
 		temp,_ = source_module_dict[kernel_function_name].get_global('DEVICE_NUMBER')
 		cuda.memcpy_htod(temp, numpy.int32(device_number))
 		
@@ -1238,8 +1233,8 @@ def run_function(function_package, function_name):
 				data_range = dp.data_range
 				full_data_range = dp.full_data_range
 				if False:
-					print "DP", dp.info()
-					#print_devptr(dp.devptr, dp)
+					#print "DP", dp.info()
+					print_devptr(dp.devptr, dp)
 				ad = data_range_to_cuda_in(data_range, full_data_range, data_halo=dp.data_halo, stream=stream)
 
 				cuda_args.append(ad)
@@ -1258,13 +1253,12 @@ def run_function(function_package, function_name):
 	if log_type in ['time','all']:
 		start = time.time()
 	
-	#ctx.synchronize()
-	st = time.time()
+#	st = time.time()
 	kernel_finish = cuda.Event()
 	func( *cuda_args, block=block, grid=grid, stream=stream_list[0])
 	kernel_finish.record(stream=stream_list[0])
-	ctx.synchronize()
-	print "GPU TIME", time.time() - st
+#	ctx.synchronize()
+#	print "GPU TIME", time.time() - st
 #	print "FFFFOOo", func_output.info()
 #	print_devptr(cuda_args[0], func_output)
 	u, ss, sp = func_output.get_id()
@@ -1359,12 +1353,12 @@ for elem in ["recv","send_order","free","memcpy_p2p_send","memcpy_p2p_recv","req
 
 flag = ''
 while flag != "finish":
-#	print "GPU:", rank, "waiting", time.time()
+#	print "GPU:", rank, "waiting"
 	if log_type != False: print "GPU:", rank, "waiting"
 	source = comm.recv(source=MPI.ANY_SOURCE,    tag=5)
 	flag = comm.recv(source=source,              tag=5)
 	if log_type != False: print "GPU:", rank, "source:", source, "flag:", flag 
-#	print "GPU:", rank, "source:", source, "flag:", flag, time.time()
+#	print "GPU:", rank, "source:", source, "flag:", flag 
 	# interactive mode functions
 	if flag == "log":
 		log_type = comm.recv(source=source,    tag=5)
@@ -1468,7 +1462,7 @@ while flag != "finish":
 		ss = comm.recv(source=source,           tag=58)
 		sp = comm.recv(source=source,           tag=58)
 		data_halo = comm.recv(source=source,    tag=58)
-		
+
 		# check this data is really exsit
 		if u not in data_list: continue
 		if ss not in data_list[u]: continue

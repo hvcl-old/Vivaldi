@@ -8,11 +8,6 @@ from common import *
 def get_return_dtype(function_name, argument_package_list, function_code):
 	from vivaldi_translator import parse_function
 	return_dtype = parse_function(function_code, function_name, argument_package_list)
-	if return_dtype == '':
-		print "Vivaldi system error"
-		print "Wrong return dtype"
-		print "dtype:", return_dtype
-		assert(False)
 	return return_dtype
 def line_translator(line, data_package_list):
 	def modifier_translator(line):

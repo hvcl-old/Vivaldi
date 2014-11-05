@@ -60,7 +60,7 @@ def main():
     # Create volume array
     dimx   = 512
     dimy   = 512
-    dimz   = 1512
+    dimz   = 1568
     volume = numpy.random.rand(dimx, dimy, dimz).astype(numpy.float32)
 
     print "Dimension    : ", dimx, dimy, dimz
@@ -73,7 +73,7 @@ def main():
 
     # Initialize the data allocation
     #!!!
-    volume = init(volume,512,512,1512,x,y,z).halo(volume,5)
+    volume = init(volume,512,512,1568,x,y,z).halo(volume,5)
 										  .range(volume)
 										  .execid(gpu_list)
 										  .split(volume, z=1)
@@ -84,7 +84,7 @@ def main():
      # Time measure the bilateral kernel
     start = time.time()
 
-	volume = bilateral(volume,512,512,1512,x,y,z).halo(volume,5)
+	volume = bilateral(volume,512,512,1568,x,y,z).halo(volume,5)
 											   .range(volume)
 											   .execid(gpu_list)
 											   .split(volume, z=1)

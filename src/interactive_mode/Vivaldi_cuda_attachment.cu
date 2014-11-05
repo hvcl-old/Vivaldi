@@ -917,37 +917,6 @@ template<typename R, typename T> GPU R linear_query_2d(T* image, float x, float 
 	return linear_query_2d<R>(image, make_float2(x,y), 0, sdr);
 }
 
-template<typename R,typename T> GPU R cubic_query_2d(T* volume, float2 p, int border, VIVALDI_DATA_RANGE* sdr){
-	float2 alpha = 255 * (p - floor(p - 0.5f) - 0.5f);
-
-	float3 hgx = hg(alpha.x);
-	float3 hgy = hg(alpha.y);
-
-	// 8 linear queries
-	R q00 = linear_query_2d<R>(volume, p.x - hgx.x, p.y - hgy.x, sdr);
-	R q01 = linear_query_2d<R>(volume, p.x - hgx.x, p.y + hgy.y, sdr);
-	R q10 = linear_query_2d<R>(volume, p.x + hgx.y, p.y - hgy.x, sdr);
-	R q11 = linear_query_2d<R>(volume, p.x + hgx.y, p.y + hgy.y, sdr);
-
-	// lerp along y
-	R q0 = lerp(q00, q01, 0);
-	R q1 = lerp(q10, q11, 0);
-
-	// lerp along x
-	R q = lerp(q0, q1, 0);
-	return q;
-}
-template<typename R,typename T> GPU R cubic_query_2d(T* volume, float x, float y, int border, VIVALDI_DATA_RANGE* sdr){
-	return cubic_query_2d<R>(volume, make_float2(x,y), border, sdr);
-}
-template<typename R,typename T> GPU R cubic_query_2d(T* volume, float x, float y, VIVALDI_DATA_RANGE* sdr){
-	return cubic_query_2d<R>(volume, make_float2(x,y), 0, sdr);
-}
-template<typename R,typename T> GPU R cubic_query_2d(T* volume, float2 p, VIVALDI_DATA_RANGE* sdr){
-	return cubic_query_2d<R>(volume, p, 0, sdr);
-}
-
-
 template<typename R, typename T> GPU float2 linear_gradient_2d(T* image, float2 p, VIVALDI_DATA_RANGE* sdr){
 
 	int4 data_start = sdr->data_start;
@@ -982,6 +951,9 @@ template<typename R, typename T> GPU float2 linear_gradient_2d(T* image, float2 
 	return make_float2(dx,dy)/(2*delta);
 }
 template<typename R, typename T> GPU float2 linear_gradient_2d(T* image, float x, float y, VIVALDI_DATA_RANGE* sdr){
+	return linear_gradient_2d<R>(image, make_float2(x,y), sdr);
+}
+template<typename R, typename T> GPU float2 linear_gradient_2d(T* image, int x, int y, VIVALDI_DATA_RANGE* sdr){
 	return linear_gradient_2d<R>(image, make_float2(x,y), sdr);
 }
 
@@ -1041,7 +1013,6 @@ template<typename R, typename T> GPU R point_query_3d(T* image, float3 p, int bo
 	
 	return rt;
 }
-
 template<typename R, typename T> GPU R point_query_3d(T* image, float3 p, VIVALDI_DATA_RANGE* sdr){
 	return point_query_3d<R>(image, p, 0, sdr);
 }
@@ -1051,36 +1022,6 @@ template<typename R, typename T> GPU R point_query_3d(T* image, float x, float y
 template<typename R, typename T> GPU R point_query_3d(T* image, float x, float y, float z, VIVALDI_DATA_RANGE* sdr){
 	return point_query_3d<R>(image, make_float3(x,y,z), 0, sdr);
 }
-/*
-template<typename R, typename T> GPU R point_query_3d(T* image, float3 p, VIVALDI_DATA_RANGE* sdr){
-	int4 data_start = sdr->data_start;
-	int4 data_end = sdr->data_end;
-
-	int x = p.x;
-	int y = p.y;
-	int z = p.z;
-	
-	// Data coordinate input
-
-	if(x > data_end.x-1 || x < data_start.x
-	 ||y > data_end.y-1 || y < data_start.y
-	 ||z > data_end.z-1 || z < data_start.z) return initial(image[0]); // right
-
-	x = x - data_start.x;
-	y = y - data_start.y;
-	z = z - data_start.z;
-	
-	int X = data_end.x - data_start.x;
-	int Y = data_end.y - data_start.y;
-		
-	return convert(image[z*Y*X + y*X + x]);
-	
-}
-template<typename R, typename T> GPU R point_query_3d(T* image, float x, float y, float z, VIVALDI_DATA_RANGE* sdr){
-	return point_query_3d<R>(image, make_float3(x,y,z), sdr);
-}
-*/
-
 
 GPU float d_lerp(float a, float b, float t){
     return (b - a) * t;
@@ -1163,7 +1104,7 @@ template<typename R, typename T> GPU float3 linear_gradient_3d(T* volume, float 
 	return linear_gradient_3d<R>(volume, make_float3(x,y,z), sdr);
 }
 
-template<typename R,typename T> GPU R cubic_query_3d(T* volume, float3 p, VIVALDI_DATA_RANGE* sdr){
+template<typename R,typename T> GPU T cubic_query_3d(T* volume, float3 p, VIVALDI_DATA_RANGE* sdr){
 	float3 alpha = 255 * (p - floor(p - 0.5f) - 0.5f);
 
 	float3 hgx = hg(alpha.x);

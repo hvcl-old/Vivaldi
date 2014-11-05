@@ -383,7 +383,7 @@ def temp_func2(source_list=None): # dynamic function execution
 				idle_list.remove(dest)
 				work_list[dest] = []
 				cur_list.remove(dest)
-				#break
+				break
 	return return_flag
 def temp_func3():
 	ft = 0
@@ -1613,7 +1613,7 @@ while flag != "finish":
 			#print_task_list(task_list)
 			
 			flag = in_and_out_check(argument_package_list)
-#			print "FLAG", flag
+			#print "FLAG", flag
 			if flag == 'identical':
 				task_list = in_and_out1(task_list, argument_package_list)
 			#	print_task_list(task_list)
