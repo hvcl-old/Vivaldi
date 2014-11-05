@@ -695,13 +695,14 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 			from Vivaldi_translator_layer import get_return_dtype
 			function_code = function_code_dict[function_name]
 			return_dtype = get_return_dtype(function_name, argument_package_list, function_code)
-			if return_dtype.endswith('_volume'):
+			if return_dtype.endswith('_volume') or return_dtype == '':
 				print "Vivaldi_warning"
 				print "---------------------------------"
 				print "Check your function"
 				print "you are trying to return a volume"
 				print "return_dtype: ", return_dtype
 				print "---------------------------------"
+				assert(False)
 			return return_dtype
 		return_dtype = get_return_dtype(function_name, argument_package_list)
 

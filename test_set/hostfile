@@ -1,3 +1,7 @@
 node001.ib.cluster
 -CPU=0
--GPU=2
+-GPU=8
+node002.ib.cluster
+-CPU=0
+-GPU=8
+

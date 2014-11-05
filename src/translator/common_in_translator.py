@@ -10,8 +10,9 @@ OPERATORS = ["==",'+=','-=','*=','/=','=','+','-','*','/',"<=","=>","<",">",".",
 WORD_OPERATORS = ['and','or','not','is','if','for','while','in','return','def', 'print', 'from', 'import', 'as']
 AXIS = ['x','y','z','w']
 	
-query_list = ['point_query_1d', 'linear_query_1d', 'laplacian', 'point_query_2d', 'linear_query_2d',  
-	'point_query_3d','linear_query_3d','cubic_query_3d']
+query_list = ['point_query_1d', 'linear_query_1d', 'laplacian', 
+              'point_query_2d', 'linear_query_2d', 'cubic_query_2d',
+	          'point_query_3d','linear_query_3d','cubic_query_3d']
 gradient_list = ['linear_gradient_2d','linear_gradient_3d','cubic_gradient_3d']
 	
 def test_cuda_compile(code):
@@ -300,9 +301,9 @@ def get_dtype(elem, local_dict, special=None):
 def split_elem(elem):
 	# split function name and arguments
 	p_type_list = [ ('(',')'), ('[',']')] 
-
 	name = ''
 	args = ''
+	
 	for p_type in p_type_list:
 		p_st = p_type[0]
 		p_end = p_type[1]

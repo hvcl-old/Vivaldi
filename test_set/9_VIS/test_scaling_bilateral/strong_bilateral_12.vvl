@@ -1,0 +1,97 @@
+import numpy                    # Numerical computing library 
+# -----------------------------------------------------------------------------------
+# Initialize the data, 
+# do nothing but preallocate everything under the hood
+def init(volume,dimx,dimy,dimz, x, y, z):
+    return point_query_3d(volume, x, y, z)
+# -----------------------------------------------------------------------------------
+def bilateral(volume,dimx,dimy,dimz, x, y, z):
+    center      = make_float3(x,y,z) 
+	centerVal   = point_query_3d(volume, center)
+	# Specify the radius here
+	radius = 5            
+	# cube_iter = make_cube_iter(x, y, z, radius)
+    
+    id              = 100
+    intensityWeight = 1
+    
+    cd              = 100  
+    colorWeight     = 1  
+    weight          = 0
+    totalWeight     = 0
+
+    count           = 0
+    pointVal        = 0
+    
+    out = 0
+    # for point in cube_iter:
+        # pointVal = point_query_3d(volume, point)                                      
+        # intensityWeight	= expf(-0.5* ((x-point.x)*(x-point.x) + (y-point.y)*(y-point.y) + (z-point.z)*(z-point.z) ) / (id*id))
+        # colorWeight     = expf(-0.5* ((centerVal-pointVal)*(centerVal-pointVal) ) / (cd*cd))
+        # weight = intensityWeight * colorWeight
+        # out    = out + weight*centerVal
+        # totalWeight = totalWeight + weight
+        # count = count + 1
+    # out = out/totalWeight
+    
+	# for(int z=index_3d.z-radius; z<=index_3d.z+radius; z++)
+	# {
+		# for(int y=index_3d.y-radius; y<=index_3d.y+radius; y++)
+		# {
+			# for(int x=index_3d.x-radius; x<=index_3d.x+radius; x++)
+			# {
+	point = make_float3(x, y, z)
+	for zz in range(z-radius, z+radius):
+		for yy in range(y-radius, y+radius):
+			for xx in range(x-radius, x+radius):
+				point = make_float3(xx, yy, zz)
+				pointVal = point_query_3d(volume, point)                                      
+				intensityWeight	= expf(-0.5* ((x-point.x)*(x-point.x) + (y-point.y)*(y-point.y) + (z-point.z)*(z-point.z) ) / (id*id))
+				colorWeight     = expf(-0.5* ((centerVal-pointVal)*(centerVal-pointVal) ) / (cd*cd))
+				weight = intensityWeight * colorWeight
+				out    = out + weight*centerVal
+				totalWeight = totalWeight + weight
+				count = count + 1
+	out = out/totalWeight	
+    return out
+# --------------------------------------------------------------------------------	
+def main():
+    # --------------------------------------------------------------------------------
+    # Create volume array
+    dimx   = 512
+    dimy   = 512
+    dimz   = 1512
+    volume = numpy.random.rand(dimz, dimy, dimx).astype(numpy.float32)
+    
+    print "Dimension    : ", dimx, dimy, dimz 
+    print "Volume shape : ", volume.shape
+    
+    # --------------------------------------------------------------------------------
+    # Number of GPUs for experiment
+    #!!!
+    gpu_list = get_GPU_list(8)     
+    
+    # Initialize the data allocation
+    #!!!
+    volume = init(volume,512,512,1512,x,y,z).halo(volume,5)
+											.range(volume)
+											.output_halo(5)
+											.execid(gpu_list)
+											.split(volume, z=12)
+    synchronize()
+    
+     # Time measure the bilateral kernel
+    start = time.time()
+    
+	volume = bilateral(volume,512,512,1512,x,y,z).halo(volume,5)
+												 .range(volume)
+												 .output_halo(5)
+												 .execid(gpu_list)
+												 .split(volume, z=12)
+	synchronize()
+    
+	stop  = time.time()
+    
+    elapsed = stop - start
+    print "Execution time (s): ", elapsed
+# ----------------------------------------------------------------------------------- 

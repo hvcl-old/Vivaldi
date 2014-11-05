@@ -960,7 +960,7 @@ template<typename R, typename T> GPU float2 linear_gradient_2d(T* image, int x, 
 
 // 3D data query functions
 ////////////////////////////////////////////////////////////////////////////////
-template<typename R, typename T> GPU R point_query_3d(T* image, float3 p, int border, VIVALDI_DATA_RANGE* sdr){
+/*template<typename R, typename T> GPU R point_query_3d(T* image, float3 p, int border, VIVALDI_DATA_RANGE* sdr){
 	int4 data_start = sdr->data_start;
 	int4 data_end = sdr->data_end;
 
@@ -1014,6 +1014,45 @@ template<typename R, typename T> GPU R point_query_3d(T* image, float3 p, int bo
 	
 	return rt;
 }
+*/
+template<typename R, typename T> GPU R point_query_3d(T* image, float3 p, int border, VIVALDI_DATA_RANGE* sdr){
+	int4 data_start = sdr->data_start;
+	int4 data_end = sdr->data_end;
+
+	int4 full_data_start = sdr->full_data_start;
+	int4 full_data_end = sdr->full_data_end;
+
+	int x = p.x;
+	int y = p.y;
+	int z = p.z;
+	
+	int X = data_end.x - data_start.x;
+	int Y = data_end.y - data_start.y;
+	R rt;
+	
+	// Data coordinate input
+	
+	// Border calculation
+	if(full_data_start.x-1 < x) x = 2*full_data_end.x - x - 1;
+	else if(x < full_data_start.x) x = 2*full_data_start.x - x - 1;
+	
+	if(full_data_start.y-1 < y) y = 2*full_data_end.y - y - 1;
+	else if(y < full_data_start.y) y = 2*full_data_start.y - y - 1;
+	
+	if(full_data_start.z-1 < z) z = 2*full_data_end.z - z - 1;
+	else if(z < full_data_start.z) z = 2*full_data_start.z - z - 1;
+		
+	
+	// to Buffer coordinate 
+	x = x - data_start.x;
+	y = y - data_start.y;
+	z = z - data_start.z;
+	
+	rt = convert(image[z*Y*X + y*X + x]);
+
+	return rt;
+}
+
 template<typename R, typename T> GPU R point_query_3d(T* image, float3 p, VIVALDI_DATA_RANGE* sdr){
 	return point_query_3d<R>(image, p, 0, sdr);
 }
@@ -1023,6 +1062,8 @@ template<typename R, typename T> GPU R point_query_3d(T* image, float x, float y
 template<typename R, typename T> GPU R point_query_3d(T* image, float x, float y, float z, VIVALDI_DATA_RANGE* sdr){
 	return point_query_3d<R>(image, make_float3(x,y,z), 0, sdr);
 }
+
+
 
 GPU float d_lerp(float a, float b, float t){
     return (b - a) * t;

@@ -447,6 +447,7 @@ def change_function(code_list, local_dict):
 										
 					# change function args
 					args += ', ' + f_a + '_DATA_RANGE'
+					
 				if sfn in gradient_list:
 					# change function name
 					arg_list = divide_line(args)
@@ -885,7 +886,7 @@ def to_CUDA_head_add_dtype(CUDA_head='', local_dict={}):
 	func_name = elem_list[1]
 	args = elem_list[2][1:-1]
 	arg_list = divide_line(elem_list[2][1:-1])
-			
+	
 	if n > 1:
 		idx = CUDA_head.find(elem_list[0])
 		output += CUDA_head[:idx]
@@ -1045,6 +1046,7 @@ def parse_head(vivaldi_code_head='', local_dict={}):
 	# Add data type definition
 	#
 	#######################################################
+	
 	
 	CUDA_head = to_CUDA_head_add_dtype(CUDA_head, local_dict)
 	# Change to CUDA style
@@ -1240,6 +1242,8 @@ def vivaldi_parser(vivaldi_code, argument_package_list): # temp function, it sho
 	CUDA_body, return_dtype = parse_body(vivaldi_code_body=vivaldi_code_body, local_dict=local_dict)
 	CUDA_head = parse_head(vivaldi_code_head, local_dict=local_dict)
 	
+	if return_dtype == '':
+		assert(False)
 	return None, return_dtype
 	
 def test(test_data, test_set=True, detail=0):

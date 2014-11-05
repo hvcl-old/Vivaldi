@@ -87,7 +87,7 @@ def main():
 												 .range(volume)
 												 .output_halo(5)
 												 .execid(gpu_list)
-												 .split(volume, z=2)        
+												 .split(volume, z=2) 
     synchronize()
     
 	stop  = time.time()

@@ -326,18 +326,18 @@ func_dict['point_query_1d'] = ''
 func_dict['linear_query_1d'] = ''
 
 # 2D data query functions
-func_dict['linear_query_2d'] = 'float1'
-func_dict['linear_gradient_2d'] = 'float2'
 func_dict['point_query_2d'] = ''
-func_dict['cubic_query_2d'] = 'float1'
+func_dict['linear_query_2d'] = ''
+func_dict['linear_gradient_2d'] = 'float2'
+func_dict['cubic_query_2d'] = ''
 
 # 3D data query functions
 func_dict['point_query_3d'] = ''
 
-func_dict['linear_query_3d'] = 'float1'
+func_dict['linear_query_3d'] = ''
 func_dict['linear_gradient_3d'] = 'float3'
 
-func_dict['cubic_query_3d'] = 'float1'
+func_dict['cubic_query_3d'] = ''
 func_dict['cubic_gradient_3d'] = 'float3'
 
 func_dict['get_ray_origin'] = 'float3'
@@ -367,14 +367,12 @@ def get_function_return_dtype(func_name, args_list, dtype_list, local_dict):
 
 		in_type = dtype_convert_in_query(dtype)
 		exception_list = ['linear_gradient_2d']
-		
 		if dtype_list[0] == 'Unknown':
 			dtype = dtype_list[0]
 			found_dtype = 'float_volume'
 			add_dtype(args_list[0], found_dtype, local_dict)
 			add_dtype(args_list[0]+'_DATA_RANGE', 'VIVALDI_DATA_RANGE', local_dict)	
 			dtype_list[0] = found_dtype
-			
 			
 		if sfn in exception_list:
 			return func_dict[sfn]
@@ -951,7 +949,7 @@ def find_dtype(line, local_dict):
 				if parenthesis == '[': dtype = 'list'
 				elif parenthesis == '{':dtype = 'dictionary'
 				elif parenthesis == '(': dtype = 'tuple'
-				dtype_list.append(dtype)			
+				dtype_list.append(dtype)
 		elif is_operator(elem):
 			dtype = 'operator'
 			dtype_list.append(dtype)
