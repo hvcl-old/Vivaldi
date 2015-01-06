@@ -733,6 +733,9 @@ def compile_for_GPU(function_package, kernel_function_name='default'):
 		kernel_code += function_code
 		kernel_code += '\n}'
 		#print function_code
+		f = open('aaa.cu','w')
+		f.write(kernel_code)
+		f.close()
 		source_module_dict[kernel_function_name] = SourceModule(kernel_code, no_extern_c = True, options = ["-use_fast_math", "-O3"])
 
 		temp,_ = source_module_dict[kernel_function_name].get_global('DEVICE_NUMBER')
@@ -1253,12 +1256,12 @@ def run_function(function_package, function_name):
 	if log_type in ['time','all']:
 		start = time.time()
 	
-#	st = time.time()
+	st = time.time()
 	kernel_finish = cuda.Event()
 	func( *cuda_args, block=block, grid=grid, stream=stream_list[0])
 	kernel_finish.record(stream=stream_list[0])
-#	ctx.synchronize()
-#	print "GPU TIME", time.time() - st
+	ctx.synchronize()
+	print "GPU TIME", time.time() - st
 #	print "FFFFOOo", func_output.info()
 #	print_devptr(cuda_args[0], func_output)
 	u, ss, sp = func_output.get_id()

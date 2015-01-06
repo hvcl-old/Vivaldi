@@ -383,7 +383,7 @@ def temp_func2(source_list=None): # dynamic function execution
 				idle_list.remove(dest)
 				work_list[dest] = []
 				cur_list.remove(dest)
-				break
+				
 	return return_flag
 def temp_func3():
 	ft = 0

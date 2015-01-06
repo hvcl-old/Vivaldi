@@ -85,7 +85,7 @@ def main():
     
 	volume = bilateral(volume,512,512,1512,x,y,z).halo(volume,5)
 												 .range(volume)
-												 .output_halo(5)
+												 .output_halo(0)
 												 .execid(gpu_list)
 												 .split(volume, z=2)        
     synchronize()

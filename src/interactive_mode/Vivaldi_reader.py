@@ -290,6 +290,8 @@ def save_image(buf=None, chan=None, file_name=None, extension=None, normalize=Fa
 	buf = buf.astype(numpy.uint8)
 	min = buf.min()
 	max = buf.max()
+	
+	print "CCC", chan
 	if chan == [1]:   img = Image.fromarray(buf, 'L')
 	elif chan == [3]: img = Image.fromarray(buf, 'RGB')
 	elif chan == [4]: img = Image.fromarray(buf, 'RGBA')
