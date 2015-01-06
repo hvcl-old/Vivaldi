@@ -1,3 +1,0 @@
-# simple for
-test_input: for a in range(30):
-test_output: ['for', 'a', 'in', 'range', '(30)', ':']

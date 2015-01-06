@@ -1,2 +1,0 @@
-test_input: a[b+c] = d
-test_output: ['a', '[b+c]', '=', 'd']

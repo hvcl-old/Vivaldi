@@ -1,3 +1,0 @@
-# simple else
-test_input: else:
-test_output: ['else', ':']

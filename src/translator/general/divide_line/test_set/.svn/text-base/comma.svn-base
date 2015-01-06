@@ -1,3 +1,0 @@
-# simple compare left
-test_input: volume, elem
-test_output: ['volume', ',', 'elem']

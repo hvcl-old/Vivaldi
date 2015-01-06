@@ -1,3 +1,0 @@
-# simple compare left same
-test_input: a>=b
-test_output: ['a', '>=', 'b']

@@ -1,3 +1,0 @@
-# simple list
-test_input: a = [3,4,5]
-test_output: ['a', '=', '[3,4,5]']

@@ -1,2 +1,0 @@
-test_input: a.b[c][d] = e
-test_output: ['a', '.', 'b', '[c]', '[d]', '=', 'e']

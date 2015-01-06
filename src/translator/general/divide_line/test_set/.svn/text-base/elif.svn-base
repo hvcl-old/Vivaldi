@@ -1,3 +1,0 @@
-# simple elif
-test_input: elif a is b: 
-test_output: ['elif', 'a', 'is', 'b', ':']
