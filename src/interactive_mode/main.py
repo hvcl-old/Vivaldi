@@ -400,8 +400,19 @@ def execute_as_main(name='main'):
 		main_code = function_code_dict['main']
 		
 		main_code = parse_main(main_code)
-		exec main_code in globals()
-		exec name+'()'
+#		if True: print main_code # for debugging
+		try:
+			exec main_code in globals()
+			exec name+'()'
+		except:
+			import sys, traceback
+			print "Python Trace back"
+			print "======================"
+			exc_type, exc_value, exc_traceback = sys.exc_info()
+			a = ''.join(traceback.format_exception(exc_type, exc_value, exc_traceback))
+			print a,
+			print "======================"
+			exit()
 	else:
 		print "Vivaldi warning"
 		print "=========================="
@@ -1022,7 +1033,6 @@ def parallel(function_name='', argument_package_list=[], work_range={}, execid=[
 	return return_package
 def run_function(return_name=None, func_name='', execid=[], work_range=None, args=[], arg_names=[], dtype_dict={}, output_halo=0, halo_dict={}, split_dict={}, merge_func='', merge_order=''): # compatibility to old version
 	function_name = func_name
-	
 	def get_argument_package_list(args, arg_names, split_dict, halo_dict):
 		i = 0
 		argument_package_list = []

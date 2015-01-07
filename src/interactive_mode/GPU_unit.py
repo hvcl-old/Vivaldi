@@ -699,12 +699,38 @@ def kernel_write(function_name, dest_devptr, dest_info, source_devptr, source_in
 		bw = bytes/GIGA/t
 		log("rank%d, GPU%d, , kernel write time, Bytes: %dMB, time: %.3f ms, speed: %.3f GByte/sec "%(rank, device_number, bytes/MEGA, ms, bw),'time', log_type)
 	
+
+def CustomSourceModule(kernel_code):
+	a = None
+	try:
+		a = SourceModule(kernel_code, no_extern_c = True, options = ["-use_fast_math", "-O3"])
+	except:
+		import sys, traceback
+		print "Python Trace back"
+		print "======================"
+		exc_type, exc_value, exc_traceback = sys.exc_info()
+		a = ''.join(traceback.format_exception(exc_type, exc_value, exc_traceback))
+		idx = a.find('kernel.cu(')
+		aa = a[idx:]
+		print aa
+
+		eidx = aa.find(')')
+		num = aa[10:eidx]
+		line = int(num)
+		print "Error code line:"
+		print kernel_code.split("\n")[line-1:line][0]
+		print "======================"
+
+		exit()
+
+	return a
+
 # CUDA compile functions
 def compile_for_GPU(function_package, kernel_function_name='default'):
 	kernel_code = ''
 	if kernel_function_name == 'default':
 		kernel_code = attachment
-		source_module_dict[kernel_function_name] = SourceModule(kernel_code, no_extern_c = True, options = ["-use_fast_math", "-O3"])
+		source_module_dict[kernel_function_name] = CustomSourceModule(kernel_code)
 	else:
 		fp = function_package
 		
@@ -718,8 +744,15 @@ def compile_for_GPU(function_package, kernel_function_name='default'):
 		kernel_code = attachment + 'extern "C"{\n'
 		kernel_code += function_code
 		kernel_code += '\n}'
+
+		if True: # print for debugging
+			f = open('asdf.cu','w')
+			f.write(kernel_code)
+			f.close()
+
 		#print function_code
-		source_module_dict[kernel_function_name] = SourceModule(kernel_code, no_extern_c = True, options = ["-use_fast_math", "-O3"])
+		args = [kernel_code]
+		source_module_dict[kernel_function_name] = CustomSourceModule(kernel_code)
 
 		temp,_ = source_module_dict[kernel_function_name].get_global('DEVICE_NUMBER')
 		cuda.memcpy_htod(temp, numpy.int32(device_number))
