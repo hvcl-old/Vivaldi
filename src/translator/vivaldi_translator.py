@@ -235,7 +235,13 @@ def translate_to_CUDA(Vivaldi_code='', function_name='', function_arguments=''):
 		
 		dtype_dict[f_data_name] = dtype
 		i += 1
-	
+
+	# check '[' are exist
+	idx = func_code.find('[')
+	if idx != -1:
+		print "Can not use [ in the Vivaldi, please use xxx_query_function"
+		exit()
+
 	# translate
 	code, _ = vi2cu_translator(func_code, dtype_dict)
 

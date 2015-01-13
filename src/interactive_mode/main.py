@@ -596,7 +596,13 @@ def save_image_2d(file_name=None, extension='png', buf=None, chan=None):
 	if chan == 1:	img = Image.fromarray(buf, 'L')
 	elif chan == 3:	img = Image.fromarray(buf, 'RGB')
 	elif chan == 4:	img = Image.fromarray(buf, 'RGBA')
-	
+	else:
+		print "Unexpected image buffer"
+		print "Buffer shape:", buf.shape
+		print "Data type:", buf.dtype
+		print "Channel:", chan
+		assert(False)
+		
 	e = os.system("mkdir -p result")
 	img.save('./result/%s.png'%(file_name), format=extension)
 		
