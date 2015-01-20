@@ -1,5 +1,0 @@
-def ct(c,x,y):
-	return 30
-
-def pp(c,x,y):
-	return point_query_2d(c,x,y)+1

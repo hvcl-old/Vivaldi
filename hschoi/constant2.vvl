@@ -1,2 +1,0 @@
-def ct(c,x,y):
-	return 30

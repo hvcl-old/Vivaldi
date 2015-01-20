@@ -1,9 +1,0 @@
-def func(a, x, y):
-	val = point_query_2d(a, x, y)
-	return val
-
-def main():
-	b = numpy.ones((3,3))
-	result = func(a, x, y).range(x=0:10,y=0:10)
-	print result
-
