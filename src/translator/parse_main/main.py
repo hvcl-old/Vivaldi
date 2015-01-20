@@ -214,7 +214,7 @@ def get_range(line, idx):
 				break
 			i += 1
 		args = line[:i]
-		
+				
 		if ':' not in args: #???????
 			return args, True
 			
@@ -232,30 +232,38 @@ def get_range(line, idx):
 		while i < n:
 			w = elem_list[i]
 			if w in AXIS:
-				if flag == 2:
+				if flag == 'after':
+					if before == '' or after == '':
+						print "\n\n\n"
+						print "Translation error"
+						print "Value in the range modifier is wrong"
+						print "your variable name is maybe overlap with axis"
+						print "\n\n\n"
+						exit()
+					
 					output[axis] = (before, after[:-1])
 				axis = "'"+w+"'"
 				before = ''
 				after = ''
-				flag = 1
+				flag = 'before'
 				i += 2
 				continue
 				
 			if w == ':':
-				flag = 2
+				flag = 'after'
 				i += 1
 				continue
 			
-			if flag == 1:
+			if flag == 'before':
 				before += w
-			if flag == 2:
+			if flag == 'after':
 				after += w
 				
 			i += 1
 				
-		if flag == 2:
+		if flag == 'after':
 			output[axis] = (before, after)
-			
+		
 		return output, True
 	
 	return False, False
@@ -607,7 +615,7 @@ def change_modifier(code):
 		output += ', arg_names=' + str(as_list(args))
 		output += ', execid=' + execid
 		
-		# range
+		# work_range
 		range_modifier, flag = get_range(line, idx)
 		if flag:
 			output += ', work_range=' + as_python(range_modifier)

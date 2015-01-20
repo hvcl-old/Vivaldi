@@ -1299,18 +1299,21 @@ inline __host__ __device__ float length(float4 v)
 
 inline __host__ __device__ float2 normalize(float2 v)
 {
-    float invLen = rsqrtf(dot(v, v));
-    return v * invLen;
+	float d = dot(v,v);
+	if(d == 0) return v*0;
+    return v * rsqrtf(d);
 }
 inline __host__ __device__ float3 normalize(float3 v)
 {
-    float invLen = rsqrtf(dot(v, v));
-    return v * invLen;
+	float d = dot(v,v);
+	if(d == 0) return v*0;
+    return v * rsqrtf(d);
 }
 inline __host__ __device__ float4 normalize(float4 v)
 {
-    float invLen = rsqrtf(dot(v, v));
-    return v * invLen;
+	float d = dot(v,v);
+	if(d == 0) return v*0;
+    return v * rsqrtf(d);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
